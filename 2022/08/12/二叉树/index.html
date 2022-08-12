@@ -318,7 +318,38 @@
   <div id="article" class="post-content-info">
     
 
-    <h1 id="二叉数："><a href="#二叉数：" class="headerlink" title="二叉数："></a>二叉数：</h1>
+    <h1 id="二叉数："><a href="#二叉数：" class="headerlink" title="二叉数："></a>二叉数：</h1><pre><code class="java">// 二叉树节点
+class Node&lt;V&gt; &#123;
+    V value;
+    Node left;
+    Node right;
+&#125;
+</code></pre>
+<p>头节点：也叫根节点，二叉树最顶端的节点（无无父结点）</p>
+<p>叶节点：左右子节点都为null</p>
+<h4 id="二叉树遍历："><a href="#二叉树遍历：" class="headerlink" title="二叉树遍历："></a>二叉树遍历：</h4><h5 id="使用递归方式实现："><a href="#使用递归方式实现：" class="headerlink" title="使用递归方式实现："></a>使用递归方式实现：</h5><pre><code class="java">// 二叉树每个节点遍历时都有三次访问
+public static void f(Node head) &#123;
+    //1:start
+    if (head == null) &#123;
+        return null;
+    &#125;
+    ...
+    // 1:end
+    f(head.left);
+    // 2:start
+    ...
+    // 2:end
+    f(head.right);
+    // 3:start
+    ...
+    // 3:end
+&#125;
+</code></pre>
+<p>*<strong>先序，中序，后序遍历即是在第一次，第二次，第三次访问节点时做反应</strong></p>
+<p>使用递归方式实现二叉树：</p>
+<p>使用非递归方式实现二叉树：</p>
+<p>实现二叉树的宽度优先遍历：</p>
+
   </div>
   <div id=""></div>
 </div>
