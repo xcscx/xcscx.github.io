@@ -318,7 +318,24 @@
   <div id="article" class="post-content-info">
     
 
-    <h1 id="二叉数："><a href="#二叉数：" class="headerlink" title="二叉数："></a>二叉数：</h1><pre><code class="java">// 二叉树节点
+    <h1 id="二叉数："><a href="#二叉数：" class="headerlink" title="二叉数："></a>二叉数：</h1><ul>
+<li><p>二叉树递归遍历</p>
+</li>
+<li><p>二叉树非递归遍历</p>
+</li>
+<li><p>宽度优先遍历</p>
+</li>
+<li><p>搜索二叉树</p>
+</li>
+<li><p>完全二叉树</p>
+</li>
+<li><p>满二叉树</p>
+</li>
+<li><p>平衡二叉树</p>
+<hr>
+</li>
+</ul>
+<pre><code class="java">// 二叉树节点
 class Node&lt;V&gt; &#123;
     V value;
     Node left;
@@ -509,8 +526,167 @@ public static boolean isBSt(Node head) &#123;
 &#125;
 </code></pre>
 <p>非遍历判断同理</p>
-<h3 id="完全二叉树："><a href="#完全二叉树：" class="headerlink" title="完全二叉树："></a>完全二叉树：</h3><p>所有节点依次按从左往右依次放入</p>
-<h3 id="满二叉树："><a href="#满二叉树：" class="headerlink" title="满二叉树："></a>满二叉树：</h3><h3 id="平衡二叉树："><a href="#平衡二叉树：" class="headerlink" title="平衡二叉树："></a>平衡二叉树：</h3>
+<h5 id="总结返回信息："><a href="#总结返回信息：" class="headerlink" title="总结返回信息："></a>总结返回信息：</h5><p>对于左子树：1.左树应是搜索二叉树	2.获取左数的最大值（用于与根比较）</p>
+<p>对于右子树：1.右树应是搜索二叉树	2.获取右数的最小值（用于与根比较）</p>
+<p>统一左右子树返回信息：是否是搜索二叉树，最小值，最大值</p>
+<h5 id="判断是否为搜索二叉树："><a href="#判断是否为搜索二叉树：" class="headerlink" title="判断是否为搜索二叉树："></a>判断是否为搜索二叉树：</h5><pre><code class="java">public static boolean checkBST(Node head) &#123;
+    return process(head).isBST;
+&#125;
+
+//返回类型
+public static class ReturnType &#123;
+    public boolean isBST;
+    public int min;
+    public int max;
+    
+    public ReturnData(boolean isb, int min, int max)&#123;
+        this.isBST = isb;
+        this.min = min;
+        this.max = max;
+    &#125;
+&#125;
+
+public static ReturnType process(Node x) &#123;
+    if(x == null) return null;
+    ReturnType leftData = process(x.left);
+    ReturnType rightData = process(x.right);
+
+    //获得整个子树的最大最小值
+    int min = x.value;
+    int max = x.value;
+    if(leftData != null) &#123;
+        min = Math.min(min,leftData.min);
+        max = Math.max(max,leftData.max);
+    &#125;
+    if(rightData != null) &#123;
+        min = Math.min(min,rightData.min);
+        max = Math.max(max,rightData.max);
+    &#125;
+       
+    boolean isBST = true;
+    if(leftData != null &amp;&amp; (!leftData.isBST || leftData.max &gt;= x.value) &#123;
+        isBST = false;
+    &#125;
+    if(rightData != null &amp;&amp; (!rightData.isBST || x.value &gt;= rightData.min) &#123;
+        isBST = false;
+    &#125;
+   
+    return new ReturnType(isBST,min,max);
+&#125;
+</code></pre>
+<h3 id="完全二叉树："><a href="#完全二叉树：" class="headerlink" title="完全二叉树："></a>完全二叉树：</h3><p>所有节点依次按从左往右依次放入的二叉树属于完全二叉树</p>
+<ol>
+<li>任意一节点有右孩子无左孩子 → 不是完全二叉树</li>
+<li><strong>宽度优先遍历</strong>且在<strong>不违反1</strong>前提下，出现首个左右孩子不双全时，之后的节点都应该是叶子节点</li>
+</ol>
+<pre><code class="java">public static boolean isCBT(Node head) &#123;
+    if(head == null) return true;
+    //是否遇到过左右孩子不双全的判断
+    boolean leaf = false;
+    Node l = null;
+    Node r = null;
+    Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();
+    queue.add(head);
+    while(!queue.isEmpty()) &#123;
+        head = queue.poll();
+        l = head.left;
+        r = head.right;
+        if((leaf &amp;&amp; (l!=null || r!=null))	//条件2
+          ||
+           (l == null &amp;&amp; r == null)	//条件1
+          )&#123;
+            return false;
+        &#125;
+        if(l != null) &#123;
+            queue.add(l);
+        &#125;
+        if(r != null) &#123;
+            queue.add(r);
+        &#125;
+        if(l == null || r == null) &#123;
+            //leaf 为不可逆改变
+            leaf = true;
+        &#125;   
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h3 id="满二叉树："><a href="#满二叉树：" class="headerlink" title="满二叉树："></a>满二叉树：</h3><p>子节点要么都有，要么都没有，不存在只存在一边节点的二叉树</p>
+<h5 id="判断是否为满二叉树："><a href="#判断是否为满二叉树：" class="headerlink" title="判断是否为满二叉树："></a>判断是否为满二叉树：</h5><pre><code class="java">public static boolean isFBT(Node head) &#123;
+    if(head == null) &#123;
+        return true;
+    &#125;
+    info data = process(head);
+    return data.nodes == ((1&lt;&lt;data.height) - 1);
+&#125;
+
+//返回信息
+public static class Info &#123;
+    public int height;			//高度
+    public int nodes;			//节点数
+    
+    public Info(int hei, int nod) &#123;
+        this.height = hei;
+        this.nodes = nod;
+    &#125;
+&#125;
+//过程函数，返回类型为ReturnType
+public static Info process(Node x) &#123;
+    if(x == null) &#123;
+        return new Info(0, 0);
+    &#125;
+    
+    Info leftData = process(x.left);
+    Info rightData = process(x.right);
+    
+    int height = Math.max(leftData.height,rightData.height)+1;
+    int nodes = leftData.nodes + rightData.nodes + 1;
+    
+    return new Info(height, nodes);
+&#125;
+</code></pre>
+<h3 id="平衡二叉树："><a href="#平衡二叉树：" class="headerlink" title="平衡二叉树："></a>平衡二叉树：</h3><p>对于任意一颗子树，其左树高度和右树高度差不少过1</p>
+<ol>
+<li>节点左树是平衡二叉树</li>
+<li>节点右树是平衡二叉树</li>
+<li>|节点左树高度 - 节点右数高度| &lt;&#x3D; 1</li>
+</ol>
+<p>以上条件对每个节点都成立，这个树就是平衡二叉树，否则不是</p>
+<h5 id="总结返回信息：-1"><a href="#总结返回信息：-1" class="headerlink" title="总结返回信息："></a>总结返回信息：</h5><p>对于左树，我们希望知道：1.左树是否是平衡二叉树	2.左树高度</p>
+<p>对于右数，我们希望知道：1.右树是否是平衡二叉树	2.右数高度</p>
+<p>左右树需要的信息一致；</p>
+<h5 id="判断是否为平衡二叉树："><a href="#判断是否为平衡二叉树：" class="headerlink" title="判断是否为平衡二叉树："></a>判断是否为平衡二叉树：</h5><pre><code class="java">//返回值的变动，调用其他方法返回
+public static boolean isBT(Node head) &#123;
+    return process(head).isBalanced;
+&#125;
+
+//返回信息
+public static class ReturnType &#123;
+    public boolean isBalanced;	//是否是平衡二叉树
+    public int height;			//高度
+    
+    public ReturnType(boolean isB, int hei) &#123;
+        this.isBalanced = isB;
+        this.height = hei;
+    &#125;
+&#125;
+//过程函数，返回类型为ReturnType
+public static ReturnType process(Node x) &#123;
+    if(x == null) &#123;
+        return new ReturnType(true, 0);
+    &#125;
+    
+    ReturnType leftData = process(x.left);
+    ReturnType rightData = process(x.right);
+    
+    int height = Math.max(leftData.height,rightData.height)+1;
+    boolean isBalance = leftData.isBalanced &amp;&amp; rightData.isBalanced
+                        &amp;&amp; Math.abs(leftData.height - rightData.height) &lt; 2;
+    
+    return new ReturnType(isBalance, height);
+&#125;
+</code></pre>
+
   </div>
   <div id=""></div>
 </div>
