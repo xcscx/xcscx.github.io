@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>Redis 6基础-编程</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="Redis,SQL,">
+<meta name="description" content="redis基础知识">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<meta name="generator" content="Hexo 6.2.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Xtx</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815)
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					width: "66%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					width: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('http://eett.cc/pictures?type=pc&category=fengjing')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/Redis">Redis</a></li>
+            
+            <li><a href="/tags/SQL">SQL</a></li>
+            
+            
+        </ul>
+        
+        <h1>Redis 6基础</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">Xcscx</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/Redis/" target="_blank" >Redis</a>
+                    
+                </div>
+                <p>2022-08-15 08:31:16</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <ul>
+<li>NoSQl概述</li>
+<li>行式&#x2F;列式数据库（大数据时代）</li>
+<li>key键操作</li>
+<li>5种基本数据类型</li>
+<li>配置文件</li>
+<li>发布与订阅</li>
+<li>3种新数据类型</li>
+</ul>
+<h1 id="Redis基础"><a href="#Redis基础" class="headerlink" title="Redis基础"></a>Redis基础</h1><p><strong>基于K-V的高性能NoSQl数据库，提供了各种数据结构存储，具有高性能的多线功能</strong>，支持String（字符串） , list（链表） , set （集合）, zset（sorted set：有序集合） 和 hash（哈希类型）</p>
+<p>Redis支持各种方式的<strong>排序</strong>，为了保证效率，<strong>数据都是存储在缓存中的</strong>，但Redis会<strong>周期性</strong>把更新的数据写入磁盘，在此基础上<strong>实现了master-slave（主从）同步</strong></p>
+<p>Redis是 <strong>单线程 + 多路复用IO</strong> 技术；使用 <strong>6379端口</strong></p>
+<h3 id="NoSql-数据库"><a href="#NoSql-数据库" class="headerlink" title="NoSql 数据库"></a>NoSql 数据库</h3><p>NoSQL （Not Only SQL）：意为“不仅仅是SQL”，泛指<strong>非关系型数据库</strong></p>
+<p>NoSQL 不依赖业务逻辑存储方式，而是以简单的<strong>key-value</strong>模式存储，因此增加了数据库的扩展能力</p>
+<ul>
+<li>不遵循SQL标准</li>
+<li>不支持ACID</li>
+<li>远超于SQL的性能</li>
+</ul>
+<p>适用场景：</p>
+<ul>
+<li>对数据高并发读写</li>
+<li>海量数据的读写</li>
+<li>对数据高可扩展性</li>
+</ul>
+<p>不适用场景</p>
+<ul>
+<li>需要事务支持</li>
+<li>基于sql的结构化查询存储</li>
+</ul>
+<p><strong>总之：用不着sql和用了sql也不行的情况，考虑Nosql</strong></p>
+<h3 id="行式数据库"><a href="#行式数据库" class="headerlink" title="行式数据库"></a>行式数据库</h3><p>![image-20220816091921656](.&#x2F;Redis 6&#x2F;image-20220816091921656.png)</p>
+<h3 id="列式数据库："><a href="#列式数据库：" class="headerlink" title="列式数据库："></a>列式数据库：</h3><p>![image-20220816092128015](.&#x2F;Redis 6&#x2F;image-20220816092128015.png)</p>
+<h3 id="Key键操作"><a href="#Key键操作" class="headerlink" title="Key键操作"></a>Key键操作</h3><pre><code class="redis">keys *			//查看全部key
+exists K		//查找key是否存在，返回1：存在；返回0：不存在
+type K			//查看key是什么类型
+del K			//删除对应K-V,返回1：成功
+unlink K		//非阻塞删除对应K-V
+expire K int	//为给定的K设置过期时间
+ttl K			//查看还有多久数据过期（取不到）返回-1:永不过期,返回-2：已经过期
+
+select int		//切换库
+dbsize			//查看当前数据库的key数量
+flushdb			//清空当前库
+flushall		//通杀全部库
+</code></pre>
+<h3 id="5种基本数据类型："><a href="#5种基本数据类型：" class="headerlink" title="5种基本数据类型："></a>5种基本数据类型：</h3><ul>
+<li>String（字符串）</li>
+<li>List（链表）</li>
+<li>Set（集合）</li>
+<li>Hash（哈希）</li>
+<li>Zset（有序集合）</li>
+</ul>
+<h4 id="String（字符串）："><a href="#String（字符串）：" class="headerlink" title="String（字符串）："></a>String（字符串）：</h4><p>string是 <strong>二进制安全</strong> 的,意味着Redis的string可以包含任何数据，包括jpg图片或者序列化对象。</p>
+<p>string是Redis中最基本的数据类型，一个·Redis中的value最多可以是 <strong>512M</strong></p>
+<p>string底层数据结构就是<strong>简单的动态字符串</strong>，结构上类似Java的ArrayList,采用预分配冗余空间的方式来减少内存的频繁分配</p>
+<p>在字符串长度小于1M时，扩容为每次扩大一倍，大于1M时，每次扩容1M</p>
+<p><strong>常见命令</strong></p>
+<pre><code class="redis">set K V			//设置键值对/覆盖已有的K-V键值对
+get K			//取出K对应的V
+append K V		//在原有K对应的V`后添加V
+strlen K		//获取K对应V的长度
+setnx K V		//设置键值对，如果已有K，返回0：设置失败，否则返回1：设置成功
+mset K1 V1 K2 V2..	//设置一个或多个键值对
+mget K1 k2..	//取出一个或多个V值
+getrange K int1 int2	//获取K对应V的int1-int2部分内容：从0开始
+setrange K int V	//将K对应V的int之后部分添加V再接原字符
+setex K int V		//设置K-V同时设置过期时间
+getset K V 		//获取旧值，同时将新值写入
+
+// 原子操作*
+incr K			//将K对应V值+1；如果V不是数字类型返回0，否则返回+1后的值
+decr K			//将K对应V值-1；...否则返回-1的值
+incrby K int	//将K对应V值+int;...
+decrby K int	//...-int...
+msetnx K1 V1 K2 V2	//同时设置多个K-V,当且仅当key都不存在
+</code></pre>
+<h6 id="原子操作：不会被进程调度机制打断的操作，一旦开始就会运行到结束（能单条语句运行完的操作都是原子操作）"><a href="#原子操作：不会被进程调度机制打断的操作，一旦开始就会运行到结束（能单条语句运行完的操作都是原子操作）" class="headerlink" title="原子操作：不会被进程调度机制打断的操作，一旦开始就会运行到结束（能单条语句运行完的操作都是原子操作）"></a>原子操作：不会被进程调度机制打断的操作，一旦开始就会运行到结束（能单条语句运行完的操作都是原子操作）</h6><p>注：java中的i++并非是原子操作</p>
+<p>![image-20220816101653161](.&#x2F;Redis 6&#x2F;image-20220816101653161.png)</p>
+<h4 id="List（链表）："><a href="#List（链表）：" class="headerlink" title="List（链表）："></a>List（链表）：</h4><p><strong>单键多值</strong> ，即一个K对应多个V。底层实现是 <strong>双向链表</strong> ，数据结构为 <strong>快速链表</strong>（quickList）即在列表元素较少时使用的结构式ziplist（压缩列表），它将所有元素挨在一起存储，分配一块连续的内存。当数据量较大时才会改为quicklist</p>
+<h5 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h5><pre><code class="redis">lpush K V1 V2...	//从左边(头节点)加入一个或多个值
+rpush K V1 V2... 	//从右边(尾节点)加入一个或多个值
+lrange K int1 int2  	//从左边取出int1-int2的数据(顺序)：0是第一个，-1是最后一个
+lpop K 		//从左边吐出一个值,值在键在，值光键亡
+rpop K 		//从右边吐出一个值,...
+rpoplpush K1 K2		//从K1右边取出值加到K2左边
+lindex K int 	//按照索引下标获得元素
+llen K		//获得列表长度
+
+linsert K before V1 V2 		//在V1前添加一个V2
+linsert K after V1 V2	 	//在V1后添加一个V2
+lrem K int V		//从左边删除int个V
+lset K int V		//将列表K下标为int的值替换为V
+</code></pre>
+<h4 id="Set（集合）："><a href="#Set（集合）：" class="headerlink" title="Set（集合）："></a>Set（集合）：</h4><p>set可以 <strong>自动排重</strong> ，且提供了<strong>判断某个成员是否在一个set集合</strong>的接口。</p>
+<p>Redis的set是String类型的<strong>无序集合</strong>，底层是一个<strong>value为null的hash表</strong>，所以添加，删除，查找复杂度都是O(1)</p>
+<h5 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h5><pre><code class="redis">sadd K V1 V2...		//将一个或多个members元素添加至key中，已存在的会被忽略
+smembers K		//取出该集合的所有值
+sismember K V		//判断K集合中是否右V值，有返回1，否则返回0
+scard K		//返回集合元素个数
+srem K V1 V2		//删除集合中的一个或多个元素
+spop K		//随机从集合中取出一个值，值完键亡
+srandmember	K int		//随机取出int个值，不会在集合中删除
+smove K1 K2 V1 V2...	//将K1中元素V1，v2..移动到K2中，返回移动元素个数
+sinter K1 K2		//返回两个集合的交集元素
+sunion K1 K2		//返回两个集合的并集元素
+sdiff K1 K2			//返回两个集合的差集元素（在K1而不在K2）
+</code></pre>
+<h4 id="Hash（哈希）："><a href="#Hash（哈希）：" class="headerlink" title="Hash（哈希）："></a>Hash（哈希）：</h4><p>Redis Hash是一个<strong>键值对集合</strong>，其value对应一个<strong>String类型的field</strong>和value映射表，适合用于存储对象，类似Java中的Map&lt;String, Object&gt;</p>
+<p>![image-20220816150802600](.&#x2F;Redis 6&#x2F;image-20220816150802600.png)</p>
+<h5 id="常用命令："><a href="#常用命令：" class="headerlink" title="常用命令："></a>常用命令：</h5><pre><code class="redis">hset K field value		//在K中添加一个field-value对
+hget K field		//返回K中field对应的值
+hmset K f1 v1 f2 v2		//在K中批量设置field-value对
+hexists K field		//查看中是否存在field
+hkeys K			//列出K集合中全部的field
+hvals K			//列出K集合中全部的value
+hincrby K field int 	//给K中的field对应value值
+hsetnx K field value	//为K添加field-value对，如果field原本存在则不会添加
+</code></pre>
+<h4 id="Zset（有序集合）："><a href="#Zset（有序集合）：" class="headerlink" title="Zset（有序集合）："></a>Zset（有序集合）：</h4><p>Zset与set相同，是 <strong>没有重复元素</strong> 的字符串集合。不同之处是Zset每个成员都关联了一个<strong>评分（score）</strong>,score用于按照从低到高的方式对集合成员进行排序。</p>
+<p><strong>集合成员是唯一的，但评分可以重复</strong></p>
+<h5 id="常用命令：-1"><a href="#常用命令：-1" class="headerlink" title="常用命令："></a><strong>常用命令：</strong></h5><pre><code class="redis">zadd K score1 v1 s2 v2		//添加一个或多个评分-值
+zrange K int1 int2 		//返回排序从int1到int2的值
+zrange K int1 int2 withscores 		//返回排序从int1到int2的值，同时返回评分
+zrangebyscore K int1 int2			//返回score在int1至int2中间的值，可以加withscores
+zrevrangebyscore K int1 int2		//逆序返回score在int1至int2中间的值，可以加with...
+zincrby K int V			//给K中V的score增加int
+zrem K V			//删除指定值
+zcount K int1 int2		//统计集合中在int1-int2中的元素个数
+zrank K V		//返回该值在集合中的排名，从0开始
+</code></pre>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>配置文件：redis.conf</p>
+<blockquote>
+<p>vi &#x2F;etc&#x2F;redis.conf</p>
+</blockquote>
+<pre><code class="redis">bind 127.0.0.1		#限制仅本地连接
+protected-mode yes	#仅本地访问，改为no即可允许非本地访问
+port:6379			#端口
+tcp-backlog 511		#目前已经完成三次握手以及正在三次握手的队列
+timeout	0			#超时时限，设为0则永不超时
+tcp-keepalive 300	#心跳监测连接，每隔300s检查一次
+daemonize yes		#允许后台启动
+pidfile	...			#保存进程号的位子
+loglevel notice		#log保护级别：debug&gt;verbose&gt;notice&gt;warning
+logfile &quot;&quot;			#日志输出路径，默认为空
+database 16			#redis默认16个数据库，用户默认使用0号库
+
+#密码requirepass与客户端LIMITS
+
+maxmemory 10000		#最大内存
+maxmemory-sample 5	#样本数量
+maxclients 10000	#最大连接数
+
+#持久化设置
+</code></pre>
+<h3 id="发布与订阅："><a href="#发布与订阅：" class="headerlink" title="发布与订阅："></a>发布与订阅：</h3><pre><code class="redis"># /usr/local/bin/redis-cli
+SUBSCRIBE channel1		#订阅channel1频道
+publicsh  channels hello	#使channel1发布消息“hello”
+</code></pre>
+<p>一种消息的沟通模式：<strong>频道收到消息后，所有订阅的对象都会收到对应消息</strong></p>
+<h3 id="3种新数据类型："><a href="#3种新数据类型：" class="headerlink" title="3种新数据类型："></a>3种新数据类型：</h3><h4 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps:"></a>Bitmaps:</h4><h4 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog:"></a>HyperLogLog:</h4><h4 id="Geospatial"><a href="#Geospatial" class="headerlink" title="Geospatial:"></a>Geospatial:</h4>
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2022/08/14/HashMap%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>HashMap底层原理</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2022 By Xtx. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?c050b0c836c6dd0f3a82e201f4f4bf16";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+
