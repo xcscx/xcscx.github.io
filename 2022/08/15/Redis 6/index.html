@@ -318,7 +318,10 @@
   <div id="article" class="post-content-info">
     
 
-    <ul>
+    <blockquote>
+<p>本片笔记适用于 <a target="_blank" rel="noopener" href="https://space.bilibili.com/302417610">b站尚硅谷</a> 课程 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Rv41177Af?p=1">Redis 6 入门到精通 超详细 教程</a></p>
+</blockquote>
+<ul>
 <li>NoSQl概述</li>
 <li>行式&#x2F;列式数据库（大数据时代）</li>
 <li>key键操作</li>
@@ -478,7 +481,31 @@ SUBSCRIBE channel1		#订阅channel1频道
 publicsh  channels hello	#使channel1发布消息“hello”
 </code></pre>
 <p>一种消息的沟通模式：<strong>频道收到消息后，所有订阅的对象都会收到对应消息</strong></p>
-<h3 id="3种新数据类型："><a href="#3种新数据类型：" class="headerlink" title="3种新数据类型："></a>3种新数据类型：</h3><h4 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps:"></a>Bitmaps:</h4><h4 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog:"></a>HyperLogLog:</h4><h4 id="Geospatial"><a href="#Geospatial" class="headerlink" title="Geospatial:"></a>Geospatial:</h4>
+<h3 id="3种新数据类型："><a href="#3种新数据类型：" class="headerlink" title="3种新数据类型："></a>3种新数据类型：</h3><h4 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps:"></a>Bitmaps:</h4><p>BitMaps本身就是字符串Key-Value，但是可以对字符串进行位运算，可以把Bitmaps想象为一个以位为单位的数组，数组只能存储0和1，数组下标在BotMaps中被成为偏移量，最左边为0.</p>
+<h5 id="常用命令：-2"><a href="#常用命令：-2" class="headerlink" title="常用命令："></a>常用命令：</h5><pre><code class="redis">setbit K int1 int2		#对K中int1号位子上改为int2（0/1）
+getbit K int		#获取K中偏移量int中的值
+bitcount K			#统计K中被设为1的数量
+bitcount K int1 int2 	#统计K中int1到int2之间1的数量
+bitop and K1 K2			#对K1，K2中为1的偏移量取与集，返回统计值
+bitop or K1 K2			#对K1，K2中为1的偏移量取并集，...
+bitop not K1 K2			#对K1，K2中为1的偏移量取差集，...
+bitop xor K1 K2			#对K1，K2中为1的偏移量取异或，...
+</code></pre>
+<p>![image-20220817090407369](.&#x2F;Redis 6&#x2F;image-20220817090407369.png)</p>
+<h4 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog:"></a>HyperLogLog:</h4><p>HyperLogLog只会根据输入元素计算*<strong>基数</strong>，不会存储输入元素本身</p>
+<p><strong>基数</strong>：集合中不重复元素的总值被称为基数，如{1，6，3，4，3，9}，不重复元素为1，3，4，6，9 基数为5</p>
+<h5 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h5><pre><code class="redis">pfadd K V1 V2		#添加一个或多个元素
+pfcount K		#统计基数
+pfmerge K1 K2 K3	#将K2,K3中的值全部合并至K1
+</code></pre>
+<h4 id="Geospatial"><a href="#Geospatial" class="headerlink" title="Geospatial:"></a>Geospatial:</h4><p>GEO:Geographic地理位置信息的缩写，提供了经纬度设置，查询，范围查询，距离查询，经纬度Hash等操作</p>
+<p>有效范围：经度：-180——180；纬度：-85——85</p>
+<h5 id="常用命令-2"><a href="#常用命令-2" class="headerlink" title="常用命令"></a>常用命令</h5><pre><code class="redis">geoadd K int1 int2 V  	#设置K中的V：经度为int1，纬度为int2
+geopos K V		#获取K中V的经纬度
+geodist K V1 V2	m	#获取V1到V2的直线距离，以米做单位（km千米，mi英里,ft英尺）
+georadius K int1 int2 int3 km		#对K中处于经度int1纬度int2方圆int3km内的信息返回
+</code></pre>
+
   </div>
   <div id=""></div>
 </div>
