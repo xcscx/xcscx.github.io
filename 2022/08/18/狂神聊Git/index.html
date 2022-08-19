@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>Get使用-编程</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="git,版本控制工具,">
+<meta name="description" content="git">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<meta name="generator" content="Hexo 6.2.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Xtx</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815)
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					width: "66%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					width: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('http://eett.cc/pictures?type=pc&category=fengjing')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/git">git</a></li>
+            
+            <li><a href="/tags/版本控制工具">版本控制工具</a></li>
+            
+            
+        </ul>
+        
+        <h1>Get使用</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">Xcscx</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/git/" target="_blank" >git</a>
+                    
+                </div>
+                <p>2022-08-18 14:06:11</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <p>原链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Bf7uVhGiu47uOELjmC5uXQ">视频同步笔记：狂神聊Git (qq.com)</a></p>
+<h1 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h1><p>在开发过程中用于管理我们的文件，目录或工程等内容的修改历史，方便查看历史记录，备份以便回复以前的版本的软件工程技术</p>
+<ul>
+<li>实现跨域多人协同开发</li>
+<li>追踪和记载一个或多个文件的历史记录</li>
+<li>组织和保护你的源代码和文档</li>
+<li>统计工作量‘</li>
+<li>并行开发，提高工作效率</li>
+<li>跟踪记录整个软件的开发过程</li>
+<li>减轻开发人员的负担，节省时间，同时降低人为错误</li>
+</ul>
+<p>简单说；一种管理多人协同开发项目的技术</p>
+<blockquote>
+<p>常见版本控制工具：</p>
+<p>Git			SVN			CVS			VSS			TFS</p>
+</blockquote>
+<h1 id="Git环境配置"><a href="#Git环境配置" class="headerlink" title="Git环境配置"></a>Git环境配置</h1><blockquote>
+<p>安装：</p>
+</blockquote>
+<p>进入官网，下载git（windows 64-bit.exe）&#x2F;  使用镜像下载 , 无脑下一步（<a target="_blank" rel="noopener" href="https://blog.csdn.net/mukes/article/details/115693833">Git 详细安装教程（详解 Git 安装过程的每一个步骤）</a>）</p>
+<p>注：环境变量只是为了全局使用而已，不是必需品</p>
+<blockquote>
+<p>卸载：</p>
+</blockquote>
+<p>环境变量中删除Git , 再去卸载中心卸载程序</p>
+<blockquote>
+<p>使用：</p>
+</blockquote>
+<p>安装成功后，右键任意文件夹都会出现Git Bash（Unix与Linux风格命令行）和Git CMD（Windows风格命令行）</p>
+<h3 id="Linux简单口令"><a href="#Linux简单口令" class="headerlink" title="Linux简单口令"></a>Linux简单口令</h3><pre><code class="Linux">cd		改变目录
+cd..	退回到上一级目录,直接cd进入默认目录
+pwd		显示当前所在路径
+ls(||)	ls和ls||都是列出当前目录中的所有文件,只不过后者列出的内容更为详细
+touch	新建一个文件夹,如：touch index.js就会在当前目录下新建一个index.js文件
+rm		删除一个文件,rm index.js就会删除index.js文件
+mkdir	新建一个目录,就是新建一个文件夹
+rm -r 	删除一个文件夹,rm -r src就是删除src文件夹
+mv		移动文件,如mv index.html src 那么index.html就是移动的文件，src为目标文件夹（两者在同一目录下）
+reset	重新初始化终端/清屏
+clear	清理屏幕
+history	查看历史命令
+exit	退出
+#		注释
+</code></pre>
+<h5 id="Git配置：-所有的配置文件，其实都保存在本地"><a href="#Git配置：-所有的配置文件，其实都保存在本地" class="headerlink" title="Git配置：(所有的配置文件，其实都保存在本地)"></a>Git配置：(所有的配置文件，其实都保存在本地)</h5><h6 id="查看配置：git-config-l"><a href="#查看配置：git-config-l" class="headerlink" title="查看配置：git config -l"></a>查看配置：git config -l</h6><p><img src="/2022/08/18/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220603231706647.png" alt="image-20220603231706647"></p>
+<h6 id="查看系统配置：git-config-–system-–list"><a href="#查看系统配置：git-config-–system-–list" class="headerlink" title="查看系统配置：git config –system –list"></a>查看系统配置：git config –system –list</h6><p><img src="/2022/08/18/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220603231858917.png" alt="image-20220603231858917"></p>
+<h6 id="查看全局配置：git-config-–global-–list"><a href="#查看全局配置：git-config-–global-–list" class="headerlink" title="查看全局配置：git config –global –list"></a>查看全局配置：git config –global –list</h6><p><img src="/2022/08/18/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220603231922188.png" alt="image-20220603231922188"></p>
+<pre><code class="linux">git config --global user.name &quot;设置名字&quot;
+git config --global user.email 邮箱地址
+</code></pre>
+<h4 id="Git相关配置文件："><a href="#Git相关配置文件：" class="headerlink" title="Git相关配置文件："></a>Git相关配置文件：</h4><p>1)，Git&#x2F;etc&#x2F;gitconfig：Git安装目录下的gitconfig	–system系统配置</p>
+<p>2)，C:&#x2F;User&#x2F;Administrator（当前用户）&#x2F;.gitconfig：只适用于当前登录用户的配置	–global全局配置</p>
+<h1 id="Git基本理论"><a href="#Git基本理论" class="headerlink" title="Git基本理论"></a>Git基本理论</h1><h3 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h3><p>Git本地有三个工作区域：工作目录（Working Directory）,暂存区（Stage&#x2F;Index）,资源库（Repository&#x2F;Git Directory）加上远程Git仓库（Remote Directory）</p>
+<p><img src="/2022/08/18/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220604102832395.png" alt="image-20220604102832395"></p>
+<ul>
+<li>Workspace：工作区，就是平时存放项目代码的地方</li>
+<li>Index&#x2F;Stage：暂存区，用于临时存放改动，实际上只是一个文件，保存了即将提交到文件列表的信息</li>
+<li>Repository：仓库区（本地仓库），安全存放数据的位置，这里有提交到所有版本的数据，其中HEAD指向最新放入仓库的版本</li>
+<li>Remote：远程仓库，托管代码的服务器（一般用github或者gitee）</li>
+</ul>
+<p><img src="/2022/08/18/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220604103432739.png" alt="image-20220604103432739"></p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ol>
+<li>在工作目录添加,修改文件;</li>
+<li>将需要的进行版本管理的文件放入暂存仓库</li>
+<li>将暂存区文件提交到git仓库</li>
+</ol>
+<p>所以,git管理的文件有三种状态:已修改（modified），已暂存（staged），已提交（committed）</p>
+<h1 id="Git项目搭建"><a href="#Git项目搭建" class="headerlink" title="Git项目搭建"></a>Git项目搭建</h1><h3 id="仓库搭建"><a href="#仓库搭建" class="headerlink" title="仓库搭建"></a>仓库搭建</h3><p>创建本地仓库方法有两种：创建全新的仓库，克隆远程仓库</p>
+<h5 id="本地仓库搭建"><a href="#本地仓库搭建" class="headerlink" title="本地仓库搭建"></a>本地仓库搭建</h5><pre><code class="git"># 在当前目录下新建一个Git代码库
+$ git init
+</code></pre>
+<p>执行后在项目文件夹会多出一个.git的隐藏目录，关于版本等信息都在目录中</p>
+<h5 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h5><pre><code class="git"># 克隆一个项目和它的全部代码历史（版本信息）
+$ git clone [url]
+</code></pre>
+<p>前往gitee &#x2F; github上测试；</p>
+<h1 id="Git文件操作"><a href="#Git文件操作" class="headerlink" title="Git文件操作"></a>Git文件操作</h1><h3 id="文件的四种状态"><a href="#文件的四种状态" class="headerlink" title="文件的四种状态"></a>文件的四种状态</h3><p>版本控制就是对文件的版本控制，要对文件进行修改、提交等操作，首先要知道文件当前在什么状态，不然可能会提交了现在还不想提交的文件，或者要提交的文件没提交上。</p>
+<ul>
+<li>Untracked: 未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过<strong>git add</strong> 状态变为Staged.</li>
+<li>Unmodify: 文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改, 而变为Modified. 如果使用    <strong>git rm</strong>移出版本库, 则成为Untracked文件</li>
+<li>Modified: 文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态, 使用<strong>git checkout</strong> 则丢弃修改过, 返回到unmodify状态, 这个<strong>git checkout</strong>即从库中取出文件, 覆盖当前修改 !</li>
+<li>Staged: 暂存状态. 执行<strong>git commit</strong>则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态. 执行<strong>git reset HEAD filename</strong>取消暂存, 文件状态为Modified</li>
+</ul>
+<pre><code class="git"># 查看全部文件状态
+git status
+# 查看指定文件状态
+git status [filename]
+# 添加全部文件到暂存区
+git add .
+# 将暂存区内容提交至本地 -m为提交时编写备注
+git commit -m&quot;消息内容&quot;
+</code></pre>
+<h3 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h3><p>在项目文件夹中，并非所有数据都要我们上传和提交，比如数据库文件，临时文件，设计文件等</p>
+<p>在主目录下建立”.gitignore“文件，此文件有以下规则：</p>
+<ol>
+<li>忽略文件中的空行或以井号（#）开始的行将会被忽略。</li>
+<li>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等。</li>
+<li>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</li>
+<li>如果名称的最前面是一个路径分隔符（&#x2F;），表示要忽略的文件在此目录下，而子目录中的文件不忽略。</li>
+<li>如果名称的最后面是一个路径分隔符（&#x2F;），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</li>
+</ol>
+<pre><code class="git"># 为注解
+*.txt			# 忽略所有.txt结尾的文件，上传的总文件中不会包含这些文件
+!lib.txt	    # 但是lib.txt文件除外
+/temp			# 仅忽略build/目录下的所有文件
+build/			# 忽略bulid/目录下的所有文件
+doc/*.txt		# 忽略doc/notes.txt等文件,单不包括doc/server/arch.txt
+</code></pre>
+<h3 id="gitignore配置"><a href="#gitignore配置" class="headerlink" title=".gitignore配置"></a>.gitignore配置</h3><pre><code class=".gitignore">*.class
+*.log
+*.lock
+
+# Package Files #
+*.jar
+*.war
+*.ear
+target/
+
+#idea
+.idea/
+*.iml
+
+*velocity.log*
+
+### STS ###
+.apt_generated
+.factorypath
+.springBeans
+
+### IntelliJ IDEA ###
+*.iml
+*.ipr
+*.iws
+.idea
+.classpath
+.project
+.settings/
+bin/
+
+*.log
+tmp/
+
+#rebel
+*rebel.xml*
+</code></pre>
+<h1 id="使用码云（Gitee）"><a href="#使用码云（Gitee）" class="headerlink" title="使用码云（Gitee）"></a>使用码云（Gitee）</h1><p>设置本机SSH公钥，实现免密码登录！</p>
+<pre><code class="git"># 进入C:/user/Administraror/.ssh 目录
+# (右键进入git命令行)生产公钥
+ssh-keygen
+</code></pre>
+<p>将生产的id_rsa.pub文件中的信息复制，在码云<strong>安全设置</strong>的<strong>SSH公钥</strong>中粘贴即可</p>
+<p>接下来就是创建仓库去使用了！</p>
+<h1 id="IDEA集成Git"><a href="#IDEA集成Git" class="headerlink" title="IDEA集成Git"></a>IDEA集成Git</h1><p>1.新建项目，绑定git</p>
+<ul>
+<li>直接将远程的git文件拷贝到项目中（在别处get clone [url]，将产生的文件夹剪切）</li>
+</ul>
+<p>2.修改文件，提交文件</p>
+<ul>
+<li>左下角有<strong>Version Control</strong>显示版本信息，右上角有快捷图标</li>
+</ul>
+<h1 id="Git分支说明"><a href="#Git分支说明" class="headerlink" title="Git分支说明"></a>Git分支说明</h1><p>git分支中常见指令：</p>
+<pre><code class="git"># 列出所有本地分支
+git branch
+
+# 列出所有远程分支
+git branch -r
+
+# 新建一个分支，但依然停留在当前分支
+git branch [branch-name]
+
+# 新建一个分支，并切换到该分支吧
+git checkout -b [branch]
+
+# 合并指定分支到当前分支
+$ git merge [branch]
+
+# 删除分支
+$ git branch -d [branch-name]
+
+# 删除远程分支
+$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
+</code></pre>
+<h1 id="Git后续操作"><a href="#Git后续操作" class="headerlink" title="Git后续操作"></a>Git后续操作</h1><blockquote>
+<p>gitee官网中有命令大全和操作指南</p>
+</blockquote>
+<blockquote>
+<p>团队很重要</p>
+</blockquote>
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+
+    
+    <a href="/2022/08/18/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/java%E9%9D%A2%E8%AF%95/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p></p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2022 By Xtx. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?c050b0c836c6dd0f3a82e201f4f4bf16";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+

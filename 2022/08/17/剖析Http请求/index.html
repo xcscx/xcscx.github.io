@@ -328,10 +328,62 @@
 <li>TCP协议</li>
 <li>HTTPS协议</li>
 </ul>
-<h1 id="Http分层请求"><a href="#Http分层请求" class="headerlink" title="Http分层请求:"></a>Http分层请求:</h1><p>网络需要完成的任务：防止数据丢包，避免数据重复，数据完整性校验，数字转模拟信号，…，信号衰减</p>
+<h1 id="Http分层"><a href="#Http分层" class="headerlink" title="Http分层:"></a>Http分层:</h1><p>网络需要完成的任务：防止数据丢包，避免数据重复，数据完整性校验，数字转模拟信号，…，信号衰减</p>
 <p>为了完成不同层面的各个任务，简化网络的复杂度，网络通信被分解为多层次结构，每一层都紧挨着上层或下层进行交互，这样在修改甚至替换某一层的软件时，只需要层与层之间的接口保持不变，就不会影响其他层。</p>
-<h1 id="HTTP协议："><a href="#HTTP协议：" class="headerlink" title="HTTP协议："></a>HTTP协议：</h1><h1 id="HTTP请求过程："><a href="#HTTP请求过程：" class="headerlink" title="HTTP请求过程："></a>HTTP请求过程：</h1><p>、</p>
-<h1 id="TCP协议："><a href="#TCP协议：" class="headerlink" title="TCP协议："></a>TCP协议：</h1><h1 id="HTTPS协议："><a href="#HTTPS协议：" class="headerlink" title="HTTPS协议："></a>HTTPS协议：</h1>
+<ul>
+<li>OSI七层网络模型</li>
+<li>TCP&#x2F;IP协议簇</li>
+</ul>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819105355252.png" alt="image-20220819105355252"></p>
+<h1 id="HTTP协议："><a href="#HTTP协议：" class="headerlink" title="HTTP协议："></a>HTTP协议：</h1><p>超文本传输协议（HyperText Transfer Protocol , HTTP）</p>
+<p>一种无状态，以请求、应答方式运行的协议。它使用可扩展语义和子描述消息格式，与基于网络的草文本消息系统可以灵活互动</p>
+<h5 id="HTTP报文格式："><a href="#HTTP报文格式：" class="headerlink" title="HTTP报文格式："></a>HTTP报文格式：</h5><p>HTTP协议的请求报文和响应报文的结构基本相同，由三大部分组成：</p>
+<ul>
+<li>起始行（start line）:描述请求或响应的基本信息</li>
+<li>头部字段集合（header）:使用key-value形式更详细的说明报文</li>
+<li>空行</li>
+<li>消息正文（entity）:实际传输的数据，不一定是文本，可以是图片，视频等二进制数据</li>
+</ul>
+<h5 id="请求行报文格式："><a href="#请求行报文格式：" class="headerlink" title="请求行报文格式："></a>请求行报文格式：</h5><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819110831735.png" alt="image-20220819110831735"></p>
+<ul>
+<li>请求方法（METHOD）：如 GET &#x2F; HEAD &#x2F; PUT &#x2F; POST，表示对资源的操作</li>
+<li>请求目标 ：通常是一个URL，标记了请求方法要操作的资源</li>
+<li>版本号：表示报文使用的HTTP协议版本</li>
+</ul>
+<h5 id="响应行报文格式："><a href="#响应行报文格式：" class="headerlink" title="响应行报文格式："></a>响应行报文格式：</h5><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819110855815.png" alt="image-20220819110855815"></p>
+<ul>
+<li>版本号 ：表示报文使用的HTTP协议版本</li>
+<li>状态码（STATUS CODE）: 一个三位数，用代码的形式表示处理结果，比如200是成功，403是客户端访问被拒，500是服务器错误</li>
+<li>原因（READON）：作为数字状态码补充，是更加详细的解释文字，协助理解原因</li>
+</ul>
+<h5 id="HTTP头字段："><a href="#HTTP头字段：" class="headerlink" title="HTTP头字段："></a>HTTP头字段：</h5><p>头部字段是key-value形式，key和value间使用 “  ：”做分隔，比如前后端分离时常遇到的要与后端协商传输数据类型 “ <strong>Content-type:application&#x2F;json</strong> ” ，最后用CRLF换行表示字段结束，HTTP头字段的使用比较灵活，不仅可以用Host,Connection等已有头字段，也可以任意添加自定义头，这就给HTTP协议带来了无限扩展可能。 </p>
+<p><strong>注意事项</strong></p>
+<ul>
+<li>字段名称不区分大小写，但不允许出现空格和下划线“_”,可以使用连字符“-”，字段后必须紧跟“:”，中间不许有空格，但“:”后允许多个空格</li>
+<li>字段顺序没有意义，任意排列不影响语序</li>
+<li>字段原则上不允许重复，除非字段本身允许：Set-Cookie</li>
+</ul>
+<h5 id="常用头字段："><a href="#常用头字段：" class="headerlink" title="常用头字段："></a>常用头字段：</h5><p>HTTP协议有很多头字段，基本可以分为四大类：</p>
+<ul>
+<li>请求字段：请求头中的头字段：如Host，Referer</li>
+<li>响应字段：响应头中的头字段：如Server，Date</li>
+<li>通用字段：在响应头和请求头都可以出现的：Content-type，Connection</li>
+</ul>
+<h1 id="HTTP请求过程："><a href="#HTTP请求过程：" class="headerlink" title="HTTP请求过程："></a>HTTP请求过程：</h1><p>当用户在浏览器中输入网址后，网络协议都做了哪些工作？</p>
+<ol>
+<li>首先依据浏览器应用程序，解析出URL中的域名</li>
+<li>依据域名获得的ip地址，首先从浏览器缓存中查看，没有就去本机域名解析文件hosts中查看，LDNS，Rootserver，国际定级域名服务商层层解析，直至找到</li>
+<li>拿到ip地址后，浏览器发起对服务器的三次握手</li>
+<li>握手建立连接后，开始组装http请求，发送报文</li>
+<li>服务器收到请求报文后，开始请求报文解析，生成响应数据，发送响应数据</li>
+<li>浏览器收到响应后，开始渲染页面</li>
+</ol>
+<blockquote>
+<p> chrome:&#x2F;&#x2F;net-internals&#x2F;#events             查看浏览器缓存ip地址</p>
+</blockquote>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819120503128.png" alt="image-20220819120503128"></p>
+<h1 id="TCP协议："><a href="#TCP协议：" class="headerlink" title="TCP协议："></a>TCP协议：</h1><p>TCP协议是面向连接的，可靠的，基于字节流的传输层协议</p>
+<h1 id="HTTPS协议："><a href="#HTTPS协议：" class="headerlink" title="HTTPS协议："></a>HTTPS协议：</h1>
   </div>
   <div id=""></div>
 </div>
@@ -391,10 +443,10 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 
     <div class="post-paging">
     
-    <a href="/2022/08/18/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/java%E9%9D%A2%E8%AF%95/">
+    <a href="/2022/08/18/HashMap%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">
         <div class="post-paging-last">
             <span>上一篇</span>
-            <p></p>
+            <p>HashMap底层原理</p>
         </div>
     </a>
     
