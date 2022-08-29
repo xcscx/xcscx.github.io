@@ -2,7 +2,7 @@
 <html>
 	<head>
 		
-<title>二叉树算法题-编程</title>
+<title>Redis 6事事务以及集群-编程</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,8 +12,8 @@
 
 
 
-<meta name="keywords" content="java,算法题,">
-<meta name="description" content="二叉树常见算法题">
+<meta name="keywords" content="Redis,SQL,">
+<meta name="description" content="redis基础知识">
 
 
 <script src="/js/jquery.min.js"></script>
@@ -284,14 +284,14 @@
         <ul class="post-header-tag">
             
             
-            <li><a href="/tags/java">java</a></li>
+            <li><a href="/tags/Redis">Redis</a></li>
             
-            <li><a href="/tags/算法题">算法题</a></li>
+            <li><a href="/tags/SQL">SQL</a></li>
             
             
         </ul>
         
-        <h1>二叉树算法题</h1>
+        <h1>Redis 6事事务以及集群</h1>
         <div class="post-header-info">
             <div class="post-header-info-author">
                 
@@ -305,10 +305,10 @@
                 <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">Xcscx</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="../../categories/数据结构/" target="_blank" >数据结构</a>
+                         <a href="../../categories/Redis/" target="_blank" >Redis</a>
                     
                 </div>
-                <p>2022-08-13 18:09:11</p>
+                <p>2022-08-16 09:52:17</p>
             </div>
         </div>
     </div>
@@ -318,141 +318,38 @@
   <div id="article" class="post-content-info">
     
 
-    <h3 id="1-给定两个树的节点node1和node2，找到他们最低的公共祖先节点："><a href="#1-给定两个树的节点node1和node2，找到他们最低的公共祖先节点：" class="headerlink" title="1.给定两个树的节点node1和node2，找到他们最低的公共祖先节点："></a>1.给定两个树的节点node1和node2，找到他们最低的公共祖先节点：</h3><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><ol>
-<li>遍历整个二叉树，将所有节点的父节点以&lt;Node，Node&gt;形式存入hashmap中</li>
-<li>创建HashSet，从node1开始依据HashMap依次将自己的父节点存入HashSet中</li>
-<li>从node2开始溯洄父节点，一旦存在HashSet中就停止，此时就是首个公共祖先节点</li>
+    <blockquote>
+<p>本片笔记适用于 <a target="_blank" rel="noopener" href="https://space.bilibili.com/302417610">b站尚硅谷</a> 课程 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Rv41177Af?p=1">Redis 6 入门到精通 超详细 教程</a></p>
+</blockquote>
+<ul>
+<li>事物，锁机制</li>
+<li>事物冲突问题</li>
+<li>redis事物三特性</li>
+<li>持久化框架</li>
+<li>Redis主从复制</li>
+<li>Redis集群</li>
+<li>Redis应用问题解决</li>
+</ul>
+<h3 id="事物，锁机制："><a href="#事物，锁机制：" class="headerlink" title="事物，锁机制："></a>事物，锁机制：</h3><p>Redis事物：一个单独的隔离操作；事物中所有命令都会序列化，按顺序执行。事物执行过程中不会被其他客户端发送过来的命令请求打断</p>
+<p>Redis事物主要作用就是<strong>串联多个命令</strong>防止别的命令插队</p>
+<h4 id="Multi-Exec-discard"><a href="#Multi-Exec-discard" class="headerlink" title="Multi | Exec | discard"></a>Multi | Exec | discard</h4><p>输入Multi开启事务，此时被成为组队阶段，<strong>输入的命令不会马上执行</strong>，而是<strong>依次进入命令队列</strong>，直到输入Exec后，将命令队列中命令依次执行，组队过程中可以通过discard来放弃组队</p>
+<p><img src="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/image-20220817101242222.png" alt="image-20220817101242222"></p>
+<h4 id="错误情况："><a href="#错误情况：" class="headerlink" title="错误情况："></a>错误情况：</h4><ol>
+<li>组队时命令发生错误，事物无法执行Exec后的命令语句，<strong>一个都不执行</strong></li>
+<li>组队时无误，执行时出现部分错误，<strong>错误的不执行，其他的执行</strong></li>
 </ol>
-<pre><code class="java">//主函数
-public static Node finFather(Node head, Node node1, Node2) &#123;
-    HashMap&lt;Node,Node&gt; hashmap = new HashMap&lt;&gt;();
-    hashmap.put(head,head);
-     process(head,hashmap);
-    HashSet&lt;Node&gt; set1 = new HashSet&lt;&gt;();
-    
-    Node o1 = node1;
-    //循环至头节点停下
-    while(o1 != hashmap.get(o1))&#123;
-        set1.add(o1);
-        o1 = hashmap.get(o1);
-    &#125;
-    //将头节点添加
-    set1.add(head);
-    
-    Node o2 = node2;
-    while(set1.get(o2)==null)&#123;
-        o2 = hashmap.get(o2);
-    &#125;
-    return o2;
-&#125;
-
-
-//存储父节点函数
-public static void process(Node head, HashMap&lt;Node.Node&gt; hashmap) &#123;
-    if(hashmap == null) return;
-    hashmap.put(head.left,head);
-    hashmap.put(head.right,head);
-    process(head.left,hashmap);
-    process(head.right,hashmap);
-&#125;
-</code></pre>
-<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>分析node1与node2可能的关系：</p>
-<ol>
-<li>node1是node2的祖先 &#x2F; node2是node1的祖先：返回node1 &#x2F; node2</li>
-<li>node1与node2彼此不互为公共祖先，返回向上汇聚的祖先节点</li>
-</ol>
-<pre><code class="java">public static Node findFather(Node head, Node node1, Node node2) &#123;
-    if(head == null || head == node1 || head == node2) &#123;
-        return head;
-    &#125;
-    Node left = findFather(head.left, node1, node2);
-    Node right = findFather(head.right, node1, node2);
-    if(left != null &amp;&amp; right != null) &#123;
-        return head;
-    &#125;
-    return left != null ? left : right;
-&#125;
-</code></pre>
-<h3 id="2-二叉树找到一个节点的后继节点："><a href="#2-二叉树找到一个节点的后继节点：" class="headerlink" title="2.二叉树找到一个节点的后继节点："></a>2.二叉树找到一个节点的后继节点：</h3><pre><code class="java">public class Node &#123;
-    public Node left;
-    public Node right;
-    public Node parent;		//指向父节点
-    public int value;
-    
-    public Node(int val) &#123;
-        this.value = val;
-    &#125;
-&#125;
-</code></pre>
-<p><strong>后继节点</strong>：中序遍历二叉树后，每个节点的下一个节点是此节点的后继节点</p>
-<p>（中序遍历打印每一位节点，相邻的后一个打印的节点是前一位的后继节点，相邻的前一节点是后一节点的前驱节点）</p>
-<h5 id="方法一：-1"><a href="#方法一：-1" class="headerlink" title="方法一："></a>方法一：</h5><p>中序遍历生成列表，依次查询列表找到后继节点</p>
-<h5 id="方法二：-1"><a href="#方法二：-1" class="headerlink" title="方法二："></a>方法二：</h5><p>分析后继节点的可能情况：</p>
-<ol>
-<li>当前节点存在右树：后继节点是右树的最左节点</li>
-<li>当前节点没有右树：判断是否为父节点的左孩子：是，父节点为后继；不是，继续看父节点（没有右数说明已经是某左子树最后一个节点）</li>
-<li>前两者无法找到后继节点：后继节点为空，这个节点是二叉树中序遍历的最后一个节点</li>
-</ol>
-<pre><code class="java">//主程序
-public static Node getNextNode(Node node) &#123;
-    if(node == null) return node;
-    if(node.right != null) &#123;	//情况1
-        return getLeftMost(node);
-    &#125;else &#123;
-        Node parent = node.parent;
-        while(parent != null &amp;&amp; parent.left != node) &#123;	//情况2和3
-            node = parent;
-            parent = node.parent;
-        &#125;
-        return parent;
-    &#125;
-&#125;
-
-
-//走左子树
-public static Node getLeftMost(Node node) &#123;
-    if(node == null) &#123;
-        return node;
-    &#125;
-    while(node.left != null) &#123;
-        node = node.left;
-    &#125;
-    return node;
-&#125;
-</code></pre>
-<h3 id="3-二叉树序列化与反序列化"><a href="#3-二叉树序列化与反序列化" class="headerlink" title="3.二叉树序列化与反序列化"></a>3.二叉树序列化与反序列化</h3><p>内存 → 字符串 ：序列化</p>
-<p>字符串 → 内存：反序列化</p>
-<h5 id="先序序列化："><a href="#先序序列化：" class="headerlink" title="先序序列化："></a>先序序列化：</h5><pre><code class="java">public static String serialTree(Node head) &#123;
-    if(head == null) return &quot;#_&quot;;
-    String res = head.value + &quot;_&quot;;
-    res += serialTree(head.left);
-    res += serialTree(head.right);
-    return res;
-&#125;
-</code></pre>
-<h5 id="先序反序列化："><a href="#先序反序列化：" class="headerlink" title="先序反序列化："></a>先序反序列化：</h5><pre><code class="java">//排序
-public static Node reconSerialTree(String str) &#123;
-    String[] values = str.split(&quot;_&quot;);
-    Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();
-    for(int i = 0; i != values.length; i++) &#123;
-        queue.add(values[i]);
-    &#125;
-    return reconOrder(queue);
-&#125;
-
-//组成树
-public static Node reconOrder(Queue&lt;String&gt; queue) &#123;
-    String value = queue.poll();
-    if(value.equals(&quot;#&quot;))&#123;
-        return null;
-    &#125;
-    Node head = new Node(Integer.valueOf(value));
-    head.left = reconOrder(queue);
-    head.right = reconOrder(queue);
-    return head;
-&#125;
-</code></pre>
-<h5 id="中序，后序同理"><a href="#中序，后序同理" class="headerlink" title="中序，后序同理"></a>中序，后序同理</h5>
+<h4 id="为什么需要做成事物："><a href="#为什么需要做成事物：" class="headerlink" title="为什么需要做成事物："></a>为什么需要做成事物：</h4><p>同一份数据被多处调用时，可能会使得值变得不合理，例如多人登录同一台TB账户购买东西，余额同时读取后再依次修改是不合理的</p>
+<h3 id="事务冲突问题："><a href="#事务冲突问题：" class="headerlink" title="事务冲突问题："></a>事务冲突问题：</h3><h4 id="悲观锁："><a href="#悲观锁：" class="headerlink" title="悲观锁："></a>悲观锁：</h4><p>每次拿数据时都认为别人会修改，所以每次拿取数据时就上锁，其他人拿数据时就会black（阻塞）直至开锁，<strong>牺牲性能换效果</strong></p>
+<h4 id="乐观锁："><a href="#乐观锁：" class="headerlink" title="乐观锁："></a>乐观锁：</h4><p><strong>添加版本信息</strong>，仅在修改信息时匹配版本是否一致，一致则成功修改，否则更新数据再执行</p>
+<p><img src="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/image-20220817103825221.png" alt="image-20220817103825221"></p>
+<h4 id="WATCH-K"><a href="#WATCH-K" class="headerlink" title="WATCH  K:"></a>WATCH  K:</h4><p>在执行multi之前，<strong>先执行watch k监视一个或多个key值</strong>，如果在事物执行之前这个key被改动，那么事务将会被打断</p>
+<h3 id="Redis事务的三特性："><a href="#Redis事务的三特性：" class="headerlink" title="Redis事务的三特性："></a>Redis事务的三特性：</h3><ul>
+<li>单独的隔离操作：事务中所有命令都会序列化，按顺序执行。事务在执行过程中不会被其他客户端发送的命令请求打断</li>
+<li>没有隔离级别概念：队列中的命令没有提交之前都不会实际执行，因为事务提交前任何指令都不会执行</li>
+<li>不保证原子性：事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚</li>
+</ul>
+<h3 id="持久化框架："><a href="#持久化框架：" class="headerlink" title="持久化框架："></a>持久化框架：</h3><h4 id="RDB（Redis-DataBase）："><a href="#RDB（Redis-DataBase）：" class="headerlink" title="RDB（Redis DataBase）："></a>RDB（Redis DataBase）：</h4><p>将指定时间间隔内将内存中数据集快照写入磁盘</p>
+<h4 id="AOF（Append-Of-File）："><a href="#AOF（Append-Of-File）：" class="headerlink" title="AOF（Append Of File）："></a>AOF（Append Of File）：</h4><h3 id="主从复制："><a href="#主从复制：" class="headerlink" title="主从复制："></a>主从复制：</h3><h3 id="集群："><a href="#集群：" class="headerlink" title="集群："></a>集群：</h3><h3 id="应用问题："><a href="#应用问题：" class="headerlink" title="应用问题："></a>应用问题：</h3><h4 id="缓存穿透："><a href="#缓存穿透：" class="headerlink" title="缓存穿透："></a>缓存穿透：</h4><h4 id="缓存击穿："><a href="#缓存击穿：" class="headerlink" title="缓存击穿："></a>缓存击穿：</h4><h4 id="缓存雪崩："><a href="#缓存雪崩：" class="headerlink" title="缓存雪崩："></a>缓存雪崩：</h4><h4 id="分布式锁："><a href="#分布式锁：" class="headerlink" title="分布式锁："></a>分布式锁：</h4>
   </div>
   <div id=""></div>
 </div>
@@ -512,19 +409,19 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 
     <div class="post-paging">
     
-    <a href="/2022/08/15/Redis_6/">
+    <a href="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/">
         <div class="post-paging-last">
             <span>上一篇</span>
-            <p>Redis 6基础</p>
+            <p>Http分析</p>
         </div>
     </a>
     
 
     
-    <a href="/2022/08/12/%E4%BA%8C%E5%8F%89%E6%A0%91/">
+    <a href="/2022/08/15/Redis_6/">
         <div class="post-paging-next">
             <span>下一篇</span>
-            <p>二叉树</p>
+            <p>Redis 6基础</p>
         </div>
     </a>
     

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		
-<title>Redis 6事物以及集群-编程</title>
+<title>Xcscx的个人博客-编程</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,9 +11,8 @@
 <link rel="stylesheet" href="/css/index.css">
 
 
-
-<meta name="keywords" content="Redis,SQL,">
-<meta name="description" content="redis基础知识">
+<meta name="keywords" content="后台程序,Java编程">
+<meta name="description" content="描述">
 
 
 <script src="/js/jquery.min.js"></script>
@@ -283,15 +282,9 @@
     <div class="post-header-background-content">
         <ul class="post-header-tag">
             
-            
-            <li><a href="/tags/Redis">Redis</a></li>
-            
-            <li><a href="/tags/SQL">SQL</a></li>
-            
-            
         </ul>
         
-        <h1>Redis 6事物以及集群</h1>
+        <h1></h1>
         <div class="post-header-info">
             <div class="post-header-info-author">
                 
@@ -302,13 +295,11 @@
                             p-id="2902" fill="#ffffff"></path>
                     </svg>
                     
-                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">Xcscx</a></span>
+                <span class="post-header-info-author-text"> <a href="../../about">Xtx</a></span>
                 <div class="post-header-info-author-categories">
                     
-                         <a href="../../categories/Redis/" target="_blank" >Redis</a>
-                    
                 </div>
-                <p>2022-08-16 09:52:17</p>
+                <p>2022-08-28 16:59:23</p>
             </div>
         </div>
     </div>
@@ -318,39 +309,19 @@
   <div id="article" class="post-content-info">
     
 
-    <blockquote>
-<p>本片笔记适用于 <a target="_blank" rel="noopener" href="https://space.bilibili.com/302417610">b站尚硅谷</a> 课程 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Rv41177Af?p=1">Redis 6 入门到精通 超详细 教程</a></p>
-</blockquote>
-<ul>
-<li>事物，锁机制</li>
-<li>事物冲突问题</li>
-<li>redis事物三特性</li>
-<li>持久化框架</li>
-<li>Redis主从复制</li>
-<li>Redis集群</li>
-<li>Redis应用问题解决</li>
-</ul>
-<h3 id="事物，锁机制："><a href="#事物，锁机制：" class="headerlink" title="事物，锁机制："></a>事物，锁机制：</h3><p>Redis事物：一个单独的隔离操作；事物中所有命令都会序列化，按顺序执行。事物执行过程中不会被其他客户端发送过来的命令请求打断</p>
-<p>Redis事物主要作用就是<strong>串联多个命令</strong>防止别的命令插队</p>
-<h4 id="Multi-Exec-discard"><a href="#Multi-Exec-discard" class="headerlink" title="Multi | Exec | discard"></a>Multi | Exec | discard</h4><p>输入Multi开启事务，此时被成为组队阶段，<strong>输入的命令不会马上执行</strong>，而是<strong>依次进入命令队列</strong>，直到输入Exec后，将命令队列中命令依次执行，组队过程中可以通过discard来放弃组队</p>
-<p>![image-20220817101242222](.&#x2F;Redis 6事务&#x2F;image-20220817101242222.png)</p>
-<h4 id="错误情况："><a href="#错误情况：" class="headerlink" title="错误情况："></a>错误情况：</h4><ol>
-<li>组队时命令发生错误，事物无法执行Exec后的命令语句，<strong>一个都不执行</strong></li>
-<li>组队时无误，执行时出现部分错误，<strong>错误的不执行，其他的执行</strong></li>
-</ol>
-<h4 id="为什么需要做成事物："><a href="#为什么需要做成事物：" class="headerlink" title="为什么需要做成事物："></a>为什么需要做成事物：</h4><p>同一份数据被多处调用时，可能会使得值变得不合理，例如多人登录同一台TB账户购买东西，余额同时读取后再依次修改是不合理的</p>
-<h3 id="事务冲突问题："><a href="#事务冲突问题：" class="headerlink" title="事务冲突问题："></a>事务冲突问题：</h3><h4 id="悲观锁："><a href="#悲观锁：" class="headerlink" title="悲观锁："></a>悲观锁：</h4><p>每次拿数据时都认为别人会修改，所以每次拿取数据时就上锁，其他人拿数据时就会black（阻塞）直至开锁，<strong>牺牲性能换效果</strong></p>
-<h4 id="乐观锁："><a href="#乐观锁：" class="headerlink" title="乐观锁："></a>乐观锁：</h4><p><strong>添加版本信息</strong>，仅在修改信息时匹配版本是否一致，一致则成功修改，否则更新数据再执行</p>
-<p>![image-20220817103825221](.&#x2F;Redis 6事务&#x2F;image-20220817103825221.png)</p>
-<h4 id="WATCH-K"><a href="#WATCH-K" class="headerlink" title="WATCH  K:"></a>WATCH  K:</h4><p>在执行multi之前，<strong>先执行watch k监视一个或多个key值</strong>，如果在事物执行之前这个key被改动，那么事务将会被打断</p>
-<h3 id="Redis事务的三特性："><a href="#Redis事务的三特性：" class="headerlink" title="Redis事务的三特性："></a>Redis事务的三特性：</h3><ul>
-<li>单独的隔离操作：事务中所有命令都会序列化，按顺序执行。事务在执行过程中不会被其他客户端发送的命令请求打断</li>
-<li>没有隔离级别概念：队列中的命令没有提交之前都不会实际执行，因为事务提交前任何指令都不会执行</li>
-<li>不保证原子性：事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚</li>
-</ul>
-<h3 id="持久化框架："><a href="#持久化框架：" class="headerlink" title="持久化框架："></a>持久化框架：</h3><h4 id="RDB："><a href="#RDB：" class="headerlink" title="RDB："></a>RDB：</h4><h4 id="AOF："><a href="#AOF：" class="headerlink" title="AOF："></a>AOF：</h4><h3 id="主从复制："><a href="#主从复制：" class="headerlink" title="主从复制："></a>主从复制：</h3>
+    <p>DDL：数据库模式定义语言，关键字：create</p>
+<p>DML：数据操作语言，关键字：Insert，delete，update，</p>
+<p>DCL：数据库控制语言，关键字：grant，remove</p>
+<p>DQL：数据库查询语言，关键字：select</p>
+<h2 id="数据库设计各阶段："><a href="#数据库设计各阶段：" class="headerlink" title="数据库设计各阶段："></a>数据库设计各阶段：</h2><h4 id="1-需求分析"><a href="#1-需求分析" class="headerlink" title="1.需求分析"></a>1.需求分析</h4><p>需求收集和分析，得到用数据字典描述的数据需求，用数据流图描述的处理请求</p>
+<h4 id="2-概念结构设计"><a href="#2-概念结构设计" class="headerlink" title="2.概念结构设计"></a>2.概念结构设计</h4><p>对需求进行综合，归纳和抽象，形成一个独立于具体DBMS的概念模型（用E-R图表示）</p>
+<h4 id="3-逻辑结构设计"><a href="#3-逻辑结构设计" class="headerlink" title="3.逻辑结构设计"></a>3.逻辑结构设计</h4><p>将概念结构转化为某个DBMS所支持的数据模型（例如关系模型），并对其进行优化</p>
+<h4 id="4-物理结构设计"><a href="#4-物理结构设计" class="headerlink" title="4.物理结构设计"></a>4.物理结构设计</h4><p>为逻辑数据模型选取一个最为合适的应用环境的物理结构（包括存储结构和存取方法）</p>
+<h4 id="5-数据库实施"><a href="#5-数据库实施" class="headerlink" title="5.数据库实施"></a>5.数据库实施</h4><p>运用DBMS提供的数据语言（如SQL）及其宿主语言（如C），根据逻辑设计和物理设计的结果建立数据库，编制与调试应用程序，组织数据入库并进行试运行</p>
+<h4 id="6-数据库运行与维护"><a href="#6-数据库运行与维护" class="headerlink" title="6.数据库运行与维护"></a>6.数据库运行与维护</h4><p>数据库应用系统经过试运行后可正式使用，在数据库运行过程中必须不断对其进行评价、调整和修改</p>
+<h2 id="数据库三级模式结构"><a href="#数据库三级模式结构" class="headerlink" title="数据库三级模式结构"></a>数据库三级模式结构</h2><h4 id="外模式：（子模式）"><a href="#外模式：（子模式）" class="headerlink" title="外模式：（子模式）"></a>外模式：（子模式）</h4><h4 id="模式：（概念模式）"><a href="#模式：（概念模式）" class="headerlink" title="模式：（概念模式）"></a>模式：（概念模式）</h4><h4 id="内模式：（存储模式）"><a href="#内模式：（存储模式）" class="headerlink" title="内模式：（存储模式）"></a>内模式：（存储模式）</h4>
   </div>
-  <div id=""></div>
+  <div id="gitalk-container"></div>
 </div>
 
 <script>
@@ -408,19 +379,12 @@ Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
 
     <div class="post-paging">
     
-    <a href="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/">
-        <div class="post-paging-last">
-            <span>上一篇</span>
-            <p>Http分析</p>
-        </div>
-    </a>
-    
 
     
-    <a href="/2022/08/15/Redis%206/">
+    <a href="/2022/08/20/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/Hashmap%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">
         <div class="post-paging-next">
             <span>下一篇</span>
-            <p>Redis 6基础</p>
+            <p>HashMap常见问题</p>
         </div>
     </a>
     
