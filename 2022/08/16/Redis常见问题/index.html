@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+<title>Redis 6常见问题-编程</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico">
+
+<link rel="stylesheet" href="/css/index.css">
+
+
+
+<meta name="keywords" content="Redis,面试,">
+<meta name="description" content="redis基础知识">
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/index.js"></script>
+
+
+<script src="/js/fancybox.umd.js"></script>
+
+
+<script src="/js/fancybox-images.js"></script>
+
+
+<script src="/js/gitalk.min.js"></script>
+
+
+<script src="/js/hljs.min.js"></script>
+ 
+<script>hljs.initHighlightingOnLoad();</script>
+
+	<meta name="generator" content="Hexo 6.2.0"></head>
+
+	<body>
+		
+	<div class="header">
+		<div class="header-top" id="header-top">
+			<div class="h-left">
+				<a href="/">
+					<img src="/image/logo.png" alt="Quiet">
+				</a>
+			</div>
+			<div class="h-right">
+				<ul>
+					
+						
+								<li>
+									<a href="/">
+										HOME
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/archives">
+										ARCHIVE
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/categories">
+										CATEGORIES
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/tags">
+										TAGS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/links">
+										LINKS
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+						
+								<li>
+									<a href="/about">
+										ABOUT
+									</a>
+									<span class="dot"></span>
+								</li>
+								
+									
+				</ul>
+			</div>
+			<div class="h-right-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fill="none" d="M0 0h24v24H0z" />
+					<path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+				</svg>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar">
+    <div class="topo">
+        <h2>Xtx</h2>
+    </div>
+    <ul>
+        
+        <li>
+            <a href="/">HOME</a>
+        </li>
+        
+        <li>
+            <a href="/archives">ARCHIVE</a>
+        </li>
+        
+        <li>
+            <a href="/categories">CATEGORIES</a>
+        </li>
+        
+        <li>
+            <a href="/tags">TAGS</a>
+        </li>
+        
+        <li>
+            <a href="/links">LINKS</a>
+        </li>
+        
+        <li>
+            <a href="/about">ABOUT</a>
+        </li>
+        
+    </ul>
+    <div class="my_foot">
+        
+        <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+            <img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+        </a>
+        
+    </div>
+</div>
+<div class='shelter'>
+</div>
+<style>
+    .shelter{
+        background-color: #333;
+        opacity:0.5;
+        cursor: pointer;
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0; 
+        right: 0;
+        bottom: 0;
+        z-index: 1998;
+    }
+    .sidebar {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        z-index: 1999;
+        text-align: center;
+        box-shadow: -6px 0 20px rgba(98, 94, 94, .815)
+    }
+
+    .topo {
+        width: 100%;
+        height: 200px;
+        background: url(https://api.ixiaowai.cn/gqapi/gqapi.php) no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end
+    }
+
+    .topo h2 {
+        color: #fff;
+        z-index: 1;
+        position: relative;
+        margin: 0 0 10px 10px;
+        font-size: 1.2em;
+        box-sizing: border-box
+    }
+
+    .topo:before {
+        content: '';
+        background-image: url(/image/pattern.png);
+        background-repeat: repeat;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1
+    }
+
+    .sidebar ul {
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .sidebar ul li {
+        height: 50px;
+        list-style: none;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px
+    }
+
+    .sidebar ul li a {
+        display: grid;
+        color: #5d606a;
+        text-overflow: ellipsis;
+        width: 100%;
+        text-decoration: none
+    }
+
+    .my_foot {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0
+    }
+
+    .my_foot a {
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block
+    }
+
+    .my_foot a img {
+        width: 30px;
+        height: 30px
+    }
+</style>
+
+<script>
+    $( function () {
+	$( '.h-right-close>svg' )
+		.click( function () {
+			$( '.sidebar' )
+				.animate( {
+					width: "66%"
+				}, 500 );
+			$( '.shelter' )
+				.fadeIn( "slow" )
+		} );
+	$( '.shelter' )
+		.click( function ( e ) {
+			$( '.sidebar' )
+				.animate( {
+					width: "0"
+				}, 500 );
+			$( '.shelter' )
+				.fadeOut( "slow" )
+		} )
+} )
+
+</script>
+
+<div class="post">
+    <div class="post-header-background post-header-img"
+    style="background: url('http://eett.cc/pictures?type=pc&category=fengjing')" 
+>
+    <div class="post-header-background-content">
+        <ul class="post-header-tag">
+            
+            
+            <li><a href="/tags/Redis">Redis</a></li>
+            
+            <li><a href="/tags/面试">面试</a></li>
+            
+            
+        </ul>
+        
+        <h1>Redis 6常见问题</h1>
+        <div class="post-header-info">
+            <div class="post-header-info-author">
+                
+                    <svg t="1604839279282" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="2901" width="20" height="20">
+                        <path
+                            d="M513 956.3c-247.7 0-448-200.3-448-448S265.3 66.2 513 66.2s448 200.3 448 448-200.3 442.1-448 442.1z m0-830.9c-212.2 0-388.8 170.7-388.8 388.8C124.2 726.3 294.9 903 513 903c212.2 0 388.8-170.7 388.8-388.8S725.2 125.4 513 125.4z m0 430.2c-94.2 0-170.7-76.5-170.7-170.7S418.8 207.8 513 207.8s170.7 76.5 170.7 170.7S607.2 555.6 513 555.6z m0-289.1c-64.6 0-112 52.8-112 112s47.4 117.9 112 117.9 112-52.8 112-112-47.4-117.9-112-117.9z m0 689.8c-135.7 0-259-58.7-341.9-158.9l-11.8-17.8 11.8-17.8c76.5-117.9 206.2-188.5 347.8-188.5 135.7 0 265 64.6 341.9 182.6l11.8 17.8-11.8 17.8C778 897.1 648.7 956.3 513 956.3zM230.3 773.2C300.9 849.7 406.9 897 513 897c112 0 218.1-47.4 288.6-129.8-70.5-88.2-170.7-135.6-282.7-135.6s-218.1 53.3-288.6 141.6z"
+                            p-id="2902" fill="#ffffff"></path>
+                    </svg>
+                    
+                <span class="post-header-info-author-text"> <a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">Xcscx</a></span>
+                <div class="post-header-info-author-categories">
+                    
+                         <a href="../../categories/Redis/" target="_blank" >Redis</a>
+                    
+                </div>
+                <p>2022-08-16 09:52:17</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="post-content" id="content">
+  
+  <div id="article" class="post-content-info">
+    
+
+    <blockquote>
+<p>本片学习内容整理至b站 <a target="_blank" rel="noopener" href="https://space.bilibili.com/526653251">IT老哥</a> 的视频 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sR4y1c7Ni?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=ad19a531d1fe118602dfd75ff3c6db57">《会了这些面试题后，可以挑战一下字节了》</a></p>
+</blockquote>
+<ul>
+<li>单线程的Redis为什么快</li>
+<li>五种基本数据类型底层采用什么数据结构</li>
+<li>缓存雪崩，缓存穿透，缓存击穿，附加</li>
+<li>Redis的过期淘汰机制</li>
+<li>redis与memcached的区别</li>
+<li>redis线程模型</li>
+<li>哨兵Sentinel</li>
+<li>如何实现redis事务</li>
+</ul>
+<h2 id="单线程的Redis为什么快？"><a href="#单线程的Redis为什么快？" class="headerlink" title="单线程的Redis为什么快？"></a>单线程的Redis为什么快？</h2><p>Redis有多快？官方给出的读写速度是10w&#x2F;s，在单线程的前提下跑出这个好成绩，原因有以下几点：</p>
+<ul>
+<li><strong>Redis是完全基于内存</strong>的，因此读写效率高，同时Redis的持久化操作是通过fork子进程和Linux系统的页面缓存技术完成，并不会影响Redis</li>
+<li><strong>单线程操作</strong>：单线程避免了频繁上下文切换导致的性能开销</li>
+<li>合理高效的<strong>数据结构</strong></li>
+<li>采用了<strong>非阻塞的IO多路复用机制</strong>：多路I&#x2F;O复用模型是利用select，poll，epoll可以同时监察多个流的IO事件的能力，在空闲时阻塞当前线程，当有一个或多个流有IO事件时，就从阻塞中唤醒，程序再依次轮询所有的流，并且只依次顺序处理就绪的流，这种做法避免了大量无用操作</li>
+</ul>
+<h2 id="五种基本数据类型底层采用什么数据结构"><a href="#五种基本数据类型底层采用什么数据结构" class="headerlink" title="五种基本数据类型底层采用什么数据结构"></a>五种基本数据类型底层采用什么数据结构</h2><h4 id="String："><a href="#String：" class="headerlink" title="String："></a>String：</h4><p>存储数字时：int			存储长度大于39字节字符：raw			存储长度小于39字节字符：embstr</p>
+<p>raw与embstr都是由SDS动态字符串构成的。唯一区别是raw分配存储时，redisobject 和 sds 各分配一块，而 embstr 是 redisobject 在一块内存中</p>
+<h4 id="List："><a href="#List：" class="headerlink" title="List："></a>List：</h4><p>列表所有对象长度均小于64字节，且元素数量小于512：ziplist			否则：双向链表</p>
+<h4 id="Hash："><a href="#Hash：" class="headerlink" title="Hash："></a>Hash：</h4><p>列表所有对象长度均小于64字节，且元素数量小于512：ziplist			否则：哈希表</p>
+<h4 id="Set"><a href="#Set" class="headerlink" title="Set:"></a>Set:</h4><p>列表所有对象都是整数，且元素数量小于512：inset			否则：哈希表</p>
+<h4 id="Zset"><a href="#Zset" class="headerlink" title="Zset:"></a>Zset:</h4><p>列表所有对象长度均小于64字节，且元素数量小于128：ziplist			否则：跳表</p>
+<h2 id="缓存雪崩："><a href="#缓存雪崩：" class="headerlink" title="缓存雪崩："></a>缓存雪崩：</h2><p>在高并发下，大量缓存key在同一时间集体失效，大量请求直接落在数据库上，导致数据库宕机</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案:"></a>解决方案:</h4><ul>
+<li>随机设置key失效时间，避免大量key集体失效</li>
+</ul>
+<pre><code class="redis">setRedis(Key, value, time+Math.random()*10000);
+</code></pre>
+<ul>
+<li>如果是集群部署，可以将热点数据均匀分布在不同的Redis库中避免key全部失效</li>
+<li>跑定时任务，在缓存失效前刷新新缓存</li>
+<li>不设置过期时间（不推荐）</li>
+</ul>
+<h2 id="缓存穿透："><a href="#缓存穿透：" class="headerlink" title="缓存穿透："></a>缓存穿透：</h2><p>redis缓存没有数据库中没有相关数据（如用户查询携带id&#x3D;-1的相关数据并不断发起请求），redis中没有数据，无法进行阻拦，请求直接穿透到数据库，导致数据库压力过大宕机</p>
+<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><ul>
+<li>对不存在的数据将其缓存到redis中，设置key，value值为null（不论是数据未null还是系统bug），设置一个短期过期时间，避免影响用户正常使用</li>
+<li>拉黑用户IP</li>
+<li>对参数进行校验，不合法参数进行拦截</li>
+<li>布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap (位图) 中，一个一定不存在的数据会被这个bitmap拦截掉，减少对底层存储系统的查询压力</li>
+</ul>
+<h2 id="缓存击穿："><a href="#缓存击穿：" class="headerlink" title="缓存击穿："></a>缓存击穿：</h2><p>某一个热点key，在不停的扛着高并发，当这个热点key在失效的一瞬间，持续的高并发访问就击破缓存直接访问数据库，导致数据库宕机</p>
+<h4 id="解决方案：-1"><a href="#解决方案：-1" class="headerlink" title="解决方案："></a>解决方案：</h4><ul>
+<li>设置热点数据“永不过期”</li>
+<li>加上互斥锁：对于多个线程同时去查询数据库的热点数据，我们可以在第一个查询数据上的请求使用互斥锁锁住它</li>
+</ul>
+<p>其他线程需要使用就得等待，第一个线程查询到了数据，将数据放置redis中缓存起来，后面的进程就可以直接使用缓存数据</p>
+<h2 id="附加："><a href="#附加：" class="headerlink" title="附加："></a>附加：</h2><p>提前避免以上三问题：将redis，mysql等搭建成高可用集群，放置单点</p>
+<p>出现错误如何修补    ：服务中进行限流 + 降级，放置mysql被打崩溃</p>
+<p>实在严重到宕机补救：Redis持久化 RDB + AOF，宕机重启，自动从磁盘加载数据，快速回复缓存数据</p>
+<h2 id="Redis的过期淘汰机制："><a href="#Redis的过期淘汰机制：" class="headerlink" title="Redis的过期淘汰机制："></a>Redis的过期淘汰机制：</h2><p>Redis中数据过期策略采用定期删除 + 惰性删除策略</p>
+<h4 id="1-定期删除，惰性删除策略是什么："><a href="#1-定期删除，惰性删除策略是什么：" class="headerlink" title="1.定期删除，惰性删除策略是什么："></a>1.定期删除，惰性删除策略是什么：</h4><ul>
+<li>定期删除：Redis启用一个定时器定时监听所有key，判定key是否过期，过期就删除。尽管可以保证所有的过期key都会被删除，但是十分浪费cpu资源，且对于以及过期但是定时器还没启动的key，它任然可以使用。</li>
+<li>惰性删除：在获得key时，先判断key是否以及过期过期就删除，缺点：如果这个key一直没被使用，那么它一直在内存，即便已经过期，这会浪费大量空间。</li>
+</ul>
+<h4 id="2-定期删除-惰性删除是如何工作的："><a href="#2-定期删除-惰性删除是如何工作的：" class="headerlink" title="2.定期删除 + 惰性删除是如何工作的："></a>2.定期删除 + 惰性删除是如何工作的：</h4><p>每次随机抽取一部分key进行检查，减少CPU资源的损耗，惰性删除策略互补了未检查到的key，基本上满足了所有要求</p>
+<h4 id="3-补充的内存淘汰机制："><a href="#3-补充的内存淘汰机制：" class="headerlink" title="3.补充的内存淘汰机制："></a>3.补充的内存淘汰机制：</h4><ul>
+<li><p>volatile - lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰</p>
+</li>
+<li><p>volatile - ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰</p>
+</li>
+<li><p>volatile - random：从已设置过期时间的数据集（server.db[i].expires）中挑选任意数据淘汰</p>
+</li>
+<li><p>allkeys - lru：当内存不足以容纳新写入的数据时，在键空间内，移除最近最少使用的key<strong>（这个最常用）</strong></p>
+</li>
+<li><p>allkeys - random：从数据集（server.db[i].dict）中任意选择数据淘汰</p>
+</li>
+<li><p>no-eviction：禁止驱逐数据，永不过期，也就是当内存不足以写入新数据时，写入操作会报错<strong>（默认）</strong></p>
+</li>
+<li><p>volatile - lfu：4.0后加入，从已设过期时间的数据集（server.db[i].expires）中挑选最不经常使用的数据淘汰</p>
+</li>
+<li><p>allkeys - lfu：4.0后加入，当内存不足以写入新数据时，在键空间中，移除最不经常使用的key</p>
+</li>
+</ul>
+<h2 id="Redis与memcached的区别："><a href="#Redis与memcached的区别：" class="headerlink" title="Redis与memcached的区别："></a>Redis与memcached的区别：</h2><p>存储方式上：memcached会将全部数据存入内存中，如果发生断电则会挂掉，数据不可以超过内存大小；redis有部分存在硬盘中，能保证数据的持久性</p>
+<p>数据支持类型：memcached支持的数据类型相对简单；redis有复杂的数据类型</p>
+<p>使用的底层模型不同：它们之间的底层实现，客户端之间通讯的应用协议不一样，redis自己构建了vm机制，因为一般的系统调用系统函数会浪费一定时间去移动和请求。value值大小不同，redis最大可到1gb；memcached只有1mb</p>
+<h2 id="Redis线程模型："><a href="#Redis线程模型：" class="headerlink" title="Redis线程模型："></a>Redis线程模型：</h2><p>redis内部使用文件处理器 file event handler，这个文件事件处理器是单线程的，所以redis才叫单线程处理器模型。它采用IO多路复用机制监听多个socket，根据socket上事件处理器进行处理</p>
+<p>文件事件处理器的结构包括4个部分：</p>
+<ul>
+<li>多个socket</li>
+<li>IO多路复用程序</li>
+<li>文件事件分派器</li>
+<li>事件处理器（连接应答处理器，命令请求处理器，命令回复处理器）</li>
+</ul>
+<p>多个socket可能会并发产生不同的操作，每个操作对应不同的文件事件，但是IO多路复用程序会监听多个socket，将socket产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应事件处理器进行处理。</p>
+<h2 id="哨兵Sentinel："><a href="#哨兵Sentinel：" class="headerlink" title="哨兵Sentinel："></a>哨兵Sentinel：</h2><p>哨兵是Redis高可用的解决方案，可以运行多个Sentinel组成一个哨兵分布式系统</p>
+<p>哨兵主要解决的问题：故障转移，如果主节点挂掉，就进行主从切换，让从节点升级为主节点，继续对外提供服务</p>
+<p>使用流言协议（gossip protocols）来接收主机是否下线；并使用投票协议（agreeement protocols）来决定是否执行自动故障转移；以及选择哪个服务器作为新的主服务器</p>
+<h4 id="哨兵职责如下："><a href="#哨兵职责如下：" class="headerlink" title="哨兵职责如下："></a>哨兵职责如下：</h4><ul>
+<li><p>监控：Sentinel会不断定期检查主服务器和从服务器是否运作正常</p>
+</li>
+<li><p>提醒：当被监控的某个Redis服务器出现问题时，Sentinel可以通过API向管理员或其他应用程序发送通知</p>
+</li>
+<li><p>自动故障迁移：当一个主服务器不能正常工作时，Sentinel会开启一次自动故障迁移操作，将失效服务器的其中一个从服务器升级为新的主服务器，并让失效服务器的其他服务器改为复制新的主服务器，当客户端连接失败主服务器时，集群也会向客户端返回新服务器地址，使得集群可以使用新主服务器替代失效服务器</p>
+</li>
+<li><p>统一配置管理：连接者询问Sentinel取得主从的地址</p>
+</li>
+</ul>
+<h2 id="如何实现redis事务："><a href="#如何实现redis事务：" class="headerlink" title="如何实现redis事务："></a>如何实现redis事务：</h2><p>redis通过MULTI，EXEC，WATCH等命令来实现事务（transaction）功能，事务提供了一种将多个命令请求打包，然后一次性，按顺序的执行多个命令的机制，且在事务执行期间，服务器不会中断事务而改去执行其他客户端的请求，只有到这多个命令执行完毕后，才会接收其他命令</p>
+<p>Redis事务也具有：原子性，一致性，隔离性；在特定情况下具有持久性</p>
+
+  </div>
+  <div id=""></div>
+</div>
+
+<script>
+  
+Fancybox.bind('[data-fancybox="fancybox-gallery-img"]', {
+  dragToClose: true,
+  Toolbar: true,
+  closeButton: "top",
+  Image: {
+    zoom: true,
+  },
+  on: {
+    initCarousel: (fancybox) => {
+      const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+    "Carousel.change": (fancybox, carousel, to, from) => {
+      const slide = carousel.slides[to];
+      fancybox.$container.style.setProperty(
+        "--bg-image",
+        `url("${slide.$thumb.src}")`
+      );
+    },
+  },
+});
+</script>
+
+<style>
+    #noneimg img {
+        display: none;
+        z-index: 9999;
+        /* width: 600px !important; */
+        min-width: 0%;
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 0px;
+        position: fixed;
+        box-shadow: 0 0 0px #c3c3c300 !important;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto !important;
+    }
+
+    @media screen and (max-width:600px) {
+        #noneimg img {
+            max-width: 88%
+        }
+    }
+</style>
+
+    <div class="post-paging">
+    
+    <a href="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/">
+        <div class="post-paging-last">
+            <span>上一篇</span>
+            <p>Redis 6事事务以及集群</p>
+        </div>
+    </a>
+    
+
+    
+    <a href="/2022/08/15/Redis_6/">
+        <div class="post-paging-next">
+            <span>下一篇</span>
+            <p>Redis 6基础</p>
+        </div>
+    </a>
+    
+</div>
+</div>
+		
+<div class="footer">
+	<div class="Copyright">
+		©2022 By Xtx. 主题：<a
+			style="text-decoration: none;display: contents; color: #898F9F;"
+			target="_blank" rel="noopener" href="https://github.com/qiaobug/hexo-theme-quiet">Quiet</a>
+	</div>
+	<div class="contact">
+		
+		<a target="_blank" rel="noopener" href="https://github.com/79E/hexo-theme-quiet">
+			<img src="https://cdn.jsdelivr.net/gh/duogongneng/MyBlogImg/imggithub.png" alt="Quiet主题">
+		</a>
+		
+	</div>
+</div>
+
+<script src="/js/gotop.js"></script>
+
+
+<style type="text/css">
+    @media screen and (min-width: 600px) {
+        .goTop>span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            background: rgba(18, 24, 58, 0.06);
+            text-align: center;
+            transition: border .5s;
+            border: 1px solid rgba(18, 24, 58, 0.06);
+
+            -moz-transition: border .5s;
+            /* Firefox 4 */
+            -webkit-transition: border .5s;
+            /* Safari 和 Chrome */
+            -o-transition: border .5s;
+            /* Opera */
+        }
+
+        .goTop>span:hover {
+            border: 1px solid #6680B3;
+        }
+
+
+        .goTop {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+        }
+
+        .goTop>span>svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .goTop {
+            display: none;
+        }
+    }
+</style>
+<div class="goTop" id="js-go_top">
+    <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g>
+                <path d="M13 12v8h-2v-8H4l8-8 8 8z"></path>
+            </g>
+        </svg>
+    </span>
+</div>
+<script>
+    $( '#js-go_top' )
+	.gotoTop( {
+		offset: 500,
+		speed: 300,
+		animationShow: {
+			'transform': 'translate(0,0)',
+			'transition': 'transform .5s ease-in-out'
+		},
+		animationHide: {
+			'transform': 'translate(100px,0)',
+			'transition': 'transform .5s ease-in-out'
+		}
+	} );
+</script>
+
+
+<!-- Baidu Analytics -->
+<script defer>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?c050b0c836c6dd0f3a82e201f4f4bf16";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+    <!-- Gitalk -->
+    <script>
+        const data = '{"clientID":"02b3c","clientSecret":"adfc7b4","repo":"gimment","owner":"duneng","admin":"duneng"}'
+        const gitalk = new Gitalk({
+            ...JSON.parse( data),
+            id:location.pathname,
+            distractionFreeMode:false
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+<script>
+	console.log('\n %c Hexo-Quiet 主题 %c https://github.com/QiaoBug/hexo-theme-quiet \n', 'color: #fadfa3; background: #030307; padding:5px 0;', 'background: #fadfa3; padding:5px 0;')
+</script>
+	</body>
+</html>
+
