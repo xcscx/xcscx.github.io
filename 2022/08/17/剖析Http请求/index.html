@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Http分析 | IT蛋的个人博客</title><meta name="author" content="许唐烜"><meta name="copyright" content="许唐烜"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Http分析">
+<meta property="og:url" content="http://example.com/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/index.html">
+<meta property="og:site_name" content="IT蛋的个人博客">
+<meta property="og:description" content="http">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2022-08-17T01:15:02.000Z">
+<meta property="article:modified_time" content="2022-08-21T02:45:18.961Z">
+<meta property="article:author" content="许唐烜">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Http分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2022-08-21 10:45:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tse1-mm.cn.bing.net/th/id/OIP-C.gHRtO6zAyWP17tZ1OpwZjwHaFj?pid=ImgDet&amp;rs=1')"><nav id="nav"><span id="blog-info"><a href="/" title="IT蛋的个人博客"><span class="site-name">IT蛋的个人博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Http分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-17T01:15:02.000Z" title="发表于 2022-08-17 09:15:02">2022-08-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-21T02:45:18.961Z" title="更新于 2022-08-21 10:45:18">2022-08-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/http/">http</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Http分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>本片笔记适用于 <a target="_blank" rel="noopener" href="https://space.bilibili.com/252370220">图灵诸葛官方号</a>) 课程 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1V54y1y7c4?spm_id_from=333.337.search-card.all.click&vd_source=ad19a531d1fe118602dfd75ff3c6db57">程序员入门必备教程—HTTP协议详解</a>)</p>
+</blockquote>
+<ul>
+<li>HTTP分层请求</li>
+<li>HTTP协议</li>
+<li>HTTP请求过程</li>
+<li>TCP协议</li>
+<li>HTTPS协议</li>
+</ul>
+<h1 id="Http分层"><a href="#Http分层" class="headerlink" title="Http分层:"></a>Http分层:</h1><p>网络需要完成的任务：防止数据丢包，避免数据重复，数据完整性校验，数字转模拟信号，…，信号衰减</p>
+<p>为了完成不同层面的各个任务，简化网络的复杂度，网络通信被分解为多层次结构，每一层都紧挨着上层或下层进行交互，这样在修改甚至替换某一层的软件时，只需要层与层之间的接口保持不变，就不会影响其他层。</p>
+<ul>
+<li>OSI七层网络模型</li>
+<li>TCP&#x2F;IP协议簇</li>
+</ul>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819105355252.png" alt="image-20220819105355252"></p>
+<h1 id="HTTP协议："><a href="#HTTP协议：" class="headerlink" title="HTTP协议："></a>HTTP协议：</h1><p>超文本传输协议（HyperText Transfer Protocol , HTTP）</p>
+<p>一种无状态，以请求、应答方式运行的协议。它使用可扩展语义和子描述消息格式，与基于网络的草文本消息系统可以灵活互动</p>
+<h5 id="HTTP报文格式："><a href="#HTTP报文格式：" class="headerlink" title="HTTP报文格式："></a>HTTP报文格式：</h5><p>HTTP协议的请求报文和响应报文的结构基本相同，由三大部分组成：</p>
+<ul>
+<li>起始行（start line）:描述请求或响应的基本信息</li>
+<li>头部字段集合（header）:使用key-value形式更详细的说明报文</li>
+<li>空行</li>
+<li>消息正文（entity）:实际传输的数据，不一定是文本，可以是图片，视频等二进制数据</li>
+</ul>
+<h5 id="请求行报文格式："><a href="#请求行报文格式：" class="headerlink" title="请求行报文格式："></a>请求行报文格式：</h5><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819110831735.png" alt="image-20220819110831735"></p>
+<ul>
+<li>请求方法（METHOD）：如 GET &#x2F; HEAD &#x2F; PUT &#x2F; POST，表示对资源的操作</li>
+<li>请求目标 ：通常是一个URL，标记了请求方法要操作的资源</li>
+<li>版本号：表示报文使用的HTTP协议版本</li>
+</ul>
+<h5 id="响应行报文格式："><a href="#响应行报文格式：" class="headerlink" title="响应行报文格式："></a>响应行报文格式：</h5><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819110855815.png" alt="image-20220819110855815"></p>
+<ul>
+<li>版本号 ：表示报文使用的HTTP协议版本</li>
+<li>状态码（STATUS CODE）: 一个三位数，用代码的形式表示处理结果，比如200是成功，403是客户端访问被拒，500是服务器错误</li>
+<li>原因（READON）：作为数字状态码补充，是更加详细的解释文字，协助理解原因</li>
+</ul>
+<h5 id="HTTP头字段："><a href="#HTTP头字段：" class="headerlink" title="HTTP头字段："></a>HTTP头字段：</h5><p>头部字段是key-value形式，key和value间使用 “  ：”做分隔，比如前后端分离时常遇到的要与后端协商传输数据类型 “ <strong>Content-type:application&#x2F;json</strong> ” ，最后用CRLF换行表示字段结束，HTTP头字段的使用比较灵活，不仅可以用Host,Connection等已有头字段，也可以任意添加自定义头，这就给HTTP协议带来了无限扩展可能。 </p>
+<p><strong>注意事项</strong></p>
+<ul>
+<li>字段名称不区分大小写，但不允许出现空格和下划线“_”,可以使用连字符“-”，字段后必须紧跟“:”，中间不许有空格，但“:”后允许多个空格</li>
+<li>字段顺序没有意义，任意排列不影响语序</li>
+<li>字段原则上不允许重复，除非字段本身允许：Set-Cookie</li>
+</ul>
+<h5 id="常用头字段："><a href="#常用头字段：" class="headerlink" title="常用头字段："></a>常用头字段：</h5><p>HTTP协议有很多头字段，基本可以分为四大类：</p>
+<ul>
+<li>请求字段：请求头中的头字段：如Host，Referer</li>
+<li>响应字段：响应头中的头字段：如Server，Date</li>
+<li>通用字段：在响应头和请求头都可以出现的：Content-type，Connection</li>
+</ul>
+<h1 id="HTTP请求过程："><a href="#HTTP请求过程：" class="headerlink" title="HTTP请求过程："></a>HTTP请求过程：</h1><p>当用户在浏览器中输入网址后，网络协议都做了哪些工作？</p>
+<ol>
+<li>首先依据浏览器应用程序，解析出URL中的域名</li>
+<li>依据域名获得的ip地址，首先从浏览器缓存中查看，没有就去本机域名解析文件hosts中查看，LDNS，Rootserver，国际定级域名服务商层层解析，直至找到</li>
+<li>拿到ip地址后，浏览器发起对服务器的三次握手</li>
+<li>握手建立连接后，开始组装http请求，发送报文</li>
+<li>服务器收到请求报文后，开始请求报文解析，生成响应数据，发送响应数据</li>
+<li>浏览器收到响应后，开始渲染页面</li>
+</ol>
+<blockquote>
+<p> chrome:&#x2F;&#x2F;net-internals&#x2F;#events             查看浏览器缓存ip地址</p>
+</blockquote>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220819120503128.png" alt="image-20220819120503128"></p>
+<h1 id="TCP协议："><a href="#TCP协议：" class="headerlink" title="TCP协议："></a>TCP协议：</h1><p>TCP协议是面向连接的，可靠的，基于字节流的传输层协议</p>
+<h4 id="TCP属性："><a href="#TCP属性：" class="headerlink" title="TCP属性："></a>TCP属性：</h4><ul>
+<li>基于连接：数据传输之间需要建立连接</li>
+<li>全双工：双向传输</li>
+<li>字节流：不限制数据大小，打包成为报文段，保证有序接收，重复报文自动丢弃</li>
+<li>可靠的传输服务：保证可达，丢包时通过重发机制实现可靠性</li>
+<li>拥塞控制：防止网络出现恶性拥塞</li>
+</ul>
+<h4 id="TCP报文："><a href="#TCP报文：" class="headerlink" title="TCP报文："></a>TCP报文：</h4><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821101526541.png" alt="image-20220821101526541"></p>
+<p>Source port：源端口										Dest port：目的端口									</p>
+<p>Seq：请求数												   	ACK：应答数</p>
+<p>Header length：首部长度								Unused：保留字段										</p>
+<p>Receive window：当前可接收值					 Urgent data：紧急报文指针	</p>
+<p>Options：可选参数										   Data：数据</p>
+<h4 id="TCP连接管理："><a href="#TCP连接管理：" class="headerlink" title="TCP连接管理："></a>TCP连接管理：</h4><p>TCP连接：四元组【源地址，源端口，目的地址，目的端口】</p>
+<p>确认连接：三次握手</p>
+<p>​	a.同步通信双方的初始序列号（ISN）</p>
+<p>​	b.协商TCP通信参数（MSS，窗口信息，指定校验和算法）</p>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821102017022.png" alt="image-20220821102017022"></p>
+<p>内核操作：</p>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821102108877.png" alt="image-20220821102108877"></p>
+<p>关闭连接：四次挥手</p>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821102157493.png" alt="image-20220821102157493"></p>
+<h4 id="字节流协议："><a href="#字节流协议：" class="headerlink" title="字节流协议："></a>字节流协议：</h4><p>MSS：Max Segment Size：默认536byte实际数据</p>
+<p>TCP会依据Seq报文序列号进行排序，使得文件被划分为小信息发送时不会乱序</p>
+<h4 id="可靠性-x2F-重传机制："><a href="#可靠性-x2F-重传机制：" class="headerlink" title="可靠性&#x2F;重传机制："></a>可靠性&#x2F;重传机制：</h4><h5 id="1-ack丢失："><a href="#1-ack丢失：" class="headerlink" title="1.ack丢失："></a>1.ack丢失：</h5><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821102424659.png" alt="image-20220821102424659"></p>
+<h5 id="2-请求报文丢失"><a href="#2-请求报文丢失" class="headerlink" title="2.请求报文丢失"></a>2.请求报文丢失</h5><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821102536666.png" alt="image-20220821102536666"></p>
+<h5 id="3-滑动窗口协议："><a href="#3-滑动窗口协议：" class="headerlink" title="3.滑动窗口协议："></a>3.滑动窗口协议：</h5><p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821102644054.png" alt="image-20220821102644054"></p>
+<p>每次发送一组报文，并确定最后的报文是否收到回信，如果收到，表示报文全部被接收，直接跳至下一组，不必有重复</p>
+<p>如果没有收到最后的报文，则往前推，直至从收到回信的部分（如图，3，5没有回信只收到12的回信，则12确认发送成功，不论4是否成功，3，4，5都和后面数据一起发送）</p>
+<h1 id="HTTPS协议："><a href="#HTTPS协议：" class="headerlink" title="HTTPS协议："></a>HTTPS协议：</h1><p>HTTP具有”明文“特点，整个传输过程完全透明，任何人都可以在链路中截获、修改和伪造，数据具有不可信性</p>
+<p>使用HTTPS，所有HTTP请求都会在请求和响应之前进行加密</p>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/image-20220821103501204.png" alt="image-20220821103501204"></p>
+<h3 id="SSL-x2F-TSL："><a href="#SSL-x2F-TSL：" class="headerlink" title="SSL&#x2F;TSL："></a>SSL&#x2F;TSL：</h3><p>SSL即安全套接层，由网景公司于1994年发明，IETF在1999年将其改名为TLS传输层安全，三个主流版本为2006的1.1，2008的1.2，2018的1.3，每个版本都紧跟密码学的发展和互联网现状，持续强化安全和性能，已经成为信息安全领域的权威标准</p>
+<h3 id="摘要算法："><a href="#摘要算法：" class="headerlink" title="摘要算法："></a>摘要算法：</h3><p>将任意长度的数据”压缩“为固定长度，且独一无二的”摘要“字符，可以将其与明文一起发送，接收端解压字符后可以对比查看明文是否被篡改</p>
+<p>如：md5</p>
+<h3 id="加密算法："><a href="#加密算法：" class="headerlink" title="加密算法："></a>加密算法：</h3><h5 id="对称加密算法："><a href="#对称加密算法：" class="headerlink" title="对称加密算法："></a>对称加密算法：</h5><p>编码使用相同的密钥进行加密解密（AES，RC4,ChaCha20）</p>
+<h5 id="非对称加密算法："><a href="#非对称加密算法：" class="headerlink" title="非对称加密算法："></a>非对称加密算法：</h5><p>有两个密钥，一个”公钥“，一个”私钥“。前者可以给任何人使用，随意分发。后者需要保密，网站秘密保存</p>
+<p><img src="/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/blog\source_posts\剖析Http请求\image-20220821104242155.png" alt="image-20220821104242155"></p>
+<h3 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">许唐烜</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/">http://example.com/2022/08/17/%E5%89%96%E6%9E%90Http%E8%AF%B7%E6%B1%82/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">IT蛋的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/http/">http</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/18/HashMap%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="HashMap底层原理"><div class="cover" style="background: https://www.javazhiyin.com/wp-content/uploads/2019/11/HashMap-structure.png"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">HashMap底层原理</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/" title="Redis 6事事务以及集群"><div class="cover" style="background: https://www.leixue.com/uploads/2019/05/Redis.png"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Redis 6事事务以及集群</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">许唐烜</div><div class="author-info__description">编程学习记录</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/1362067461@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2022/11/30/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/" title="无题">无题</a><time datetime="2022-11-30T02:22:10.804Z" title="发表于 2022-11-30 10:22:10">2022-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/11/Redis%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="Redis 6常见问题"><div style="background: https://www.leixue.com/uploads/2019/05/Redis.png"></div></a><div class="content"><a class="title" href="/2022/09/11/Redis%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="Redis 6常见问题">Redis 6常见问题</a><time datetime="2022-09-11T11:40:10.000Z" title="发表于 2022-09-11 19:40:10">2022-09-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/20/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/Hashmap%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="HashMap常见问题"><div style="background: https://www.javazhiyin.com/wp-content/uploads/2019/11/HashMap-structure.png"></div></a><div class="content"><a class="title" href="/2022/08/20/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/Hashmap%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="HashMap常见问题">HashMap常见问题</a><time datetime="2022-08-20T02:46:21.000Z" title="发表于 2022-08-20 10:46:21">2022-08-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/18/%E7%8B%82%E7%A5%9E%E8%81%8AGit/" title="Get使用"><div style="background: https://ts1.cn.mm.bing.net/th/id/R-C.84832910e059383bfb71da558f821adb?rik=EM%2bFOKOevwszFg&amp;riu=http%3a%2f%2fimg.blog.csdn.net%2f20151229150332334&amp;ehk=XNSgklIwoA7mBGVSX8ZBeFNcAdIEAdIZGItlbP35lVM%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0"></div></a><div class="content"><a class="title" href="/2022/08/18/%E7%8B%82%E7%A5%9E%E8%81%8AGit/" title="Get使用">Get使用</a><time datetime="2022-08-18T06:06:11.000Z" title="发表于 2022-08-18 14:06:11">2022-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/18/HashMap%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="HashMap底层原理"><div style="background: https://www.javazhiyin.com/wp-content/uploads/2019/11/HashMap-structure.png"></div></a><div class="content"><a class="title" href="/2022/08/18/HashMap%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="HashMap底层原理">HashMap底层原理</a><time datetime="2022-08-18T01:03:19.000Z" title="发表于 2022-08-18 09:03:19">2022-08-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 许唐烜</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
