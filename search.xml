@@ -4,19 +4,6 @@
   
     
     <entry>
-      <title></title>
-      <link href="/2023/02/27/Mysql%E5%A4%87%E4%BB%BD/"/>
-      <url>/2023/02/27/Mysql%E5%A4%87%E4%BB%BD/</url>
-      
-        <content type="html"><![CDATA[<h1 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h1><ul><li>数据库备份语句与恢复语句</li><li>注意事项</li><li>示例展示</li><li>遇到的问题</li></ul><h3 id="数据库备份语句与恢复语句"><a href="#数据库备份语句与恢复语句" class="headerlink" title="数据库备份语句与恢复语句"></a>数据库备份语句与恢复语句</h3><pre><code class="mysql">-- 数据库备份mysqldump -u [username] -p [database_name] &gt; [base_path].sql</code></pre><p>[username]：为数据库登录用户名</p><p>[database_name]：你要备份的数据库名</p><p>[base_path]：存储文件的地点、</p><pre><code class="mysql">-- 数据库恢复mysql -u [username] -p [database_name] &lt; [base_path].sql</code></pre><p>[username]：为数据库登录用户名</p><p>[database_name]：你要恢复的数据库名</p><p>[base_path]：存储文件的地点</p><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol><li>备份是mysqldump，恢复是mysql</li><li>输入命令后，系统会要求你填写登录密码，如果在 -p 后填入密码会报错</li><li>最后的参数是路径+文件名+.sql后缀，记得查看是否有权限在目标地址写文件</li></ol><h3 id="示例展示"><a href="#示例展示" class="headerlink" title="示例展示"></a>示例展示</h3><p><img src="/2023/02/27/Mysql%E5%A4%87%E4%BB%BD/Typora_word\后端知识\Mysql备份\image-20230227113332873.png" alt="image-20230227113332873"></p><p>没有报错信息就是最好的信息！</p><h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a>遇到的问题：</h3><ol><li>输入：mysqldump -u root -p 02-index &gt;  C:\Users\13620\Desktop\02-index.sql 后显示：</li></ol><p><strong>mysqldump: Got error: 1045: Access denied for user ‘ODBC‘@’localhost’ (using password: YES) when trying to connect</strong></p><p>问题：没有对应地点的写入权限</p><p>解决：更改写如位置为D:\02-index.sql （有权限的地方都可以）</p><ol start="2"><li>输入：mysqldump -u root -p docker&gt;  C:\Users\13620\Desktop\docket.sql 后显示：</li></ol><p><strong>mysqldump: Got error: 1049: Unknown database ‘docker’ when selecting the database</strong></p><p><img src="/2023/02/27/Mysql%E5%A4%87%E4%BB%BD/Typora_word\后端知识\Mysql备份\image-20230227113618736.png" alt="image-20230227113618736"></p><p>问题：数据库表输入错误</p><p>解决：改对表名</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>java基础面试题</title>
       <link href="/2022/12/21/Java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
       <url>/2022/12/21/Java%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
@@ -42,19 +29,6 @@
     
     
     <entry>
-      <title></title>
-      <link href="/2022/11/30/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/"/>
-      <url>/2022/11/30/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/</url>
-      
-        <content type="html"><![CDATA[<h1 id="MySql连接本地数据库时报网络问题"><a href="#MySql连接本地数据库时报网络问题" class="headerlink" title="MySql连接本地数据库时报网络问题"></a>MySql连接本地数据库时报网络问题</h1><p>今早起床学习大佬面经时，发现自己数据库都登不上去了<img src="/2022/11/30/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/blog\source_posts\Mysql本地链接报网络问题\63aae1ca1cac76b665567fb840a6da6.png" alt="63aae1ca1cac76b665567fb840a6da6"></p><p>不论是命令行还是Navicat登录都是报以上错误，可我这是个本地的数据库，不应该存在网络错误呀。</p><h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><p>经过大佬的指点，重启服务中的Mysql，数据库的访问就正常了<img src="/2022/11/30/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/blog\source_posts\Mysql本地链接报网络问题\image-20221130103336695.png" alt="image-20221130103336695"></p><h3 id="思考："><a href="#思考：" class="headerlink" title="思考："></a>思考：</h3><p>尽管问题很快被解决，但是我依然想不通为什么会报这种错误，认识到自己的不足，也就有了下面的学习，鉴于以往没有过这种错误，无从下手，我决定先翻译这段报错：</p><p><strong>‘‘读取初始通信数据包时失去与MySQL服务器的连接，系统错误: 0”</strong></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Redis 6常见问题</title>
       <link href="/2022/09/11/Redis%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
       <url>/2022/09/11/Redis%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</url>
@@ -74,6 +48,60 @@
             <tag> Redis </tag>
             
             <tag> 面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql连接本地数据库的问题</title>
+      <link href="/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/"/>
+      <url>/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/</url>
+      
+        <content type="html"><![CDATA[<h1 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h1><ul><li>数据库备份语句与恢复语句</li><li>注意事项</li><li>示例展示</li><li>遇到的问题</li></ul><h3 id="数据库备份语句与恢复语句"><a href="#数据库备份语句与恢复语句" class="headerlink" title="数据库备份语句与恢复语句"></a>数据库备份语句与恢复语句</h3><pre><code class="mysql">-- 数据库备份mysqldump -u [username] -p [database_name] &gt; [base_path].sql</code></pre><p>[username]：为数据库登录用户名</p><p>[database_name]：你要备份的数据库名</p><p>[base_path]：存储文件的地点、</p><pre><code class="mysql">-- 数据库恢复mysql -u [username] -p [database_name] &lt; [base_path].sql</code></pre><p>[username]：为数据库登录用户名</p><p>[database_name]：你要恢复的数据库名</p><p>[base_path]：存储文件的地点</p><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol><li>备份是mysqldump，恢复是mysql</li><li>输入命令后，系统会要求你填写登录密码，如果在 -p 后填入密码会报错</li><li>最后的参数是路径+文件名+.sql后缀，记得查看是否有权限在目标地址写文件</li></ol><h3 id="示例展示"><a href="#示例展示" class="headerlink" title="示例展示"></a>示例展示</h3><p><img src="/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/Typora_word\后端知识\Mysql备份\image-20230227113332873.png" alt="image-20230227113332873"></p><p>没有报错信息就是最好的信息！</p><h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a>遇到的问题：</h3><ol><li>输入：mysqldump -u root -p 02-index &gt;  C:\Users\13620\Desktop\02-index.sql 后显示：</li></ol><p><strong>mysqldump: Got error: 1045: Access denied for user ‘ODBC‘@’localhost’ (using password: YES) when trying to connect</strong></p><p>问题：没有对应地点的写入权限</p><p>解决：更改写如位置为D:\02-index.sql （有权限的地方都可以）</p><ol start="2"><li>输入：mysqldump -u root -p docker&gt;  C:\Users\13620\Desktop\docket.sql 后显示：</li></ol><p><strong>mysqldump: Got error: 1049: Unknown database ‘docker’ when selecting the database</strong></p><p><img src="/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/Typora_word\后端知识\Mysql备份\image-20230227113618736.png" alt="image-20230227113618736"></p><p>问题：数据库表输入错误</p><p>解决：改对表名</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> 数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql连接本地数据库的问题</title>
+      <link href="/2022/09/05/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/"/>
+      <url>/2022/09/05/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="MySql连接本地数据库时报网络问题"><a href="#MySql连接本地数据库时报网络问题" class="headerlink" title="MySql连接本地数据库时报网络问题"></a>MySql连接本地数据库时报网络问题</h1><p>今早起床学习大佬面经时，发现自己数据库都登不上去了<img src="/2022/09/05/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/blog\source_posts\Mysql本地链接报网络问题\63aae1ca1cac76b665567fb840a6da6.png" alt="63aae1ca1cac76b665567fb840a6da6"></p><p>不论是命令行还是Navicat登录都是报以上错误，可我这是个本地的数据库，不应该存在网络错误呀。</p><h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><p>经过大佬的指点，重启服务中的Mysql，数据库的访问就正常了<img src="/2022/09/05/Mysql%E6%9C%AC%E5%9C%B0%E9%93%BE%E6%8E%A5%E6%8A%A5%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/blog\source_posts\Mysql本地链接报网络问题\image-20221130103336695.png" alt="image-20221130103336695"></p><h3 id="思考："><a href="#思考：" class="headerlink" title="思考："></a>思考：</h3><p>尽管问题很快被解决，但是我依然想不通为什么会报这种错误，认识到自己的不足，也就有了下面的学习，鉴于以往没有过这种错误，无从下手，我决定先翻译这段报错：</p><p><strong>‘‘读取初始通信数据包时失去与MySQL服务器的连接，系统错误: 0”</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> 数据库 </tag>
             
         </tags>
       
