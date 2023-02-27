@@ -56,7 +56,7 @@
     
     
     <entry>
-      <title>mysql连接本地数据库的问题</title>
+      <title>mysql备份</title>
       <link href="/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/"/>
       <url>/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/</url>
       
@@ -75,6 +75,31 @@
             <tag> MySQL </tag>
             
             <tag> SQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>设计模式 -- 适配器模式</title>
+      <link href="/2022/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2022/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="设计模式-——-适配器模式"><a href="#设计模式-——-适配器模式" class="headerlink" title="设计模式 —— 适配器模式"></a>设计模式 —— 适配器模式</h1><p><strong>目录</strong></p><ul><li>概述</li><li>UML</li><li>实现</li><li>优缺点</li></ul><h3 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h3><p>适配器模式是 <strong>结构型</strong> 设计模式的一种。类似于设计一个中间接口，使得两边可以适配使用</p><p>定义：将一个接口转化为客户端所期待的接口，从而使两个接口不兼容的类可以在一起工作</p><p>适用场景：存在现成的类可以使用，但是我们的系统不兼容它提供的接口，且我们无法对其进行修改；多个团队独立开发系统的各个部分，但是先无法确定接口</p><h3 id="UML"><a href="#UML" class="headerlink" title="UML:"></a>UML:</h3><p><img src="/2022/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/blog\source_posts\设计模式_适配器模式\image-20230227173420612.png" alt="image-20230227173420612"></p><ul><li>Target：客户端使用的目标接口<ul><li>operation方法：客户端使用的方法</li></ul></li><li>Adaptee：不兼容的类<ul><li>operation方法：类方法</li></ul></li><li>Adapter：适配器类<ul><li>debug方法：自己设定的，使用于接口转换的方法</li></ul></li></ul><h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><p>实现背景：想要调出某学校某宿舍的全部学生信息，但是学校管理系统大更新了依次，现在无法调用以前的查询接口。</p><ol><li>确定目标接口</li></ol><pre><code class="java">// 旧查询接口,输入宿舍楼，宿舍编号返回信息（简单处理就不返回详细信息了）public interface SelectStu&#123;    void selectMessage(int HouseNum,int Num);&#125;</code></pre><ol start="2"><li>第二，三方接口实现</li></ol><pre><code class="java">// 输入宿舍楼名称，宿舍号返回信息public interface NowSelectSys&#123;    void fun(int HouseNum,String HouseName);&#125;// 实现类public class NowSelectSysImpl implements NowSelectSys&#123;    public void fun(int HouseNum,String HouseName)&#123;        System.out.println(&quot;返回了&quot;+HouseNum+HouseName+&quot;宿舍的信息&quot;);    &#125;&#125;</code></pre><ol start="3"><li>构建适配器</li></ol><pre><code class="java">public class SelectAdapter implements SelectStu &#123;    private NowSelectSys nowSelectSys;     // 数字的获取可以是其他程序或者一些方法，目的在将String变为int符合接口    private int HouseNum = 107;        public SelectAdapter(NowSelectSys nowSelectSys)&#123;        this.nowSelectSys = nowSelectSys;    &#125;        public void selectMessage(String HouseName,int HouseNum)&#123;        nowSelectSys.fun(HouseNum,HouseName);    &#125;&#125;</code></pre><ol start="4"><li>客户端调用接口</li></ol><pre><code class="java">SelectAdapterpublic class AdapterClient&#123;    public void SelectStudent()&#123;        SelectStu selectStu = new SelectAdapter(new NowSelectSysImpl);        selectStu.selectMessage(&quot;会泽大楼&quot;，&quot;一楼七号&quot;)    &#125;&#125;</code></pre><h3 id="优缺点："><a href="#优缺点：" class="headerlink" title="优缺点："></a>优缺点：</h3><p>优点：增强了程序的可扩展性，减少对接口的修改</p><p>缺点：需要多管理一层Adapter</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编程基础 </tag>
             
         </tags>
       
