@@ -69,6 +69,33 @@
     
     
     <entry>
+      <title>Http状态码</title>
+      <link href="/2022/09/02/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/"/>
+      <url>/2022/09/02/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/</url>
+      
+        <content type="html"><![CDATA[<h1 id="HTTP常见状态码"><a href="#HTTP常见状态码" class="headerlink" title="HTTP常见状态码"></a>HTTP常见状态码</h1><p>HTTP（超文本传输协议）常见状态码有以下几种：</p><ul><li>1XX （信息类状态码）：请求已经收到，进行后续处理</li><li>2XX （成功状态码）<ul><li>200 成功：请求已经被成功实现</li><li>201 Created：请求已经被实现，且现有一个新的资源已经依据请求的需要而建立</li><li>204 No Content：服务器成功处理了请求，但是没有返回任何实体内容</li></ul></li><li>3XX （重定向状态码）：需要镜像附加操作以完成请求<ul><li>301 Moced Oermanently：请求的网页已永久移动到新位置</li><li>302 Found：请求的网页已经临时移动到新的位置</li><li>304 Not Modified：客户端发送了一个带条件的请求，服务器允许请求访问资源，但是请求的条件不满足</li></ul></li><li>4XX （客户端错误状态码）：请求包含错误语法或不能被执行<ul><li>400 Bad Request：请求报文存在错误语法</li><li>401 Unauthorized：表示发送的请求需要通过HTTP认证的认证信息</li><li>403 Forbidden：表示对请求资源的访问被服务器拒绝</li><li>404 Not Found：请求的资源不存在</li></ul></li><li>5XX （服务器错误状态码）：服务器处理请求的过程中发生了错误<ul><li>500 Internal Server Error：服务器遇到了一个未曾预料到的状况，导致无法完成请求的处理</li><li>502 Bad Gateway：充当网关的服务器，从远处服务器收到了一个无效请求</li><li>503 Service Unavaliable：服务器暂时处于超负荷或停机状态，无法处理请求</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> http </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> http </tag>
+            
+            <tag> 计算机网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HashMap常见问题</title>
       <link href="/2022/08/20/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/Hashmap%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
       <url>/2022/08/20/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/Hashmap%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</url>
