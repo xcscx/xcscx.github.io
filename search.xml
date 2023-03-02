@@ -83,6 +83,31 @@
     
     
     <entry>
+      <title>设计模式 -- 单例模式</title>
+      <link href="/2022/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2022/09/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="设计模式-——-单例模式"><a href="#设计模式-——-单例模式" class="headerlink" title="设计模式 —— 单例模式"></a>设计模式 —— 单例模式</h1><p><strong>目录</strong></p><ul><li>概述</li><li>实现</li><li>优缺点</li></ul><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>单例模式是 <strong>创建型</strong> 设计模式的一种。让一个类只存在一个实例，也就是不允许其他人直接调用类，而是通过方法。</p><p>定义：确保一个类最多只有一个实例，并提供一个全局访问点</p><p>适用场景：例如平时的word文档，同时将一个文件打开两份进行修改会使得其中一份修改无效，所以不可以将一份文件打开为两份，在已经点开文件的同时在点击文件只会跳转到已打开的文件中。</p><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><pre><code class="java">// 需要单例的类有两种实现方法：预加载和懒加载// 预加载public class PreloadSingleton&#123;    public static PreloadSingleton instance = new PreloadSingleton();    // 提前将对象实例化，不允许其他类实例该对象    private PreloadSingleton()&#123;&#125;;        public static PreloadSingleton getInstance()&#123;        return instance;    &#125;&#125;//懒加载public class Singleton &#123;    private static Singleton instance = null;        private Singleton()&#123;&#125;;        // 不在一开始加载对象，减少系统开销，在第一次被调用时创建    public static Singlrton getInstance()&#123;        if(instance == null)&#123;            instance = new Singleton();        &#125;        return instance;    &#125;&#125;</code></pre><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>预加载：只有return语句，可以保证线程安全，但是预加载会造成一定的内存浪费</p><p>懒加载：不浪费内存，便无法保证线程安全（if内存执行代码时非原子性的）且new Singleton()也无法保证执行的顺序性（初始化内存空间→初始化对象→设置对象指向内存地址）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编程基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>设计模式 -- 适配器模式</title>
       <link href="/2022/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
       <url>/2022/09/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</url>
@@ -299,11 +324,11 @@
     
     
     <entry>
-      <title>Redis 6事事务以及集群</title>
+      <title>Redis 6补充</title>
       <link href="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/"/>
       <url>/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>本片笔记适用于 <a href="https://space.bilibili.com/302417610">b站尚硅谷</a> 课程 <a href="https://www.bilibili.com/video/BV1Rv41177Af?p=1">Redis 6 入门到精通 超详细 教程</a></p></blockquote><ul><li>事物，锁机制</li><li>事物冲突问题</li><li>redis事物三特性</li><li>持久化框架</li><li>Redis主从复制</li><li>Redis集群</li><li>Redis应用问题解决</li></ul><h3 id="事物，锁机制："><a href="#事物，锁机制：" class="headerlink" title="事物，锁机制："></a>事物，锁机制：</h3><p>Redis事物：一个单独的隔离操作；事物中所有命令都会序列化，按顺序执行。事物执行过程中不会被其他客户端发送过来的命令请求打断</p><p>Redis事物主要作用就是<strong>串联多个命令</strong>防止别的命令插队</p><h4 id="Multi-Exec-discard"><a href="#Multi-Exec-discard" class="headerlink" title="Multi | Exec | discard"></a>Multi | Exec | discard</h4><p>输入Multi开启事务，此时被成为组队阶段，<strong>输入的命令不会马上执行</strong>，而是<strong>依次进入命令队列</strong>，直到输入Exec后，将命令队列中命令依次执行，组队过程中可以通过discard来放弃组队</p><p><img src="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/image-20220817101242222.png" alt="image-20220817101242222"></p><h4 id="错误情况："><a href="#错误情况：" class="headerlink" title="错误情况："></a>错误情况：</h4><ol><li>组队时命令发生错误，事物无法执行Exec后的命令语句，<strong>一个都不执行</strong></li><li>组队时无误，执行时出现部分错误，<strong>错误的不执行，其他的执行</strong></li></ol><h4 id="为什么需要做成事物："><a href="#为什么需要做成事物：" class="headerlink" title="为什么需要做成事物："></a>为什么需要做成事物：</h4><p>同一份数据被多处调用时，可能会使得值变得不合理，例如多人登录同一台TB账户购买东西，余额同时读取后再依次修改是不合理的</p><h3 id="事务冲突问题："><a href="#事务冲突问题：" class="headerlink" title="事务冲突问题："></a>事务冲突问题：</h3><h4 id="悲观锁："><a href="#悲观锁：" class="headerlink" title="悲观锁："></a>悲观锁：</h4><p>每次拿数据时都认为别人会修改，所以每次拿取数据时就上锁，其他人拿数据时就会black（阻塞）直至开锁，<strong>牺牲性能换效果</strong></p><h4 id="乐观锁："><a href="#乐观锁：" class="headerlink" title="乐观锁："></a>乐观锁：</h4><p><strong>添加版本信息</strong>，仅在修改信息时匹配版本是否一致，一致则成功修改，否则更新数据再执行</p><p><img src="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/image-20220817103825221.png" alt="image-20220817103825221"></p><h4 id="WATCH-K"><a href="#WATCH-K" class="headerlink" title="WATCH  K:"></a>WATCH  K:</h4><p>在执行multi之前，<strong>先执行watch k监视一个或多个key值</strong>，如果在事物执行之前这个key被改动，那么事务将会被打断</p><h3 id="Redis事务的三特性："><a href="#Redis事务的三特性：" class="headerlink" title="Redis事务的三特性："></a>Redis事务的三特性：</h3><ul><li>单独的隔离操作：事务中所有命令都会序列化，按顺序执行。事务在执行过程中不会被其他客户端发送的命令请求打断</li><li>没有隔离级别概念：队列中的命令没有提交之前都不会实际执行，因为事务提交前任何指令都不会执行</li><li>不保证原子性：事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚</li></ul><h3 id="持久化框架："><a href="#持久化框架：" class="headerlink" title="持久化框架："></a>持久化框架：</h3><h4 id="RDB（Redis-DataBase）："><a href="#RDB（Redis-DataBase）：" class="headerlink" title="RDB（Redis DataBase）："></a>RDB（Redis DataBase）：</h4><p>将指定时间间隔内将内存中数据集快照写入磁盘</p><h4 id="AOF（Append-Of-File）："><a href="#AOF（Append-Of-File）：" class="headerlink" title="AOF（Append Of File）："></a>AOF（Append Of File）：</h4><h3 id="主从复制："><a href="#主从复制：" class="headerlink" title="主从复制："></a>主从复制：</h3><h3 id="集群："><a href="#集群：" class="headerlink" title="集群："></a>集群：</h3><h3 id="应用问题："><a href="#应用问题：" class="headerlink" title="应用问题："></a>应用问题：</h3><h4 id="缓存穿透："><a href="#缓存穿透：" class="headerlink" title="缓存穿透："></a>缓存穿透：</h4><h4 id="缓存击穿："><a href="#缓存击穿：" class="headerlink" title="缓存击穿："></a>缓存击穿：</h4><h4 id="缓存雪崩："><a href="#缓存雪崩：" class="headerlink" title="缓存雪崩："></a>缓存雪崩：</h4><h4 id="分布式锁："><a href="#分布式锁：" class="headerlink" title="分布式锁："></a>分布式锁：</h4>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>本片笔记适用于 <a href="https://space.bilibili.com/302417610">b站尚硅谷</a> 课程 <a href="https://www.bilibili.com/video/BV1Rv41177Af?p=1">Redis 6 入门到精通 超详细 教程</a></p></blockquote><ul><li>事物，锁机制</li><li>事物冲突问题</li><li>redis事物三特性</li><li>持久化框架</li><li>Redis主从复制</li><li>Redis集群</li><li>Redis应用问题解决</li></ul><h3 id="事物，锁机制："><a href="#事物，锁机制：" class="headerlink" title="事物，锁机制："></a>事物，锁机制：</h3><p>Redis事物：一个单独的隔离操作；事物中所有命令都会序列化，按顺序执行。事物执行过程中不会被其他客户端发送过来的命令请求打断</p><p>Redis事物主要作用就是<strong>串联多个命令</strong>防止别的命令插队</p><h4 id="Multi-Exec-discard"><a href="#Multi-Exec-discard" class="headerlink" title="Multi | Exec | discard"></a>Multi | Exec | discard</h4><p>输入Multi开启事务，此时被成为组队阶段，<strong>输入的命令不会马上执行</strong>，而是<strong>依次进入命令队列</strong>，直到输入Exec后，将命令队列中命令依次执行，组队过程中可以通过discard来放弃组队</p><p><img src="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/image-20220817101242222.png" alt="image-20220817101242222"></p><h4 id="错误情况："><a href="#错误情况：" class="headerlink" title="错误情况："></a>错误情况：</h4><ol><li>组队时命令发生错误，事物无法执行Exec后的命令语句，<strong>一个都不执行</strong></li><li>组队时无误，执行时出现部分错误，<strong>错误的不执行，其他的执行</strong></li></ol><h4 id="为什么需要做成事物："><a href="#为什么需要做成事物：" class="headerlink" title="为什么需要做成事物："></a>为什么需要做成事物：</h4><p>同一份数据被多处调用时，可能会使得值变得不合理，例如多人登录同一台TB账户购买东西，余额同时读取后再依次修改是不合理的</p><h3 id="事务冲突问题："><a href="#事务冲突问题：" class="headerlink" title="事务冲突问题："></a>事务冲突问题：</h3><h4 id="悲观锁："><a href="#悲观锁：" class="headerlink" title="悲观锁："></a>悲观锁：</h4><p>每次拿数据时都认为别人会修改，所以每次拿取数据时就上锁，其他人拿数据时就会black（阻塞）直至开锁，<strong>牺牲性能换效果</strong></p><h4 id="乐观锁："><a href="#乐观锁：" class="headerlink" title="乐观锁："></a>乐观锁：</h4><p><strong>添加版本信息</strong>，仅在修改信息时匹配版本是否一致，一致则成功修改，否则更新数据再执行</p><p><img src="/2022/08/16/Redis_6%E4%BA%8B%E5%8A%A1/image-20220817103825221.png" alt="image-20220817103825221"></p><h4 id="WATCH-K"><a href="#WATCH-K" class="headerlink" title="WATCH  K:"></a>WATCH  K:</h4><p>在执行multi之前，<strong>先执行watch k监视一个或多个key值</strong>，如果在事物执行之前这个key被改动，那么事务将会被打断</p><h3 id="Redis事务的三特性："><a href="#Redis事务的三特性：" class="headerlink" title="Redis事务的三特性："></a>Redis事务的三特性：</h3><ul><li>单独的隔离操作：事务中所有命令都会序列化，按顺序执行。事务在执行过程中不会被其他客户端发送的命令请求打断</li><li>没有隔离级别概念：队列中的命令没有提交之前都不会实际执行，因为事务提交前任何指令都不会执行</li><li>不保证原子性：事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚</li></ul>]]></content>
       
       
       <categories>
