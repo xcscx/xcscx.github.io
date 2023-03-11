@@ -129,6 +129,31 @@
     
     
     <entry>
+      <title>Redis缓存淘汰测略</title>
+      <link href="/2022/09/17/Redis%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/"/>
+      <url>/2022/09/17/Redis%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/</url>
+      
+        <content type="html"><![CDATA[<h2 id="单线程的Redis为什么快？"><a href="#单线程的Redis为什么快？" class="headerlink" title="单线程的Redis为什么快？"></a>单线程的Redis为什么快？</h2><p><strong>为什么需要缓存淘汰测略：</strong></p><p>内存数据不淘汰会越来越多，最终导致内存溢出</p><h5 id="八种内存淘汰测略："><a href="#八种内存淘汰测略：" class="headerlink" title="八种内存淘汰测略："></a>八种内存淘汰测略：</h5><ol><li>不删除 key ，当到达最大阈值后报错：<strong>noeviction</strong></li><li>设过期 key 中选择使用数最小的           ：<strong>volatile - lrw</strong></li><li>在所有 key 中选择使用数最小的            ：<strong>allkeys - lru</strong></li><li>过期 key 中使用 lfu 算法                        ：<strong>volatile - lfu</strong></li><li>所有 key 用 lfu 算法                                 ：<strong>allkeys - lfu</strong></li><li>过期 key 随机删除                                    ：<strong>volatile - random</strong></li><li>所有 key 碎甲删除                                    ：<strong>allkeys - random</strong></li><li>过期 key 中最早过期的删除                     :  <strong>volatile - ttl</strong></li></ol><p><strong>lru：最近最少使用，实现方式：使用一个链表，被使用就放到表头，其他后推，超过表尾的就删除</strong>  这个方法可能用的少，但是实用</p><p>lfu：最近最不经常使用，实现方式：使用一个计数器，用的少的就删除，这个方法用的少</p><h5 id="何时淘汰删除："><a href="#何时淘汰删除：" class="headerlink" title="何时淘汰删除："></a>何时淘汰删除：</h5><p>消极处理：在读取数据前再判断</p><p>积极处理：周期性判断</p><p>主动处理：超出阈值就删除</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Redis 6常见问题</title>
       <link href="/2022/09/11/Redis%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
       <url>/2022/09/11/Redis%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</url>
