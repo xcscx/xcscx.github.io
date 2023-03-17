@@ -231,6 +231,31 @@
     
     
     <entry>
+      <title>设计模式 —— 工厂模式</title>
+      <link href="/2022/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2022/09/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="设计模式-——-工厂模式"><a href="#设计模式-——-工厂模式" class="headerlink" title="设计模式 —— 工厂模式"></a>设计模式 —— 工厂模式</h1><p><strong>目录</strong></p><ul><li>概述</li><li>实现</li><li>优缺点</li></ul><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>工厂模式（Factory Pattern）是<strong>创造型</strong>设计模式的一种，它提供了一种创建对象的最佳方式：不对对象暴露创建逻辑，而是通过共同的接口指向新创建的对象</p><p>定义：创建对应对象的工厂类，将创建对象的工作交给工厂，提供信息使工厂生产复杂对象</p><p>使用场所：任何需要生成复杂对象的地方</p><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>（工厂方法模式：建立统一的工厂接口，具体类的工厂实现公共接口）</p><pre><code class="java">// 实现一个计算机基本的加减乘除运算// 工厂接口public interface IFactory &#123;    Operation CreateOption();&#125;// 加法类工厂public class AddFactory implements IFctory &#123;    public Opetation CreateOption() &#123;        return new OperationAdd();    &#125;&#125;// 减法类工厂public class SubFactory implements IFctory &#123;    public Opetation CreateOption() &#123;        return new OperationSub();    &#125;&#125;// 乘法类工厂public class MulFactory implements IFctory &#123;    public Opetation CreateOption() &#123;        return new OperationMul();    &#125;&#125;// 除法类工厂public class DivFactory implements IFctory &#123;    public Opetation CreateOption() &#123;        return new OperationDiv();    &#125;&#125;</code></pre><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点：符合<strong>开闭原则</strong>，客户端可以不需要知道具体产品的类名，只需要知道对应工厂，一个类的创建是通过其子类的指定生成，子类对象会覆盖父类对象</p><p>缺点：代码更多了，要管理的对象也就更多了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编程基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>mysql备份</title>
       <link href="/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/"/>
       <url>/2022/09/07/Mysql%E5%A4%87%E4%BB%BD/</url>
