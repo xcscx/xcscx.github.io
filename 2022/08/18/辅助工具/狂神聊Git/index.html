@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Get使用 | IT蛋的个人博客</title><meta name="author" content="IT蛋"><meta name="copyright" content="IT蛋"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Get使用">
+<meta property="og:url" content="https://xcscx.github.io/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/index.html">
+<meta property="og:site_name" content="IT蛋的个人博客">
+<meta property="og:description" content="git">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ts1.cn.mm.bing.net/th/id/R-C.84832910e059383bfb71da558f821adb?rik=EM%2bFOKOevwszFg&riu=http%3a%2f%2fimg.blog.csdn.net%2f20151229150332334&ehk=XNSgklIwoA7mBGVSX8ZBeFNcAdIEAdIZGItlbP35lVM%3d&risl=&pid=ImgRaw&r=0">
+<meta property="article:published_time" content="2022-08-18T06:06:11.000Z">
+<meta property="article:modified_time" content="2022-08-19T15:07:24.853Z">
+<meta property="article:author" content="IT蛋">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="版本控制工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ts1.cn.mm.bing.net/th/id/R-C.84832910e059383bfb71da558f821adb?rik=EM%2bFOKOevwszFg&riu=http%3a%2f%2fimg.blog.csdn.net%2f20151229150332334&ehk=XNSgklIwoA7mBGVSX8ZBeFNcAdIEAdIZGItlbP35lVM%3d&risl=&pid=ImgRaw&r=0"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xcscx.github.io/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Get使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2022-08-19 23:07:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 关于</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 博主</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://ts1.cn.mm.bing.net/th/id/R-C.84832910e059383bfb71da558f821adb?rik=EM%2bFOKOevwszFg&amp;riu=http%3a%2f%2fimg.blog.csdn.net%2f20151229150332334&amp;ehk=XNSgklIwoA7mBGVSX8ZBeFNcAdIEAdIZGItlbP35lVM%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0')"><nav id="nav"><span id="blog-info"><a href="/" title="IT蛋的个人博客"><span class="site-name">IT蛋的个人博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 关于</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 博主</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Get使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-18T06:06:11.000Z" title="发表于 2022-08-18 14:06:11">2022-08-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-19T15:07:24.853Z" title="更新于 2022-08-19 23:07:24">2022-08-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/git/">git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Get使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>原链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Bf7uVhGiu47uOELjmC5uXQ">视频同步笔记：狂神聊Git (qq.com)</a></p>
+<h1 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h1><p>在开发过程中用于管理我们的文件，目录或工程等内容的修改历史，方便查看历史记录，备份以便回复以前的版本的软件工程技术</p>
+<ul>
+<li>实现跨域多人协同开发</li>
+<li>追踪和记载一个或多个文件的历史记录</li>
+<li>组织和保护你的源代码和文档</li>
+<li>统计工作量‘</li>
+<li>并行开发，提高工作效率</li>
+<li>跟踪记录整个软件的开发过程</li>
+<li>减轻开发人员的负担，节省时间，同时降低人为错误</li>
+</ul>
+<p>简单说；一种管理多人协同开发项目的技术</p>
+<blockquote>
+<p>常见版本控制工具：</p>
+<p>Git			SVN			CVS			VSS			TFS</p>
+</blockquote>
+<h1 id="Git环境配置"><a href="#Git环境配置" class="headerlink" title="Git环境配置"></a>Git环境配置</h1><blockquote>
+<p>安装：</p>
+</blockquote>
+<p>进入官网，下载git（windows 64-bit.exe）&#x2F;  使用镜像下载 , 无脑下一步（<a target="_blank" rel="noopener" href="https://blog.csdn.net/mukes/article/details/115693833">Git 详细安装教程（详解 Git 安装过程的每一个步骤）</a>）</p>
+<p>注：环境变量只是为了全局使用而已，不是必需品</p>
+<blockquote>
+<p>卸载：</p>
+</blockquote>
+<p>环境变量中删除Git , 再去卸载中心卸载程序</p>
+<blockquote>
+<p>使用：</p>
+</blockquote>
+<p>安装成功后，右键任意文件夹都会出现Git Bash（Unix与Linux风格命令行）和Git CMD（Windows风格命令行）</p>
+<h3 id="Linux简单口令"><a href="#Linux简单口令" class="headerlink" title="Linux简单口令"></a>Linux简单口令</h3><pre><code class="Linux">cd		改变目录
+cd..	退回到上一级目录,直接cd进入默认目录
+pwd		显示当前所在路径
+ls(||)	ls和ls||都是列出当前目录中的所有文件,只不过后者列出的内容更为详细
+touch	新建一个文件夹,如：touch index.js就会在当前目录下新建一个index.js文件
+rm		删除一个文件,rm index.js就会删除index.js文件
+mkdir	新建一个目录,就是新建一个文件夹
+rm -r 	删除一个文件夹,rm -r src就是删除src文件夹
+mv		移动文件,如mv index.html src 那么index.html就是移动的文件，src为目标文件夹（两者在同一目录下）
+reset	重新初始化终端/清屏
+clear	清理屏幕
+history	查看历史命令
+exit	退出
+#		注释
+</code></pre>
+<h5 id="Git配置：-所有的配置文件，其实都保存在本地"><a href="#Git配置：-所有的配置文件，其实都保存在本地" class="headerlink" title="Git配置：(所有的配置文件，其实都保存在本地)"></a>Git配置：(所有的配置文件，其实都保存在本地)</h5><h6 id="查看配置：git-config-l"><a href="#查看配置：git-config-l" class="headerlink" title="查看配置：git config -l"></a>查看配置：git config -l</h6><p><img src="/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220603231706647.png" alt="image-20220603231706647"></p>
+<h6 id="查看系统配置：git-config-–system-–list"><a href="#查看系统配置：git-config-–system-–list" class="headerlink" title="查看系统配置：git config –system –list"></a>查看系统配置：git config –system –list</h6><p><img src="/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220603231858917.png" alt="image-20220603231858917"></p>
+<h6 id="查看全局配置：git-config-–global-–list"><a href="#查看全局配置：git-config-–global-–list" class="headerlink" title="查看全局配置：git config –global –list"></a>查看全局配置：git config –global –list</h6><p><img src="/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220603231922188.png" alt="image-20220603231922188"></p>
+<pre><code class="linux">git config --global user.name &quot;设置名字&quot;
+git config --global user.email 邮箱地址
+</code></pre>
+<h4 id="Git相关配置文件："><a href="#Git相关配置文件：" class="headerlink" title="Git相关配置文件："></a>Git相关配置文件：</h4><p>1)，Git&#x2F;etc&#x2F;gitconfig：Git安装目录下的gitconfig	–system系统配置</p>
+<p>2)，C:&#x2F;User&#x2F;Administrator（当前用户）&#x2F;.gitconfig：只适用于当前登录用户的配置	–global全局配置</p>
+<h1 id="Git基本理论"><a href="#Git基本理论" class="headerlink" title="Git基本理论"></a>Git基本理论</h1><h3 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h3><p>Git本地有三个工作区域：工作目录（Working Directory）,暂存区（Stage&#x2F;Index）,资源库（Repository&#x2F;Git Directory）加上远程Git仓库（Remote Directory）</p>
+<p><img src="/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220604102832395.png" alt="image-20220604102832395"></p>
+<ul>
+<li>Workspace：工作区，就是平时存放项目代码的地方</li>
+<li>Index&#x2F;Stage：暂存区，用于临时存放改动，实际上只是一个文件，保存了即将提交到文件列表的信息</li>
+<li>Repository：仓库区（本地仓库），安全存放数据的位置，这里有提交到所有版本的数据，其中HEAD指向最新放入仓库的版本</li>
+<li>Remote：远程仓库，托管代码的服务器（一般用github或者gitee）</li>
+</ul>
+<p><img src="/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/image-20220604103432739.png" alt="image-20220604103432739"></p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ol>
+<li>在工作目录添加,修改文件;</li>
+<li>将需要的进行版本管理的文件放入暂存仓库</li>
+<li>将暂存区文件提交到git仓库</li>
+</ol>
+<p>所以,git管理的文件有三种状态:已修改（modified），已暂存（staged），已提交（committed）</p>
+<h1 id="Git项目搭建"><a href="#Git项目搭建" class="headerlink" title="Git项目搭建"></a>Git项目搭建</h1><h3 id="仓库搭建"><a href="#仓库搭建" class="headerlink" title="仓库搭建"></a>仓库搭建</h3><p>创建本地仓库方法有两种：创建全新的仓库，克隆远程仓库</p>
+<h5 id="本地仓库搭建"><a href="#本地仓库搭建" class="headerlink" title="本地仓库搭建"></a>本地仓库搭建</h5><pre><code class="git"># 在当前目录下新建一个Git代码库
+$ git init
+</code></pre>
+<p>执行后在项目文件夹会多出一个.git的隐藏目录，关于版本等信息都在目录中</p>
+<h5 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h5><pre><code class="git"># 克隆一个项目和它的全部代码历史（版本信息）
+$ git clone [url]
+</code></pre>
+<p>前往gitee &#x2F; github上测试；</p>
+<h1 id="Git文件操作"><a href="#Git文件操作" class="headerlink" title="Git文件操作"></a>Git文件操作</h1><h3 id="文件的四种状态"><a href="#文件的四种状态" class="headerlink" title="文件的四种状态"></a>文件的四种状态</h3><p>版本控制就是对文件的版本控制，要对文件进行修改、提交等操作，首先要知道文件当前在什么状态，不然可能会提交了现在还不想提交的文件，或者要提交的文件没提交上。</p>
+<ul>
+<li>Untracked: 未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过<strong>git add</strong> 状态变为Staged.</li>
+<li>Unmodify: 文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改, 而变为Modified. 如果使用    <strong>git rm</strong>移出版本库, 则成为Untracked文件</li>
+<li>Modified: 文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态, 使用<strong>git checkout</strong> 则丢弃修改过, 返回到unmodify状态, 这个<strong>git checkout</strong>即从库中取出文件, 覆盖当前修改 !</li>
+<li>Staged: 暂存状态. 执行<strong>git commit</strong>则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态. 执行<strong>git reset HEAD filename</strong>取消暂存, 文件状态为Modified</li>
+</ul>
+<pre><code class="git"># 查看全部文件状态
+git status
+# 查看指定文件状态
+git status [filename]
+# 添加全部文件到暂存区
+git add .
+# 将暂存区内容提交至本地 -m为提交时编写备注
+git commit -m&quot;消息内容&quot;
+</code></pre>
+<h3 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h3><p>在项目文件夹中，并非所有数据都要我们上传和提交，比如数据库文件，临时文件，设计文件等</p>
+<p>在主目录下建立”.gitignore“文件，此文件有以下规则：</p>
+<ol>
+<li>忽略文件中的空行或以井号（#）开始的行将会被忽略。</li>
+<li>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等。</li>
+<li>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</li>
+<li>如果名称的最前面是一个路径分隔符（&#x2F;），表示要忽略的文件在此目录下，而子目录中的文件不忽略。</li>
+<li>如果名称的最后面是一个路径分隔符（&#x2F;），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</li>
+</ol>
+<pre><code class="git"># 为注解
+*.txt			# 忽略所有.txt结尾的文件，上传的总文件中不会包含这些文件
+!lib.txt	    # 但是lib.txt文件除外
+/temp			# 仅忽略build/目录下的所有文件
+build/			# 忽略bulid/目录下的所有文件
+doc/*.txt		# 忽略doc/notes.txt等文件,单不包括doc/server/arch.txt
+</code></pre>
+<h3 id="gitignore配置"><a href="#gitignore配置" class="headerlink" title=".gitignore配置"></a>.gitignore配置</h3><pre><code class=".gitignore">*.class
+*.log
+*.lock
+
+# Package Files #
+*.jar
+*.war
+*.ear
+target/
+
+#idea
+.idea/
+*.iml
+
+*velocity.log*
+
+### STS ###
+.apt_generated
+.factorypath
+.springBeans
+
+### IntelliJ IDEA ###
+*.iml
+*.ipr
+*.iws
+.idea
+.classpath
+.project
+.settings/
+bin/
+
+*.log
+tmp/
+
+#rebel
+*rebel.xml*
+</code></pre>
+<h1 id="使用码云（Gitee）"><a href="#使用码云（Gitee）" class="headerlink" title="使用码云（Gitee）"></a>使用码云（Gitee）</h1><p>设置本机SSH公钥，实现免密码登录！</p>
+<pre><code class="git"># 进入C:/user/Administraror/.ssh 目录
+# (右键进入git命令行)生产公钥
+ssh-keygen
+</code></pre>
+<p>将生产的id_rsa.pub文件中的信息复制，在码云<strong>安全设置</strong>的<strong>SSH公钥</strong>中粘贴即可</p>
+<p>接下来就是创建仓库去使用了！</p>
+<h1 id="IDEA集成Git"><a href="#IDEA集成Git" class="headerlink" title="IDEA集成Git"></a>IDEA集成Git</h1><p>1.新建项目，绑定git</p>
+<ul>
+<li>直接将远程的git文件拷贝到项目中（在别处get clone [url]，将产生的文件夹剪切）</li>
+</ul>
+<p>2.修改文件，提交文件</p>
+<ul>
+<li>左下角有<strong>Version Control</strong>显示版本信息，右上角有快捷图标</li>
+</ul>
+<h1 id="Git分支说明"><a href="#Git分支说明" class="headerlink" title="Git分支说明"></a>Git分支说明</h1><p>git分支中常见指令：</p>
+<pre><code class="git"># 列出所有本地分支
+git branch
+
+# 列出所有远程分支
+git branch -r
+
+# 新建一个分支，但依然停留在当前分支
+git branch [branch-name]
+
+# 新建一个分支，并切换到该分支吧
+git checkout -b [branch]
+
+# 合并指定分支到当前分支
+$ git merge [branch]
+
+# 删除分支
+$ git branch -d [branch-name]
+
+# 删除远程分支
+$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
+</code></pre>
+<h1 id="Git后续操作"><a href="#Git后续操作" class="headerlink" title="Git后续操作"></a>Git后续操作</h1><blockquote>
+<p>gitee官网中有命令大全和操作指南</p>
+</blockquote>
+<blockquote>
+<p>团队很重要</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xcscx.github.io">IT蛋</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xcscx.github.io/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/">https://xcscx.github.io/2022/08/18/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E7%8B%82%E7%A5%9E%E8%81%8AGit/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xcscx.github.io" target="_blank">IT蛋的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/">git</a><a class="post-meta__tags" href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E5%B7%A5%E5%85%B7/">版本控制工具</a></div><div class="post_share"><div class="social-share" data-image="https://ts1.cn.mm.bing.net/th/id/R-C.84832910e059383bfb71da558f821adb?rik=EM%2bFOKOevwszFg&amp;riu=http%3a%2f%2fimg.blog.csdn.net%2f20151229150332334&amp;ehk=XNSgklIwoA7mBGVSX8ZBeFNcAdIEAdIZGItlbP35lVM%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/HashMap%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="HashMap底层原理"><img class="cover" src="https://ts1.cn.mm.bing.net/th/id/R-C.47d81d64b7ad8f754d1e53132bebaeba?rik=jAQyPPic12dOcg&amp;riu=http%3a%2f%2fdbaplus.cn%2fuploadfile%2f2017%2f1129%2f20171129105023778.jpg&amp;ehk=U911RJxYOYJj6pSW%2f9Sb1KsDWNwb%2fTjAh6jr9BNhvEc%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">HashMap底层原理</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/20/------%E6%9A%82%E5%AE%9A%E6%96%87%E4%BB%B6/Hashmap%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="HashMap常见问题"><img class="cover" src="https://www.javazhiyin.com/wp-content/uploads/2019/11/HashMap-structure.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HashMap常见问题</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">IT蛋</div><div class="author-info__description">编程学习记录</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xcscx"><i class="fab fa-github"></i><span>博主的github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xcscx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/1362067461@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"></div></div></main><footer id="footer" style="background-image: url('https://ts1.cn.mm.bing.net/th/id/R-C.84832910e059383bfb71da558f821adb?rik=EM%2bFOKOevwszFg&amp;riu=http%3a%2f%2fimg.blog.csdn.net%2f20151229150332334&amp;ehk=XNSgklIwoA7mBGVSX8ZBeFNcAdIEAdIZGItlbP35lVM%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By IT蛋</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱国,敬业,诚信,友善" data-fontsize="10px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
