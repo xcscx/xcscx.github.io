@@ -5,6 +5,35 @@
     
     <entry>
       <title>leetcode剑指Offer第五天</title>
+      <link href="/2023/03/26/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%85%AD%E5%A4%A9_BFS%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+      <url>/2023/03/26/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%85%AD%E5%A4%A9_BFS%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+      
+        <content type="html"><![CDATA[<p>了解今天的题目前，可以去我的博客看看二叉树和BFS（宽度优先遍历）知识：<a href="https://xcscx.github.io/2022/08/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树 | IT蛋的个人博客 (xcscx.github.io)</a></p><h2 id="从上到下打印二叉树"><a href="#从上到下打印二叉树" class="headerlink" title="从上到下打印二叉树"></a>从上到下打印二叉树</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/">从上到下打印二叉树</a></p><p>从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。</p><p><strong>示例：</strong></p><pre><code class="java">给定二叉树: [3,9,20,null,null,15,7],    3   / \  9  20    /  \   15   7返回 [3,9,20,15,7]</code></pre><p><strong>限制：</strong></p><ol><li><code>节点总数 &lt;= 1000</code></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>二叉树的广度优先算法，因为输出时不需要考虑节点之间的关系，所以按照从上至下，从左至右的顺序存储输出即可</p><p>二叉树的BFS（宽度优先遍历）最常见的实现方式是利用队列进行存储，因为队列是先进先出，所以在遍历每一节点时将全部子节点填入队列，这样，在子节点全部遍历完成前，子节点的子节点不会被遍历到，依次类推，直到队列为空</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public int[] levelOrder(TreeNode root) &#123;                ArrayList&lt;Integer&gt; utilsArray = new ArrayList&lt;&gt;();        Queue&lt;TreeNode&gt; treeQueue = new LinkedList&lt;TreeNode&gt;();        treeQueue.add(root);        while(null != treeQueue.element()) &#123;            TreeNode mid = treeQueue.element();            if(mid.left != null) &#123;                treeQueue.add(mid.left);            &#125;            if(mid.right != null) &#123;                treeQueue.add(mid.right);            &#125;            utilsArray.add(treeQueue.poll().val);        &#125;        int[] ans = new int[utilsArray.size()];        for(int i=0; i&lt;utilsArray.size(); i++)&#123;            ans[i] = utilsArray.get(i);        &#125;        return ans;    &#125;&#125;</code></pre><h2 id="从上到下打印二叉树-II"><a href="#从上到下打印二叉树-II" class="headerlink" title="从上到下打印二叉树 II"></a>从上到下打印二叉树 II</h2><p><strong>Easy</strong>原题连接：<a href="https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/">从上到下打印二叉树 II</a></p><p>从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。</p><p><strong>示例：</strong></p><pre><code class="java">给定二叉树: [3,9,20,null,null,15,7],    3   / \  9  20    /  \   15   7返回其层次遍历结果：     [  [3],  [9,20],  [15,7]]</code></pre><p><strong>提示：</strong></p><ol><li><code>节点总数 &lt;= 1000</code></li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>同样是宽度优先遍历，但是要求记录每一层节点的长度，或者说记录每一层节点的最后一个节点是谁</p><p>本来实现是通过新增两个TreeNode节点，一个记录当前层最后一个节点，一个记录下一层最后一个节点</p><p>后者在每一个子节点添加时做更新，当节点来到当前层的最后节点，输出数组并更新当前最后节点为下一层最后节点值</p><p>不过实现确实过于冗长了…</p><p>这里展示另一位大佬的思路：因为每次遍历完一层，<strong>队列中就只剩下下一层的全部节点</strong>，我们可以借由此作为下一层读取节点的个数，以此类推</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;&gt;();        Queue&lt;TreeNode&gt; treeQueue = new LinkedList&lt;&gt;();        if(root != null) treeQueue.add(root);                while(!treeQueue.isEmpty()) &#123;            List&lt;Integer&gt; mid = new ArrayList&lt;&gt;();            for(int i=treeQueue.size(); i&gt;0; i--) &#123;                TreeNode midNode = treeQueue.peek();                if(midNode.left != null) treeQueue.add(midNode.left);                if(midNode.right != null) treeQueue.add(midNode.right);                mid.add(treeQueue.poll().val);            &#125;            ans.add(mid);        &#125;        return ans;    &#125;&#125;</code></pre><h2 id="从上到下打印二叉树-III"><a href="#从上到下打印二叉树-III" class="headerlink" title="从上到下打印二叉树 III"></a>从上到下打印二叉树 III</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/">从上到下打印二叉树 III</a></p><p>请实现一个函数按照之字形顺序打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，第三行再按照从左到右的顺序打印，其他行以此类推。</p><p><strong>示例：</strong></p><pre><code class="java">给定二叉树: [3,9,20,null,null,15,7],    3   / \  9  20    /  \   15   7返回其层次遍历结果：[  [3],  [20,9],  [15,7]]</code></pre><p><strong>限制：</strong></p><ul><li><code>节点总数 &lt;= 1000</code></li></ul><h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>思路和上一题差不多，同样是分层输出的宽度优先，不过有一个输出顺序需要考虑</p><p>这里首先考虑到每层遍历时的输入，说白了就是一个正序一个倒序，只要在每一层输入时一个正着输入一个倒着输入就好</p><p>适用每层遍历后，结果的长度判断什么时候正序什么时候倒序</p><p>将原本用于存储的List<Integer> 转为 LinkedList<Integer> 适用头插尾插方法实现</Integer></Integer></p><h3 id="Java代码-2"><a href="#Java代码-2" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;        List&lt;List&lt;Integer&gt;&gt; ans = new ArrayList&lt;&gt;();        Queue&lt;TreeNode&gt; treeQueue = new LinkedList&lt;&gt;();        if(root != null) treeQueue.add(root);        while(!treeQueue.isEmpty()) &#123;            LinkedList&lt;Integer&gt; mid = new LinkedList&lt;&gt;();            for(int i=treeQueue.size(); i&gt;0; i--) &#123;                TreeNode midNode = treeQueue.peek();                if(midNode.left != null) treeQueue.add(midNode.left);                if(midNode.right != null) treeQueue.add(midNode.right);                if(ans.size()%2 == 0) mid.addLast(treeQueue.poll().val);                else mid.addFirst(treeQueue.poll().val);            &#125;            ans.add(mid);        &#125;        return ans;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>leetcode剑指Offer第五天</title>
       <link href="/2023/03/25/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E4%BA%94%E5%A4%A9_%E6%95%B0%E7%BB%84/"/>
       <url>/2023/03/25/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E4%BA%94%E5%A4%A9_%E6%95%B0%E7%BB%84/</url>
       
