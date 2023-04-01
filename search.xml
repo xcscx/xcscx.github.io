@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>leetcode剑指Offer第十天</title>
+      <link href="/2023/03/30/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E5%A4%A9_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+      <url>/2023/03/30/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E5%A4%A9_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
+      
+        <content type="html"><![CDATA[<h2 id="把数字翻译成字符串"><a href="#把数字翻译成字符串" class="headerlink" title="把数字翻译成字符串"></a>把数字翻译成字符串</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof/">把数字翻译成字符串</a></p><p>给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25 翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。</p><p><strong>示例：</strong></p><pre><code class="java">输入: 12258输出: 5解释: 12258有5种不同的翻译，分别是&quot;bccfi&quot;, &quot;bwfi&quot;, &quot;bczi&quot;, &quot;mcfi&quot;和&quot;mzi&quot;</code></pre><p><strong>限制：</strong></p><ul><li><code>0 &lt;= num &lt; 231</code></li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>从尾到头进行动态规划，如果最后两位符合26以内的值F(N) &#x3D; F(N-1)+F(N-2) 否则就只有 F(N) &#x3D; F(N-1)</strong></p><p>将0-25的数字编码为a-z的字符，既可以尝试单个数字去编码，又可以判断是否满足一定条件使得两个数字作为一个参数去编码</p><p>要求遍历完整个数字后看看有多少种编码手段。</p><p>初见题目的时候，我就觉得很像之前的青蛙跳台阶问题，可以选择一步步走，又或者一次跳两格,不过这一题多了一点条件</p><p>请思考这么一个：最后一个数进行编码时，有几种可能？</p><p>\1. 单独编码:如果最后两位&gt;25，那最后一位就只能自己编码，所以F(N) &#x3D; F(N-1)</p><p>\2. 联合编码:如果最后两位&lt;26，且最后两位可以分开编码-F(N-1)，也可以一起编码-F(N-2)即F(N) &#x3D; F(N-1)+F(N-2)</p><p>注意：因为0也是被允许的数字，但是0不可作为十位数（没有意义）所以在0作为十位时，只能返回F(N) &#x3D; F(N-1)</p><p>ps：青蛙跳台阶：<a href="https://leetcode.cn/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/">https://leetcode.cn/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/</a></p><p>ps2：挂了个自己的题解： <a href="https://leetcode.cn/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof/solution/java-dong-tai-gui-hua-by-bold-morsezl7-jsdh/">Java-动态规划 - 把数字翻译成字符串 - 力扣（LeetCode）</a></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int translateNum(int num) &#123;        if(num &lt; 10) return 1;        if(num % 100 &lt; 26)            if(num%100 != num%10)                return translateNum(num/10) + translateNum(num/100);        return translateNum(num/10);    &#125;&#125;</code></pre><h2 id="最长不含重复字符的子字符串"><a href="#最长不含重复字符的子字符串" class="headerlink" title="最长不含重复字符的子字符串"></a>最长不含重复字符的子字符串</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/">最长不含重复字符的子字符串</a></p><p>请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。</p><p><strong>示例：</strong></p><pre><code class="java">输入: &quot;abcabcbb&quot;输出: 3 解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。输入: &quot;bbbbb&quot;输出: 1解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。输入: &quot;pwwkew&quot;输出: 3解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</code></pre><p><strong>限制：</strong></p><ul><li><code>s.length &lt;= 40000</code></li></ul><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>不含重复字符的子串，解决这个问题可以将情况分为以下几类：</p><ol><li>这个字符没有重复过：子串长度+1</li><li>字符重复了，且在当前子串中：子串长度设置为当前重复字符间这一部分加后重复子串，如：abcdb，检查到最后一个b时，原本子串为abcd，这时因为b重复了，且在当前子串中重复，所以将子串调整为cdb，即两个b中间的部分加上后一个b</li><li>字符重复了，但是不在当前子串：子串长度+1，如abbcda，检查到最后的a时，子串应该是bcd，尽管a在整个子符中重复了，对于子串而言还是没重复的</li></ol><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int lengthOfLongestSubstring(String s) &#123;        char[] str = s.toCharArray();        HashMap&lt;Character,Integer&gt; lastSameStr = new HashMap&lt;&gt;();        int ans = 0, mid = 0;        for(int i=0; i&lt;str.length; i++) &#123;            if(lastSameStr.get(str[i]) == null) &#123;                mid++;            &#125;else &#123;                if(mid &gt;= i-lastSameStr.get(str[i]))                    mid = i - lastSameStr.get(str[i]);                else                    mid++;            &#125;            lastSameStr.put(str[i],i);            ans = Math.max(ans,mid);        &#125;        return ans;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>leetcode剑指Offer第九天</title>
       <link href="/2023/03/29/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E4%B9%9D%E5%A4%A9_%E7%AE%80%E5%8D%95%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
       <url>/2023/03/29/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E4%B9%9D%E5%A4%A9_%E7%AE%80%E5%8D%95%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
