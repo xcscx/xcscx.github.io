@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>leetcode剑指Offer第十一天</title>
+      <link href="/2023/03/31/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E4%B8%80%E5%A4%A9_%E9%93%BE%E8%A1%A8/"/>
+      <url>/2023/03/31/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E4%B8%80%E5%A4%A9_%E9%93%BE%E8%A1%A8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="删除链表的节点"><a href="#删除链表的节点" class="headerlink" title="删除链表的节点"></a>删除链表的节点</h2><p><strong>Easy</strong>原题连接：<a href="https://leetcode.cn/problems/shan-chu-lian-biao-de-jie-dian-lcof/">删除链表的节点</a></p><p>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</p><p>返回删除后的链表的头节点。</p><p><strong>示例：</strong></p><pre><code class="java">输入: head = [4,5,1,9], val = 5输出: [4,1,9]解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 1 -&gt; 9.输入: head = [4,5,1,9], val = 1输出: [4,5,9]解释: 给定你链表中值为 1 的第三个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 5 -&gt; 9.</code></pre><p><strong>限制：</strong></p><ul><li>题目保证链表中节点的值互不相同</li><li>若使用 C 或 C++ 语言，你不需要 <code>free</code> 或 <code>delete</code> 被删除的节点</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>链表中删除一个节点，要当前节点的上一个节点的next指向当前节点的next，如:1 → 2 → 4 删去 2 ，需要将 1 ( 2的上指针 )的next指针指向 4 ( 2的next所指 )</p><p>为了避免第一个值就是所需删除的值（不存在上一节点），可以直接返回next</p><p>时间复杂度：O( N )    空间复杂度：O( 1 )</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for singly-linked list. * public class ListNode &#123; *     int val; *     ListNode next; *     ListNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public ListNode deleteNode(ListNode head, int val) &#123;        if(head.val == val)return head.next;        ListNode n1 = head,n2 = head, n3 = null;        while(n1 != null)&#123;            n2 = n1.next;            if(n2.val == val)&#123;                n3 = n2.next;                n1.next = n3;                break;            &#125;            n1 = n1.next;        &#125;        return head;    &#125;   &#125;</code></pre><h2 id="链表中倒数第k个节点"><a href="#链表中倒数第k个节点" class="headerlink" title="链表中倒数第k个节点"></a>链表中倒数第k个节点</h2><p><strong>Easy</strong>原题连接：<a href="https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/">链表中倒数第k个节点</a></p><p>输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。</p><p>例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。</p><p><strong>示例：</strong></p><pre><code class="java">给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 k = 2.返回链表 4-&gt;5.</code></pre><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>可以先使用一个中间节点遍历获得链表长度，再遍历至 len-K 的位置返回</p><p>又或者·：倒数第K个节点，和正数第K个节点，都是将整个链表分为了 len-K 和 K 个节点</p><p>新建两个节点，第一位先走K步到达第K个节点，还剩 len-K 个节点没走</p><p>再让两个节点同步走完 len-K 个节点，第一节点恰好走完全部，第二节点到达 len-K 处</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for singly-linked list. * public class ListNode &#123; *     int val; *     ListNode next; *     ListNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public ListNode getKthFromEnd(ListNode head, int k) &#123;        if(head == null) return head;        ListNode n1 = head, n2 = head;        for(int i=0; i&lt;k; i++) &#123;            n1 = n1.next;        &#125;        while(n1 != null) &#123;            n1 = n1.next;            n2 = n2.next;        &#125;        return n2;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>leetcode剑指Offer第十天</title>
       <link href="/2023/03/30/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E5%A4%A9_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
       <url>/2023/03/30/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E5%A4%A9_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
