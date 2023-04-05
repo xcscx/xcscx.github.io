@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>剑指Offer_Day14_递归遍历</title>
+      <link href="/2023/04/03/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%A4%A9_%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/"/>
+      <url>/2023/04/03/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%A4%A9_%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="矩阵中的路径"><a href="#矩阵中的路径" class="headerlink" title="矩阵中的路径"></a>矩阵中的路径</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/ju-zhen-zhong-de-lu-jing-lcof/">矩阵中的路径</a></p><p>给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。</p><p>单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用</p><p><strong>示例：</strong></p><pre><code class="java">输入：board = [[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;E&quot;],[&quot;S&quot;,&quot;F&quot;,&quot;C&quot;,&quot;S&quot;],[&quot;A&quot;,&quot;D&quot;,&quot;E&quot;,&quot;E&quot;]], word = &quot;ABCCED&quot;输出：true输入：board = [[&quot;a&quot;,&quot;b&quot;],[&quot;c&quot;,&quot;d&quot;]], word = &quot;abcd&quot;输出：false</code></pre><p><strong>限制：</strong></p><ol><li><p>m &#x3D;&#x3D; board.length</p></li><li><p>n &#x3D; board[i].length</p></li><li><p>1 &lt;&#x3D; m, n &lt;&#x3D; 6</p></li><li><p>1 &lt;&#x3D; word.length &lt;&#x3D; 15</p></li><li><p>board 和 word 仅由大小写英文字母组成</p></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>本题其实主要需要解决两个问题：单词会从何开始，单词要怎么结束</p><p>前者可以使用暴力递归，遍历二维数组，找到符合字符串首字符的即可</p><p>后者需要以前者找到的字符串为基础，探索上下左右是否有相邻字符，直至单词结尾</p><p>需要注意的是，上下左右的探索需要排除明显超出二位数组范围的部分，和已经探索完成的部分</p><p>我使用一个临时变量，存储已经遍历的值，这使得如果单词匹配中出现了误差，需要另找开头字符，不至于将上次遍历的痕迹影响到此次</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public boolean exist(char[][] board, String word) &#123;        // 1.如何开始找单词 -- 第一个字符组字怎么找        // 2.如果在遍历中传递对比值 -- 考虑算法需要回溯        for(int i=0; i&lt;board.length; i++) &#123;            for(int j=0; j&lt;board[0].length; j++) &#123;                if(bfs(board, i, j, word, 0)) &#123;                    return true;                &#125;            &#125;        &#125;        return false;    &#125;    public static boolean bfs(char[][] board, int i, int j, String word, int k) &#123;        int sizeA = board.length,sizeB = board[0].length;        if(i == sizeA || i == -1 || j == sizeB || j == -1 || board[i][j] != word.charAt(k)) return false;        if(k == word.length()-1) return true;        char mid = board[i][j];        // 挖空以遍历部分，防止重复读        board[i][j] = &#39; &#39;;        boolean ans = bfs(board,i+1,j,word,k+1) || bfs(board,i-1,j,word,k+1)                   || bfs(board,i,j+1,word,k+1) || bfs(board,i,j-1,word,k+1);        // 回复挖空，保证下次读        board[i][j] = mid;        return ans;    &#125;&#125;</code></pre><h2 id="机器人的运动范围"><a href="#机器人的运动范围" class="headerlink" title="机器人的运动范围"></a>机器人的运动范围</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/">机器人的运动范围</a></p><p>地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7&#x3D;18。但它不能进入方格 [35, 38]，因为3+5+3+8&#x3D;19。请问该机器人能够到达多少个格子？</p><p><strong>示例：</strong></p><pre><code class="java">输入：m = 2, n = 3, k = 1输出：3输入：m = 3, n = 1, k = 0输出：1</code></pre><p><strong>提示：</strong></p><ol><li>1 &lt;&#x3D; n,m &lt;&#x3D; 100</li><li>0 &lt;&#x3D; k &lt;&#x3D; 20</li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int m,n,k;    public int movingCount(int m, int n, int k) &#123;       this.m = m; this.n = n; this.k = k;       boolean[][] flag = new boolean[m][n];       return dfs(flag,0,0);    &#125;    public int dfs(boolean[][] flag, int i, int j) &#123;        if(i &gt;= m || j&gt;=n || flag[i][j] || getSum(i,j)&gt;k) return 0;        flag[i][j] = true;        return 1 + dfs(flag, i+1, j) + dfs(flag, i,j+1);    &#125;    public int getSum(int i, int j) &#123;        int sum = 0;        while(i &gt; 0) &#123;            sum += i%10;            i = i/10;        &#125;        while(j &gt; 0) &#123;            sum += j%10;            j = j/10;        &#125;        return sum;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>leetcode剑指Offer第十三天</title>
       <link href="/2023/04/02/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E4%B8%89%E5%A4%A9_%E5%8F%8C%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84/"/>
       <url>/2023/04/02/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E5%8D%81%E4%B8%89%E5%A4%A9_%E5%8F%8C%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84/</url>
