@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day16_数组排序_剑指Offer</title>
+      <link href="/2023/04/05/leetCode/%E5%89%91%E6%8C%87Offer/Day16_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/"/>
+      <url>/2023/04/05/leetCode/%E5%89%91%E6%8C%87Offer/Day16_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="把数组排成最小的数"><a href="#把数组排成最小的数" class="headerlink" title="把数组排成最小的数"></a>把数组排成最小的数</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/">把数组排成最小的数</a></p><p>输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。</p><p><strong>示例：</strong></p><pre><code class="java">输入: [10,2]输出: &quot;102&quot;输入: [3,30,34,5,9]输出: &quot;3033459&quot;</code></pre><p><strong>限制：</strong></p><ol><li><p>0 &lt; nums.length &lt;&#x3D; 100</p></li><li><p>输出结果可能非常大，所以你需要返回一个字符串而不是整数</p></li><li><p>拼接起来的数字可能会有前导 0，最后结果不需要去掉前导 0</p></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>返回凭借的最小字符（数值），按题目示例来看，我们需要将数组高位代表的值尽可能小的排字符前方，比如同样长度，以3开头一定小于以5开头，同时也需要后</p><p>几位尽可能的小，如 3 和 30 可以组合 330 和 303，30的个位0位于组合后的十位显然比位于组合都的个位更小</p><p>简而言之，需要我们自行给数组按<strong>特定要求</strong>排序</p><ol><li><strong>实现数与数的对比，能够量化一种标准判断排序要求</strong></li></ol><p>特定要求：xy &gt; yx 时，y在前，x在后，判断返回大值</p><p>实现：构建StringBuilder类，实现 xy 与 yx ，考虑到数据过大，转为Long类型对比大小 （tips：受教Java中的BigInteger或许可以更加安全的检验）</p><p>​xy大时返回x，否则返回y</p><ol start="2"><li><strong>实现排序：相邻两两对比–可以使用冒泡排序</strong></li></ol><p>实现：遍历数组，使用冒泡排序将大值不断后送，缩短排序区间 </p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public String minNumber(int[] nums) &#123;        StringBuilder ans = new StringBuilder();        // 冒泡排序        for(int i=nums.length-1; i&gt;0; i--) &#123;            for(int j=0; j&lt;i; j++) &#123;                if(findBigOne(nums[j],nums[j+1]) == nums[j])                    swap(nums, j, j+1);             &#125;        &#125;        for(int num : nums)            ans.append(num);        return ans.toString();    &#125;    // 返回相邻两个数中，组合位于前端时后会带来更大结果的值    public int findBigOne(int m, int n) &#123;        StringBuilder a = new StringBuilder();        StringBuilder b = new StringBuilder();        a.append(m);        a.append(n);        b.append(n);        b.append(m);        return a;        if(Long.valueOf(a.toString()).compareTo(Long.valueOf(b.toString())) == 1)            return m;        return n;    &#125;    // 交换函数    public void swap(int[] nums ,int i, int j) &#123;        int mid = nums[i];        nums[i] = nums[j];        nums[j] = mid;    &#125;&#125;</code></pre><h2 id="扑克牌中的顺子"><a href="#扑克牌中的顺子" class="headerlink" title="扑克牌中的顺子"></a>扑克牌中的顺子</h2><p><strong>Esay</strong>原题连接：<a href="https://leetcode.cn/problems/bu-ke-pai-zhong-de-shun-zi-lcof/">扑克牌中的顺子</a></p><p>从若干副扑克牌中随机抽 5 张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14。</p><p><strong>示例：</strong></p><pre><code class="java">输入: [1,2,3,4,5]输出: True输入: [0,0,1,2,5]输出: True</code></pre><p><strong>提示：</strong></p><ol><li>数组长度为 5 </li><li>数组的数取值为 [0, 13] .</li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>相邻且连续的五个值，且本身数值量不大（0-13），题目可以使用一点取巧的方式</p><ol><li>既然是五个连续的值，那么最大值与最小值的差一定不会超过4</li><li>需要考虑到0的存在：已有最大最小，差为4，零用于补充中间；缺少最大或最小，差小于4，零用于补两边</li><li>保证数组中不存在相同的值，否则直接返回false</li></ol><p>实现上就很好说了，找到最大和除去0的最小值，判断是否有重复值，判断差值是否大于4，都为否返回true，否则返回false</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public boolean isStraight(int[] nums) &#123;        Arrays.sort(nums);        int min = 14;        int max = nums[nums.length - 1];        for(int i=0; i&lt;nums.length-1; i++) &#123;            if(nums[i] != 0 &amp;&amp; nums[i]&lt;min) min = nums[i];            if(nums[i] != 0 &amp;&amp; nums[i] == nums[i+1]) return false;        &#125;        if((max - min) &gt; 4)return false;        return true;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day15_树的遍历_剑指Offer</title>
       <link href="/2023/04/04/leetCode/%E5%89%91%E6%8C%87Offer/Day15_%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/"/>
       <url>/2023/04/04/leetCode/%E5%89%91%E6%8C%87Offer/Day15_%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/</url>
