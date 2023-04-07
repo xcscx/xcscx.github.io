@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>局部变量与全局变量</title>
+      <link href="/2023/04/07/Java%E5%9F%BA%E7%A1%80/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/"/>
+      <url>/2023/04/07/Java%E5%9F%BA%E7%A1%80/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="局部变量与全局变量"><a href="#局部变量与全局变量" class="headerlink" title="局部变量与全局变量"></a>局部变量与全局变量</h2><ul><li>变量的作用域</li><li>基本数据类型变量与引用数据类型变量</li></ul><h3 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h3><p>Java中变量的作用域可以分为四个级别：<strong>类级（类变量），对象实例级（实例变量），方法级（局部变量），块级（局部变量）</strong></p><table><thead><tr><th>类型</th><th>从属于</th><th>声明位置</th><th>作用域</th><th>初始化</th></tr></thead><tbody><tr><td>类变量（静态变量）</td><td>类</td><td>类内部，方法外，static修饰</td><td>与类同在，类被加载静态变量就有效，直至类被回收机制回收时消失</td><td>必须先声明、初始化，才能使用</td></tr><tr><td>成员变量（实例变量）</td><td>对象实例</td><td>类内部，方法外</td><td>有对应的实例对象创建时创建成员变量；对象消失时，成员变量消失</td><td>不用自行初始化，默认初始值</td></tr><tr><td>局部变量</td><td>方法 &#x2F; 代码块</td><td>方法中或代码块内</td><td>从声明时开始，到所在的方法或代码块执行完毕时消失</td><td>不用自行初始化，默认初始值</td></tr></tbody></table><pre><code class="java">// 实例代码：public class Variable &#123;    // 静态变量 想使用这类变量，直接 类名.参数名     static String staticVariable = &quot;我是静态变量&quot;;    // 实例变量 想使用要先创建实例对象，如果不初始化，String会默认null，int会默认0    String instanceVariable;    int age;    void Hello() &#123;        // 局部变量 你在这个方法中声明它，那就只能在这个方法中使用它，随着方法结束，他就会消失        String name = &quot;IT蛋&quot;;        System.out.println(&quot;Hello &quot;+name);        System.out.println(Variable.staticVariable);    &#125;    public static void main(String[] args) &#123;        // 局部变量，code2尝试在代码块外定义，在代码块中赋值；code3尝试重复定义        String code2, code3;        &#123;            code2 = &quot;happy&quot;;   // 成功，赋值并输出            //String code3 = &quot;happy&quot;; 报错，已经在包含改范围的范围内定义了code3                        // 局部变量 你在这个代码块中声明它，就只能在这个代码块中使用它            String code = &quot;System.out.println(&#39;代码块内的局部变量&#39;);&quot;;        &#125;        System.out.println(Variable.staticVariable);        System.out.println(new Variable().instanceVariable);        System.out.println(new Variable().age);        new Variable().Hello();        System.out.println(code2);        // System.out.println(name)   报错，找不到属性        // System.out.println(code)   报错，找不到属性    &#125;&#125;---输出---我是静态变量null0Hello IT蛋我是静态变量happy</code></pre><p>对于局部变量，如果存在方法内部递归调用，每次在方法中的参数都是单独存在的，如下面的fun方法，方法中的mid递推了五次，因为内部递归不会影响到外部，所以我们可以看到输出的值由顺序1-5后又从5-1输出，为了区分输出语句，我在递归返回当前方法的输出中加了个 “ | “ 。</p><pre><code class="java">public class Variable2 &#123;    public static void main(String[] args) &#123;        for(int i=0; i&lt;3; i++) &#123;            // 局部变量 i            System.out.print(i + &quot; &quot;);        &#125;        // System.out.println(i);        System.out.println();        System.out.println(&quot;------------&quot;);        int[] nums = new int[]&#123;1,2,3,4,5&#125;;        fun(nums,0);    &#125;    static void fun(int[] nums, int i)&#123;        int mid = nums[i];        System.out.print(mid + &quot; &quot;);        if(i&lt;nums.length-1)            fun(nums,i+1);        System.out.print(mid + &quot;| &quot;);        return;    &#125;&#125;---输出---0 1 2 ------------1 2 3 4 5 5| 4| 3| 2| 1| </code></pre><p>实例题目：<a href="https://xcscx.github.io/2023/04/04/leetCode/%E5%89%91%E6%8C%87Offer/Day15_%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/">Day15_树的遍历_剑指Offer | IT蛋的个人博客 (xcscx.github.io)</a></p><pre><code class="java">// 部分代码：对于target(形参)作用域与方法变量（局部变量）一致public void findWay(TreeNode root, int target) &#123;    ...    // 传入方法的target不论怎么变，当前的target都不会收到影响，好比是复制了一份丢给方法，本体不受影响    findWay(root.left, target);    findWay(root.right, target);    ...    &#125;</code></pre><h3 id="基本数据类型变量与引用数据类型变量"><a href="#基本数据类型变量与引用数据类型变量" class="headerlink" title="基本数据类型变量与引用数据类型变量"></a>基本数据类型变量与引用数据类型变量</h3><p>变量的属性会影响变量的传递：</p><ul><li>如果<strong>参数是基本数据类型</strong>，此时实参赋给形参的是实参<strong>真实存储的数据值</strong>。</li><li>如果<strong>参数是引用数据类型</strong>，此时实参赋给形参的是实参<strong>存储数据的地址值</strong>。</li></ul><pre><code class="java">public class Variable3 &#123;    public static void main(String[] args) &#123;        int[] nums = new int[]&#123;1,2,3,4,5&#125;;        int a = 22;        System.out.println(&quot;a = &quot; + a);        System.out.print(&quot;nums = &quot;);        for(int num : nums) System.out.print(num+&quot; &quot;);        System.out.println();        System.out.println(&quot;-----&quot;);        change(nums, a);        System.out.println(&quot;a = &quot; + a);        System.out.print(&quot;nums = &quot;);        for(int num : nums) System.out.print(num+&quot; &quot;);    &#125;    static void change(int[] nums, int a) &#123;        nums[1] = 0;        a = 100;    &#125;---输出---a = 22nums = 1 2 3 4 5 -----a = 22nums = 1 0 3 4 5 </code></pre><p>上述代码中，我们发现对于int类型的a，传递值确实如一开始说的那般，不会收到方法中修改的影响，但是int[] 的值却被修改了。</p><p>这也证明了引用类型传递的是参数的地址，所以会受到方法中修改的影响</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> java基础知识 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 编程基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day16_数组排序_剑指Offer</title>
       <link href="/2023/04/05/leetCode/%E5%89%91%E6%8C%87Offer/Day16_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/"/>
       <url>/2023/04/05/leetCode/%E5%89%91%E6%8C%87Offer/Day16_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
