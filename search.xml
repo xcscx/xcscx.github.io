@@ -31,6 +31,35 @@
     
     
     <entry>
+      <title>Day17_数组排序2_剑指Offer</title>
+      <link href="/2023/04/06/leetCode/%E5%89%91%E6%8C%87Offer/Day17_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/"/>
+      <url>/2023/04/06/leetCode/%E5%89%91%E6%8C%87Offer/Day17_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="最小的k个数"><a href="#最小的k个数" class="headerlink" title="最小的k个数"></a>最小的k个数</h2><p><strong>Esay</strong>原题连接：<a href="https://leetcode.cn/problems/zui-xiao-de-kge-shu-lcof/">最小的k个数</a></p><p>输入整数数组 <code>arr</code> ，找出其中最小的 <code>k</code> 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。</p><p><strong>示例：</strong></p><pre><code class="java">输入：arr = [3,2,1], k = 2输出：[1,2] 或者 [2,1]输入：arr = [0,1,2,1], k = 1输出：[0]</code></pre><p><strong>限制：</strong></p><ol><li><p>0 &lt;&#x3D; k &lt;&#x3D; arr.length &lt;&#x3D; 10000</p></li><li><p>0 &lt;&#x3D; arr[i] &lt;&#x3D; 10000</p></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>排序输出前k位，取决于你希望使用哪一种算法实现排序，有现成的自然是最快的</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int[] getLeastNumbers(int[] arr, int k) &#123;        int[] ans = new int[k];        Arrays.sort(arr);        for(int i=0; i&lt;k; i++)&#123;            ans[i] = arr[i];        &#125;        return ans;    &#125;&#125;</code></pre><h2 id="数据流中的中位数"><a href="#数据流中的中位数" class="headerlink" title="数据流中的中位数"></a>数据流中的中位数</h2><p><strong>hard</strong>原题连接：<a href="https://leetcode.cn/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/">数据流中的中位数</a></p><p>如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。</p><p>例如，</p><p>[2,3,4] 的中位数是 3</p><p>[2,3] 的中位数是 (2 + 3) &#x2F; 2 &#x3D; 2.5</p><p>设计一个支持以下两种操作的数据结构：</p><p>void addNum(int num) - 从数据流中添加一个整数到数据结构中。<br>double findMedian() - 返回目前所有元素的中位数。</p><p><strong>示例：</strong></p><pre><code class="java">输入：[&quot;MedianFinder&quot;,&quot;addNum&quot;,&quot;addNum&quot;,&quot;findMedian&quot;,&quot;addNum&quot;,&quot;findMedian&quot;][[],[1],[2],[],[3],[]]输出：[null,null,null,1.50000,null,2.00000]输入：[&quot;MedianFinder&quot;,&quot;addNum&quot;,&quot;findMedian&quot;,&quot;addNum&quot;,&quot;findMedian&quot;][[],[2],[],[3],[]]输出：[null,null,2.00000,null,2.50000]</code></pre><p><strong>提示：</strong></p><ol><li>最多会对 <code>addNum、findMedian</code> 进行 <code>50000</code> 次调用。</li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>取中位数的值，根据题目要求，添加和分析中位数都会有50000次以内的调用，需要尽可能的降低添加和搜索的时间复杂度</p><p>单一数据结构如ArrayList，LinkedList做存储的话，在添加或搜索的复杂度上会过大 O( n )，在此使用优先队列PriorityQueue对两边分别排序则效果更好</p><p>PriorityQueue进行add的复杂度是O( logn )，弹出堆顶是常熟复杂度，自然是首选。</p><p>那么如何分配两边的值呢？（当新添加一个值时，是放前堆还是后堆）</p><p>因为使用堆的目的是维护两端长度一致，便于我们peek输出中位数，所以分配的前提是两端长度相等</p><p>其次，因为是依次添加数据，所以其实新数据添加至前端还是后端都可以，要保证两部分都是排序过的数据</p><p>排序过后，两个堆顶作为交流的通道，传递顶值，这样就会有最大堆的最小值放入最小堆，最小堆的最大值防入最大堆</p><p>因为数据是依次放入的，整个部分除去中位数的部分就都是顺序排序的，而偶数时的中位数是取中间值，不论顺序相加除2即可</p><p>当位奇数位时，新添加值会与两个中位数对比后返回</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class MedianFinder &#123;    /** initialize your data structure here. */     Queue&lt;Integer&gt; A, B;    public MedianFinder() &#123;        A = new PriorityQueue&lt;&gt;(); // 小顶堆，顺序排列，保存较大的一半，弹出最小        B = new PriorityQueue&lt;&gt;((x, y) -&gt; (y - x)); // 大顶堆，逆序排列，保存较小的一半，弹出最大    &#125;    public void addNum(int num) &#123;        if(A.size() != B.size()) &#123;            A.add(num);            B.add(A.poll());        &#125; else &#123;            B.add(num);            A.add(B.poll());        &#125;    &#125;    public double findMedian() &#123;        return A.size() != B.size() ? A.peek() : (A.peek() + B.peek()) / 2.0;    &#125;&#125;/** * Your MedianFinder object will be instantiated and called as such: * MedianFinder obj = new MedianFinder(); * obj.addNum(num); * double param_2 = obj.findMedian(); */</code></pre><p>其实我也没有想到PriorityQueue，不过类似的使用了堆和对应的堆排序</p><p>以下是我的代码，但是用例超时…</p><pre><code class="java">class MedianFinder &#123;    /** initialize your data structure here. */     Stack&lt;Integer&gt; A, B;    public MedianFinder() &#123;        A = new Stack&lt;&gt;(); // 顺序排列，保存较大的一半，弹出最小        B = new Stack&lt;&gt;(); // 逆序排列，保存较小的一半，弹出最大    &#125;    public void addNum(int num) &#123;        if(A.size() != B.size()) &#123;            sortBigStack(A,num);            sortSmlStack(B,A.pop());        &#125; else &#123;            sortSmlStack(B,num);            sortBigStack(A,B.pop());        &#125;    &#125;    public double findMedian() &#123;        return A.size() != B.size() ? A.peek() : (A.peek() + B.peek()) / 2.0;    &#125;    public void sortBigStack(Stack&lt;Integer&gt; stack, int a) &#123;        Stack&lt;Integer&gt; midStack = new Stack&lt;&gt;();        while(!stack.isEmpty() &amp;&amp; stack.peek() &gt; a) &#123;            midStack.push(stack.pop());        &#125;        stack.push(a);        while(!midStack.isEmpty())&#123;            stack.push(midStack.pop());        &#125;    &#125;        public void sortSmlStack(Stack&lt;Integer&gt; stack, int a) &#123;        Stack&lt;Integer&gt; midStack = new Stack&lt;&gt;();        while(!stack.isEmpty() &amp;&amp; stack.peek() &lt; a) &#123;            midStack.push(stack.pop());        &#125;        stack.push(a);        while(!midStack.isEmpty())&#123;            stack.push(midStack.pop());        &#125;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day16_数组排序_剑指Offer</title>
       <link href="/2023/04/05/leetCode/%E5%89%91%E6%8C%87Offer/Day16_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/"/>
       <url>/2023/04/05/leetCode/%E5%89%91%E6%8C%87Offer/Day16_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
@@ -716,6 +745,33 @@
         <tags>
             
             <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>快速排序</title>
+      <link href="/2022/10/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
+      <url>/2022/10/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><ul><li>快速排序的原理</li><li>快速排序分析</li><li>代码实现</li></ul><h3 id="快速排序的原理"><a href="#快速排序的原理" class="headerlink" title="快速排序的原理"></a>快速排序的原理</h3><h3 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
