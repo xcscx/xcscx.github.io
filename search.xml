@@ -31,6 +31,35 @@
     
     
     <entry>
+      <title>Day18_平衡树_剑指Offer</title>
+      <link href="/2023/04/07/leetCode/%E5%89%91%E6%8C%87Offer/Day18_%E5%B9%B3%E8%A1%A1%E6%A0%91/"/>
+      <url>/2023/04/07/leetCode/%E5%89%91%E6%8C%87Offer/Day18_%E5%B9%B3%E8%A1%A1%E6%A0%91/</url>
+      
+        <content type="html"><![CDATA[<h2 id="二叉树的深度"><a href="#二叉树的深度" class="headerlink" title="二叉树的深度"></a>二叉树的深度</h2><p><strong>Easy</strong>原题连接：<a href="https://leetcode.cn/problems/er-cha-shu-de-shen-du-lcof/">二叉树的深度</a></p><p>输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。</p><p><strong>示例：</strong></p><pre><code class="java">    3   / \  9  20    /  \   15   7返回：3</code></pre><p><strong>限制：</strong></p><ol><li><code>节点总数 &lt;= 10000</code></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>获得二叉树最大深度，可以叫二叉树自根节点遍历至每一个子节点，记录最大深度并返回</p><p>也可以拆分任务：获得每一个子节点的最大深度并返回</p><p>对于每一个节点而言，获取其左右节点的深度，取大值 + 1 ( 当前节点 ) 并返回</p><p>需要额外考虑的就是叶子节点，当前遍历到叶子节点时，判断左右为null的分支深度为0即可</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public int maxDepth(TreeNode root) &#123;        if(root == null) return 0;        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));    &#125;&#125;</code></pre><h2 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h2><p><strong>Esay</strong>原题连接：<a href="https://leetcode.cn/problems/ping-heng-er-cha-shu-lcof/">平衡二叉树</a></p><p>输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。</p><p><strong>示例：</strong></p><pre><code class="java">    3   / \  9  20    /  \   15   7输出: True       1      / \     2   2    / \   3   3  / \ 4   4输出：False</code></pre><p><strong>提示：</strong></p><ol><li><code>0 &lt;= 树的结点个数 &lt;= 10000</code></li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>判断某树是否是平衡二叉树时，需要确定二叉树中任意节点的左右子树深度差不超过1</p><p>对于每一棵子树，都需要知道其左右子树深度，也需要向上返回深度+1以告知父节点当前最大深度</p><p>定义一个成员变量 flag 检测是否存在非平衡树的子树，当完成遍历后，flag 仍未改变则说明当前树为平衡二叉树</p><p>否则不是</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    boolean flag = true;    public boolean isBalanced(TreeNode root) &#123;        int ans = treeLen(root);        return flag;    &#125;    public int treeLen(TreeNode root) &#123;        if(!flag) return 0;        if(root == null) return 0;        int leftLen = treeLen(root.left);        int rightLen = treeLen(root.right);        if(leftLen - rightLen &gt;=-1 &amp;&amp; leftLen - rightLen &lt;= 1) &#123;            return 1 + Math.max(leftLen, rightLen);        &#125;        flag = false;        return 0;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day17_数组排序2_剑指Offer</title>
       <link href="/2023/04/06/leetCode/%E5%89%91%E6%8C%87Offer/Day17_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/"/>
       <url>/2023/04/06/leetCode/%E5%89%91%E6%8C%87Offer/Day17_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/</url>
