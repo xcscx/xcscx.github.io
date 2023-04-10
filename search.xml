@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day19_计算与二叉树_剑指Offer</title>
+      <link href="/2023/04/08/leetCode/%E5%89%91%E6%8C%87Offer/Day19_%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+      <url>/2023/04/08/leetCode/%E5%89%91%E6%8C%87Offer/Day19_%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+      
+        <content type="html"><![CDATA[<h2 id="求1-2-…-n"><a href="#求1-2-…-n" class="headerlink" title="求1+2+…+n"></a>求1+2+…+n</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/qiu-12n-lcof/">求1+2+…+n</a></p><p>求 <code>1+2+...+n</code> ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。</p><p><strong>示例：</strong></p><pre><code class="java">输入: n = 3输出: 6输入: n = 9输出: 45</code></pre><p><strong>限制：</strong></p><ol><li><code>节点总数 &lt;= 10000</code></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>等差数列求和公式：（首项 + 末项）* 项数 &#x2F; 2</p><p>因为不允许使用乘法，所以使用for 循环相加首项和末项即可</p><p>需要注意的是，当目标数为奇数时，将其视为 -1 的偶数 + 当前数</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int sumNums(int n) &#123;        int ans = 0;        if(n%2 == 0) &#123;            for(int i=0; i&lt;n/2; i++) &#123;                ans += (n+1);            &#125;        &#125;else &#123;            for(int i=0; i&lt;=(n-1)/2; i++) &#123;                ans += n;            &#125;        &#125;        return ans;    &#125;&#125;</code></pre><h2 id="二叉搜索树的最近公共祖先"><a href="#二叉搜索树的最近公共祖先" class="headerlink" title="二叉搜索树的最近公共祖先"></a>二叉搜索树的最近公共祖先</h2><p><strong>Esay</strong>原题连接：<a href="https://leetcode.cn/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/">二叉搜索树的最近公共祖先</a></p><p>给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。</p><p>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p><p><strong>示例：</strong></p><pre><code class="java">输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8输出: 6 解释: 节点 2 和节点 8 的最近公共祖先是 6。输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4输出: 2解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。</code></pre><p><strong>提示：</strong></p><ol><li>所有节点的值都是唯一的。</li><li>p、q 为不同节点且均存在于给定的二叉搜索树中。</li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>因为已知前提是二叉搜索树，所以保证了数据的排序，我们可以有以下三个推论：</p><ol><li>当两个值一个大于当前节点，一个小于当前节点，它们最小父节点一定是当前节点</li><li>如果两个节点都小于当前节点，它们最小父节点一定是在当前节点的左子树中，相反为右子树</li><li>如果当前节点为其中一个目标节点，一定相交于当前节点</li></ol><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) &#123;        TreeNode big = p.val &gt; q.val ? p : q;        TreeNode sml = big == p ? q : p;        if(root.val &gt;= sml.val &amp;&amp; root.val &lt;= big.val) &#123;            return root;        &#125;else if(root.val &gt; big.val) &#123;            return lowestCommonAncestor(root.left,p,q);        &#125;else &#123;            return lowestCommonAncestor(root.right,p,q);        &#125;    &#125;&#125;</code></pre><h2 id="二叉树的最近公共祖先"><a href="#二叉树的最近公共祖先" class="headerlink" title="二叉树的最近公共祖先"></a>二叉树的最近公共祖先</h2><p><strong>Esay</strong>原题连接：<a href="https://leetcode.cn/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/">二叉树的最近公共祖先</a></p><p>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</p><p>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p><p><strong>示例：</strong></p><pre><code class="java">输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1输出: 3解释: 节点 5 和节点 1 的最近公共祖先是节点 3。输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4输出: 5解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。</code></pre><p><strong>提示：</strong></p><ol><li>所有节点的值都是唯一的。</li><li>p、q 为不同节点且均存在于给定的二叉树中。</li></ol><h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>该题没有明确排序，所以需要确定子树返回到父类树的方法，向根节点左右子树遍历，找到要求的节点返回</p><p>注意，找到节点后，返回的是节点信息，也就是说，对于 4 - 3 - 2这样的一条链，当我们需要找到2的时候，首先遍历4 - 3 - 2</p><p>找到2后，将2信息返回3，再将2返回4，这样我们就能方便了解4 是2 的父节点之一</p><p>综上同时对两个需求的节点进行遍历查找，我们能得到一条从更节点到目标节点的链路，中间返回的都是目标节点值</p><p>这时候，如果链条链路有相交，那么从刚开始相交的节点开始，这个节点就应该需要同时返回两个需求节点</p><p>这样就找到了最早公共祖先</p><h3 id="Java代码-2"><a href="#Java代码-2" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123;    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) &#123;    if(root == null || root == p || root == q) &#123;        return root;    &#125;    TreeNode left = lowestCommonAncestor(root.left, p, q);    TreeNode right = lowestCommonAncestor(root.right, p, q);    if(left != null &amp;&amp; right != null) &#123;        return root;    &#125;    return left != null ? left : right;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>局部变量与全局变量</title>
       <link href="/2023/04/07/Java%E5%9F%BA%E7%A1%80/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/"/>
       <url>/2023/04/07/Java%E5%9F%BA%E7%A1%80/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/</url>
