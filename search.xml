@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day22_数组中的重复数字_剑指Offer</title>
+      <link href="/2023/04/11/leetCode/%E5%89%91%E6%8C%87Offer/Day22_%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97/"/>
+      <url>/2023/04/11/leetCode/%E5%89%91%E6%8C%87Offer/Day22_%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97/</url>
+      
+        <content type="html"><![CDATA[<h2 id="数组中数字出现的次数"><a href="#数组中数字出现的次数" class="headerlink" title="数组中数字出现的次数"></a>数组中数字出现的次数</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/">数组中数字出现的次数</a></p><p>一个整型数组 <code>nums</code> 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。</p><p><strong>示例：</strong></p><pre><code class="java">输入：nums = [4,1,4,6]输出：[1,6] 或 [6,1]输入：nums = [1,2,10,4,1,4,3,3]输出：[2,10] 或 [10,2]</code></pre><p><strong>限制：</strong></p><ol><li><code>2 &lt;= nums.length &lt;= 10000</code></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>因为题目要求了时间复杂度不能超过O(n)，空间复杂度不能超过O(1)，所以无法使用HashMap做记录统计值</p><p>前置知识：</p><ol><li>关于异或（相同返回0，不同返回1）：<strong>A^A&#x3D;0 , A^B&#x3D;B^A 和 A^0&#x3D;A</strong> ，所以<strong>A^B^A &#x3D; A^A^B &#x3D; 0^B &#x3D; B</strong></li><li>一个十位数，对应着唯一的二进制值（废话），所以如果两个数的<strong>二进制某个位置值不同，那一定是不同值</strong></li></ol><p>实现：</p><ol><li>对nums中所有数据进行异或，能得到除了重复数字之外的，两个只出现了一次的数的异或结果</li><li>找到这个异或结果的一个“1”，因为是不同值，所以异或一定不为0，找到一个异或结果为1的部分，说明两个数在这个位置二进制值一定不同</li><li>根据2得到的部位，将nums划分为两个部分分别进行异或，得到的两个值就是目标</li></ol><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int[] singleNumbers(int[] nums) &#123;        int ans1 = 0, ans2 = 0, mid = 0, firstDif = 1;        // 1.找出两个单次出现的数字的异或结果        for(int num : nums) &#123;            mid = mid ^ num;        &#125;        // 2.找到区分位        while((mid &amp; firstDif) == 0) &#123;            firstDif = firstDif &lt;&lt; 1;        &#125;        // 3.依据区分为去异或        for(int num : nums) &#123;            if((num &amp; firstDif) == 0)ans1 = ans1 ^ num;            else ans2 = ans2 ^ num;        &#125;        return new int[]&#123;ans1, ans2&#125;;    &#125;&#125;</code></pre><h2 id="数组中数字出现的次数-II"><a href="#数组中数字出现的次数-II" class="headerlink" title="数组中数字出现的次数 II"></a>数组中数字出现的次数 II</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/">数组中数字出现的次数 II</a></p><p>在一个数组 <code>nums</code> 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。</p><p><strong>示例：</strong></p><pre><code class="java">输入：nums = [3,4,3,3]输出：4输入：nums = [9,1,7,9,7,9,7]输出：1</code></pre><p><strong>提示：</strong></p><ol><li><code>1 &lt;= nums.length &lt;= 10000</code></li><li><code>1 &lt;= nums[i] &lt; 2^31</code></li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><ol><li><p>数组中出现三次，说明数字转换成二进制后，每个为1的对应位置在数组中会至少有3个1</p></li><li><p>将nums的数字全部转换为32位二进制，按对应位填入32位的数组</p></li><li><p>对该数组每一位都对3取余，只出现一次的会留下一个1</p></li><li><p>重新拼接数组为十进制数，得到结果</p></li></ol><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int singleNumber(int[] nums) &#123;        // 1.遍历数组，每一位都拆为二进制，按值放入32位数组        int[] ans = new int[32];        for(int num : nums) &#123;            int i=0;            while(num &gt;0 ) &#123;                ans[i] += num%2;                num /= 2;                i++;            &#125;        &#125;        // 2.对数组每一位都取3的模，获得结果        for(int i=0; i &lt; ans.length; i++) &#123;            ans[i] = ans[i]%3;        &#125;        // 3.将结果拼为十位数        int value = 0;        for(int i=ans.length-1; i&gt;=0; i--) &#123;            value *= 2;            value += ans[i];        &#125;        return value;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day21_二进制计算_剑指Offer</title>
       <link href="/2023/04/10/leetCode/%E5%89%91%E6%8C%87Offer/Day21_%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%AE%A1%E7%AE%97/"/>
       <url>/2023/04/10/leetCode/%E5%89%91%E6%8C%87Offer/Day21_%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%AE%A1%E7%AE%97/</url>
