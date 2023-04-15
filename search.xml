@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day24_数字规律_剑指Offer</title>
+      <link href="/2023/04/13/leetCode/%E5%89%91%E6%8C%87Offer/Day24_%E6%95%B0%E5%AD%97%E8%A7%84%E5%BE%8B/"/>
+      <url>/2023/04/13/leetCode/%E5%89%91%E6%8C%87Offer/Day24_%E6%95%B0%E5%AD%97%E8%A7%84%E5%BE%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="剪绳子"><a href="#剪绳子" class="headerlink" title="剪绳子"></a>剪绳子</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/jian-sheng-zi-lcof/">剪绳子</a></p><p>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m-1] 。请问 k[0]<em>k[1]</em>…*k[m-1] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18</p><p><strong>示例：</strong></p><pre><code class="java">输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36</code></pre><p><strong>提示：</strong></p><ol><li><code>2 &lt;= n &lt;= 58</code></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>总长度固定，拆成不同长短的子段，算最大乘积</p><ol><li>子段长度越相等，积越大（算术几何均值不等式）</li><li>不要分出长度为1的子段</li><li>自然对数 e 约等于 2.7</li></ol><p>所以设总长度为常数N，拆成a段长度为x，我们有：</p><p>N &#x3D; a * x ;ans &#x3D; x ^ a;</p><p>得到：ans &#x3D; ( <strong>x ^  ( 1 &#x2F; x )</strong> ) ^ N，由于N为常数，ans最终的值会趋近于 2.7 * N，但是绳子要是整数</p><p>所以目标是<strong>将绳子尽可能化成越多的3</strong></p><ol><li>当长度可以被3整除，全部转为长度为3的绳子，求值</li><li>当长度对3除余，得到2，转换为一个2和其他为3的数段，求值</li><li>当长度对3除余，得到1，转换为一个4和其他为3的数段，求值</li></ol><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int cuttingRope(int n) &#123;        if(n &lt;= 3)return n-1;        int a = (int)n/3, b = n%3;        if(b == 2) return (int)Math.pow(3,a)*2;        if(b == 1) return (int)Math.pow(3,a-1)*4;        return (int)Math.pow(3,a);    &#125;&#125;</code></pre><h2 id="和为s的连续正数序列"><a href="#和为s的连续正数序列" class="headerlink" title="和为s的连续正数序列"></a>和为s的连续正数序列</h2><p><strong>Easy</strong>原题连接：<a href="https://leetcode.cn/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/"> 和为s的连续正数序列</a></p><p>输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。</p><p>序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。</p><p><strong>示例：</strong></p><pre><code class="java">输入：target = 9输出：[[2,3,4],[4,5]]输入：target = 15输出：[[1,2,3,4,5],[4,5,6],[7,8]]</code></pre><p><strong>限制：</strong></p><ol><li><code>1 &lt;= target &lt;= 10^5</code></li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>连续数组首先想到滑动窗口：</p><ol><li>设立滑动窗口，左端left，右端right，得到窗口总值：sum &#x3D; left + right</li><li>判断sum与target的关系：<ol><li>sum &#x3D;&#x3D; target : 符合目标信息，存储滑动窗口中的数据，窗口小数端移动（符合题目要求：不同序列按照首数字大小排列）</li><li>sum &lt; target ：滑动窗口大数端移动</li><li>sum &gt; target ：滑动窗口小数端移动</li></ol></li><li>循环2，直至left与right相遇：（窗口最小数已经大于target的一半，无法划分了）</li></ol><pre><code class="java">// 当你需要从0开始赋值数组，但是你的值随另一个数组变动：for(int i=left; i&lt;=right; i++) &#123;    ans[i-left] = i;&#125;</code></pre><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int[][] findContinuousSequence(int target) &#123;        int left = 1, right =2, sum = left + right;        List&lt;int[]&gt; ansList = new ArrayList&lt;&gt;();        while(left &lt; right) &#123;            if(sum == target) &#123;                int[] ans = new int[right - left + 1];                for(int i=left; i&lt;=right; i++) &#123;                    ans[i-left] = i;                &#125;                ansList.add(ans);            &#125;            if(sum &gt;= target) &#123;                sum -= left;                left++;            &#125;else &#123;                right++;                sum += right;            &#125;        &#125;        return ansList.toArray(new int[0][]);    &#125;&#125;</code></pre><h2 id="圆圈中最后剩下的数字"><a href="#圆圈中最后剩下的数字" class="headerlink" title="圆圈中最后剩下的数字"></a>圆圈中最后剩下的数字</h2><p><strong>Easy</strong>原题连接：<a href="https://leetcode.cn/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/">圆圈中最后剩下的数字</a></p><p>0,1,···,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字（删除后从下一个数字开始计数）。求出这个圆圈里剩下的最后一个数字。</p><p>例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。</p><p><strong>示例：</strong></p><pre><code class="java">输入: n = 5, m = 3输出: 3输入: n = 10, m = 17输出: 2</code></pre><p><strong>提示：</strong></p><ol><li><code>1 &lt;= n &lt;= 10^5</code></li><li><code>1 &lt;= m &lt;= 10^6</code></li></ol><h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>约瑟夫环问题</strong>：每次都会删除环中一个节点，想知道谁留到最后，由题目提示给的数据量来看，死算是过不了的</p><p>首先，在最后一次删除后，所剩下的一个数，是当前数组的0位（因为只有一位了）</p><p>每次删除后，从下一个开始当作新的删除计数，删除 <strong>当前值+（ m % i ）</strong>, i 为当前循环中的数的总数，为了避免总数超出上线，对 i 去余</p><p>综合以上两者，可以从一位向前推到（已知最后剩下的是最后数组的0号位，能退出前一次删除的是哪个位置）</p><p>直到数组长度回复到n，返回最初0号位目前所在的位置即可</p><h3 id="Java代码-2"><a href="#Java代码-2" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int lastRemaining(int n, int m) &#123;        if(n == 1) return 0;        int ans = 0;        for(int i=1; i&lt;=n; i++) &#123;            ans = (ans + m) % i;        &#125;        return ans;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day23_数组计算_剑指Offer</title>
       <link href="/2023/04/12/leetCode/%E5%89%91%E6%8C%87Offer/Day23_%E6%95%B0%E7%BB%84%E8%AE%A1%E7%AE%97/"/>
       <url>/2023/04/12/leetCode/%E5%89%91%E6%8C%87Offer/Day23_%E6%95%B0%E7%BB%84%E8%AE%A1%E7%AE%97/</url>
