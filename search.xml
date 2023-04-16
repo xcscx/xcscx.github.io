@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day25_顺序_剑指Offer</title>
+      <link href="/2023/04/14/leetCode/%E5%89%91%E6%8C%87Offer/Day25_%E9%A1%BA%E5%BA%8F/"/>
+      <url>/2023/04/14/leetCode/%E5%89%91%E6%8C%87Offer/Day25_%E9%A1%BA%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="顺时针打印矩阵"><a href="#顺时针打印矩阵" class="headerlink" title="顺时针打印矩阵"></a>顺时针打印矩阵</h2><p><strong>Easy</strong>原题连接：<a href="https://leetcode.cn/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/"> 顺时针打印矩阵</a></p><p>输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。</p><p><strong>示例：</strong></p><pre><code class="java">输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]输出：[1,2,3,6,9,8,7,4,5]输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]输出：[1,2,3,4,8,12,11,10,9,5,6,7]</code></pre><p><strong>提示：</strong></p><ol><li><code>0 &lt;= matrix.length &lt;= 100</code></li><li><code>0 &lt;= matrix[i].length &lt;= 100</code></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>固定顺时针：向左，向下，向右，向上</p><p>实现：</p><ol><li>设立上下左右边界，在走完一边后，减少对应的边界范围（如：输出矩阵最上一行后，上边届从0转至1）</li><li>依据 <strong>向左，向下，向右，向上</strong> 循环执行输出，完成一端需要判断下一步是否有路可走（向左到端头，先判断向下是否可以走）</li></ol><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int[] spiralOrder(int[][] matrix) &#123;        if(matrix.length == 0 || matrix[0].length == 0) return new int[0];        int[] ans = new int[matrix.length * matrix[0].length];        int size=0;        int leftNum = 0, rightNum = matrix[0].length-1;        int onNum = 0, downNum = matrix.length-1;        while(leftNum&lt;=rightNum &amp;&amp; onNum&lt;=downNum) &#123;            for(int j = leftNum; j&lt;=rightNum; j++) ans[size++] = matrix[onNum][j];            if(++onNum &gt; downNum)break;            for(int i = onNum; i&lt;=downNum; i++) ans[size++] = matrix[i][rightNum];            if(leftNum &gt; --rightNum)break;            for(int j = rightNum; j&gt;=leftNum; j--) ans[size++] = matrix[downNum][j];            if(onNum &gt; --downNum)break;            for(int i = downNum; i&gt;=onNum; i--) ans[size++] = matrix[i][leftNum];            if(++leftNum &gt; rightNum)break;        &#125;        return ans;    &#125;&#125;</code></pre><h2 id="栈的压入、弹出序列"><a href="#栈的压入、弹出序列" class="headerlink" title="栈的压入、弹出序列"></a>栈的压入、弹出序列</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/">栈的压入、弹出序列</a></p><p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。</p><p><strong>示例：</strong></p><pre><code class="java">输入：pushed = [1,2,3,4,5], popped = [4,5,3,2,1]输出：true解释：我们可以按以下顺序执行：push(1), push(2), push(3), push(4), pop() -&gt; 4,push(5), pop() -&gt; 5, pop() -&gt; 3, pop() -&gt; 2, pop() -&gt; 1输入：pushed = [1,2,3,4,5], popped = [4,3,5,1,2]输出：false解释：1 不能在 2 之前弹出。</code></pre><p><strong>限制：</strong></p><ol><li><p>0 &lt;&#x3D; pushed.length &#x3D;&#x3D; popped.length &lt;&#x3D; 1000</p></li><li><p>0 &lt;&#x3D; pushed[i], popped[i] &lt; 1000</p></li><li><p>pushed 是 popped 的排列。</p></li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>思路：</p><ol><li>使用栈存储数组信息</li><li>如果栈为空，压入条件数组的当前值</li><li>如果当前栈顶和目标数组的当前值一致，弹出，否则一直压入条件数组，直至超过范围或和目标数组一致</li><li>循环2-3，如果最终栈全部弹出，返回true，否则一定在 3 中返回false</li></ol><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public boolean validateStackSequences(int[] pushed, int[] popped) &#123;        if(pushed.length == 0) return true;        int mid = 0,j = 1;        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();        stack.push(pushed[0]);        for(int i=0; i&lt;popped.length; i++)&#123;            mid = popped[i];            if(stack.isEmpty())&#123;                stack.push(pushed[j]);                j++;            &#125;            while(stack.peek() != mid)&#123;                if(j&gt;=pushed.length) return false;                stack.push(pushed[j]);                j++;            &#125;            stack.pop();        &#125;                       return true;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day24_数字规律_剑指Offer</title>
       <link href="/2023/04/13/leetCode/%E5%89%91%E6%8C%87Offer/Day24_%E6%95%B0%E5%AD%97%E8%A7%84%E5%BE%8B/"/>
       <url>/2023/04/13/leetCode/%E5%89%91%E6%8C%87Offer/Day24_%E6%95%B0%E5%AD%97%E8%A7%84%E5%BE%8B/</url>

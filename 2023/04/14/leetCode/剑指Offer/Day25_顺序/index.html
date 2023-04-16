@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Day25_顺序_剑指Offer | IT蛋的个人博客</title><meta name="author" content="IT蛋"><meta name="copyright" content="IT蛋"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="写写算法东脑袋">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Day25_顺序_剑指Offer">
+<meta property="og:url" content="https://xcscx.github.io/2023/04/14/leetCode/%E5%89%91%E6%8C%87Offer/Day25_%E9%A1%BA%E5%BA%8F/index.html">
+<meta property="og:site_name" content="IT蛋的个人博客">
+<meta property="og:description" content="写写算法东脑袋">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg">
+<meta property="article:published_time" content="2023-04-14T11:55:02.000Z">
+<meta property="article:modified_time" content="2023-04-16T04:40:32.326Z">
+<meta property="article:author" content="IT蛋">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xcscx.github.io/2023/04/14/leetCode/%E5%89%91%E6%8C%87Offer/Day25_%E9%A1%BA%E5%BA%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Day25_顺序_剑指Offer',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2023-04-16 12:40:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 关于</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 博主</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="IT蛋的个人博客"><span class="site-name">IT蛋的个人博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 关于</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 博主</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Day25_顺序_剑指Offer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-14T11:55:02.000Z" title="发表于 2023-04-14 19:55:02">2023-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-16T04:40:32.326Z" title="更新于 2023-04-16 12:40:32">2023-04-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Day25_顺序_剑指Offer"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="顺时针打印矩阵"><a href="#顺时针打印矩阵" class="headerlink" title="顺时针打印矩阵"></a>顺时针打印矩阵</h2><p><strong>Easy</strong>	原题连接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/"> 顺时针打印矩阵</a></p>
+<p>输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。</p>
+<p><strong>示例：</strong></p>
+<pre><code class="java">输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+输出：[1,2,3,6,9,8,7,4,5]
+输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ol>
+<li><code>0 &lt;= matrix.length &lt;= 100</code></li>
+<li><code>0 &lt;= matrix[i].length &lt;= 100</code></li>
+</ol>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>固定顺时针：向左，向下，向右，向上</p>
+<p>实现：</p>
+<ol>
+<li>设立上下左右边界，在走完一边后，减少对应的边界范围（如：输出矩阵最上一行后，上边届从0转至1）</li>
+<li>依据 <strong>向左，向下，向右，向上</strong> 循环执行输出，完成一端需要判断下一步是否有路可走（向左到端头，先判断向下是否可以走）</li>
+</ol>
+<h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;
+    public int[] spiralOrder(int[][] matrix) &#123;
+        if(matrix.length == 0 || matrix[0].length == 0) return new int[0];
+        int[] ans = new int[matrix.length * matrix[0].length];
+        int size=0;
+        int leftNum = 0, rightNum = matrix[0].length-1;
+        int onNum = 0, downNum = matrix.length-1;
+        while(leftNum&lt;=rightNum &amp;&amp; onNum&lt;=downNum) &#123;
+            for(int j = leftNum; j&lt;=rightNum; j++) ans[size++] = matrix[onNum][j];
+            if(++onNum &gt; downNum)break;
+            for(int i = onNum; i&lt;=downNum; i++) ans[size++] = matrix[i][rightNum];
+            if(leftNum &gt; --rightNum)break;
+            for(int j = rightNum; j&gt;=leftNum; j--) ans[size++] = matrix[downNum][j];
+            if(onNum &gt; --downNum)break;
+            for(int i = downNum; i&gt;=onNum; i--) ans[size++] = matrix[i][leftNum];
+            if(++leftNum &gt; rightNum)break;
+        &#125;
+        return ans;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="栈的压入、弹出序列"><a href="#栈的压入、弹出序列" class="headerlink" title="栈的压入、弹出序列"></a>栈的压入、弹出序列</h2><p><strong>medium</strong>	原题连接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/">栈的压入、弹出序列</a></p>
+<p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。</p>
+<p><strong>示例：</strong></p>
+<pre><code class="java">输入：pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
+输出：true
+解释：我们可以按以下顺序执行：
+push(1), push(2), push(3), push(4), pop() -&gt; 4,
+push(5), pop() -&gt; 5, pop() -&gt; 3, pop() -&gt; 2, pop() -&gt; 1
+输入：pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
+输出：false
+解释：1 不能在 2 之前弹出。
+</code></pre>
+<p><strong>限制：</strong></p>
+<ol>
+<li><p>0 &lt;&#x3D; pushed.length &#x3D;&#x3D; popped.length &lt;&#x3D; 1000</p>
+</li>
+<li><p>0 &lt;&#x3D; pushed[i], popped[i] &lt; 1000</p>
+</li>
+<li><p>pushed 是 popped 的排列。</p>
+</li>
+</ol>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>思路：</p>
+<ol>
+<li>使用栈存储数组信息</li>
+<li>如果栈为空，压入条件数组的当前值</li>
+<li>如果当前栈顶和目标数组的当前值一致，弹出，否则一直压入条件数组，直至超过范围或和目标数组一致</li>
+<li>循环2-3，如果最终栈全部弹出，返回true，否则一定在 3 中返回false</li>
+</ol>
+<h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;
+    public boolean validateStackSequences(int[] pushed, int[] popped) &#123;
+        if(pushed.length == 0) return true;
+        int mid = 0,j = 1;
+        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+        stack.push(pushed[0]);
+        for(int i=0; i&lt;popped.length; i++)&#123;
+            mid = popped[i];
+            if(stack.isEmpty())&#123;
+                stack.push(pushed[j]);
+                j++;
+            &#125;
+            while(stack.peek() != mid)&#123;
+                if(j&gt;=pushed.length) return false;
+                stack.push(pushed[j]);
+                j++;
+            &#125;
+            stack.pop();
+        &#125;               
+        return true;
+    &#125;
+&#125;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xcscx.github.io">IT蛋</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xcscx.github.io/2023/04/14/leetCode/%E5%89%91%E6%8C%87Offer/Day25_%E9%A1%BA%E5%BA%8F/">https://xcscx.github.io/2023/04/14/leetCode/%E5%89%91%E6%8C%87Offer/Day25_%E9%A1%BA%E5%BA%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xcscx.github.io" target="_blank">IT蛋的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java/">java</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a></div><div class="post_share"><div class="social-share" data-image="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/04/13/leetCode/%E5%89%91%E6%8C%87Offer/Day24_%E6%95%B0%E5%AD%97%E8%A7%84%E5%BE%8B/" title="Day24_数字规律_剑指Offer"><img class="cover" src="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Day24_数字规律_剑指Offer</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/04/leetCode/%E5%89%91%E6%8C%87Offer/Day15_%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" title="Day15_树的遍历_剑指Offer"><img class="cover" src="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-04</div><div class="title">Day15_树的遍历_剑指Offer</div></div></a></div><div><a href="/2023/03/21/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E4%B8%80%E5%A4%A9_%E6%A0%88/" title="leetcode剑指Offer第一天"><img class="cover" src="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-21</div><div class="title">leetcode剑指Offer第一天</div></div></a></div><div><a href="/2023/03/23/leetCode/%E5%89%91%E6%8C%87Offer/%E7%AC%AC%E4%B8%89%E5%A4%A9_%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="leetcode剑指Offer第三天"><img class="cover" src="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-23</div><div class="title">leetcode剑指Offer第三天</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">IT蛋</div><div class="author-info__description">编程学习记录</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xcscx"><i class="fab fa-github"></i><span>博主的github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xcscx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/1362067461@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"></div></div></main><footer id="footer" style="background-image: url('https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By IT蛋</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱国,敬业,诚信,友善" data-fontsize="10px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
