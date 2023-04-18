@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day27_滑动窗口_剑指Offer</title>
+      <link href="/2023/04/16/leetCode/%E5%89%91%E6%8C%87Offer/Day27_%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
+      <url>/2023/04/16/leetCode/%E5%89%91%E6%8C%87Offer/Day27_%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="滑动窗口的最大值"><a href="#滑动窗口的最大值" class="headerlink" title="滑动窗口的最大值"></a>滑动窗口的最大值</h2><p><strong>Hard</strong>原题连接：<a href="https://leetcode.cn/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/">滑动窗口的最大值</a></p><p>给定一个数组 <code>nums</code> 和滑动窗口的大小 <code>k</code>，请找出所有滑动窗口里的最大值。</p><p><strong>示例：</strong></p><pre><code class="java">输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3输出: [3,3,5,5,6,7] 解释:   滑动窗口的位置                最大值---------------               -----[1  3  -1] -3  5  3  6  7       3 1 [3  -1  -3] 5  3  6  7       3 1  3 [-1  -3  5] 3  6  7       5 1  3  -1 [-3  5  3] 6  7       5 1  3  -1  -3 [5  3  6] 7       6 1  3  -1  -3  5 [3  6  7]      7</code></pre><p><strong>提示：</strong></p><ol><li>你可以假设 <em>k</em> 总是有效的，在输入数组 <strong>不为空</strong> 的情况下，<code>1 ≤ k ≤ nums.length</code>。</li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>问题：</p><ol><li>需要时刻记录当前窗口中的最大值</li><li>当窗口移动时需要考虑是否移除的是之前的最大值，以及插入的新值该排在什么位置</li><li>暴力算法会超时</li></ol><p>实现：</p><ol><li>使用双端队列存储最大值信息（存储：不严格递减存储，不符合的不存）利于删除头节点（最大值），添加删除尾节点（后续的大值）</li></ol><p>​例如： 【1，6，5，2，5，3】，4 ，队列会存储【6，5，5，3】</p><ol start="2"><li>移动时删除左端：如果左端值和队列头相同，队列弹出，下一个值作为队列头返回最大值</li><li>移动时添加右端：弹出双端队列中从<strong>队尾到队头</strong>所有小于添加节点的值，再添加节点，如上述例子下一步为：1，【6，5，2，5，3，4】，队列存储【6，5，5，4】弹出了3，添加了4</li><li>利用两个循环，一个用户创建基础滑动窗口，并获得对应初始队列；一个用于滑动运算</li></ol><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int[] maxSlidingWindow(int[] nums, int k) &#123;        if(nums.length == 0 || k == 0) return new int[0];        int[] ans = new int[nums.length -k + 1];        Deque&lt;Integer&gt; maxValue = new LinkedList&lt;&gt;();        for(int i=0; i&lt;k; i++) &#123;            while(!maxValue.isEmpty() &amp;&amp; maxValue.peekLast() &lt; nums[i]) maxValue.removeLast();            maxValue.addLast(nums[i]);        &#125;        ans[0] = maxValue.peekFirst();        for(int i=k; i&lt;nums.length; i++) &#123;            if(maxValue.peekFirst() == nums[i-k]) maxValue.removeFirst();            while(!maxValue.isEmpty() &amp;&amp; maxValue.peekLast() &lt; nums[i]) maxValue.removeLast();            maxValue.addLast(nums[i]);            ans[i-k+1] = maxValue.peekFirst();        &#125;        return ans;    &#125;&#125;</code></pre><h2 id="队列的最大值"><a href="#队列的最大值" class="headerlink" title="队列的最大值"></a>队列的最大值</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/dui-lie-de-zui-da-zhi-lcof/">队列的最大值</a></p><p>请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的均摊时间复杂度都是O(1)。</p><p>若队列为空，pop_front 和 max_value 需要返回 -1</p><p><strong>示例：</strong></p><pre><code class="java">输入: [&quot;MaxQueue&quot;,&quot;push_back&quot;,&quot;push_back&quot;,&quot;max_value&quot;,&quot;pop_front&quot;,&quot;max_value&quot;][[],[1],[2],[],[],[]]输出: [null,null,null,2,1,2]输入: [&quot;MaxQueue&quot;,&quot;pop_front&quot;,&quot;max_value&quot;][[],[],[]]输出: [null,-1,-1]位有符号整数范围。      因此返回 INT_MIN (−231) 。</code></pre><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>和第一题很类似，是一个不固定长度的滑动窗口</p><p>数据信息和最大排序都是用双端队列存储，每次添加数据时做判断，弹出最大排序中所有小于插入值的值</p><p>获取最大值和弹出时额外判断是否为空即可</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class MaxQueue &#123;    Deque&lt;Integer&gt; numMessage;    Deque&lt;Integer&gt; maxMessage;    public MaxQueue() &#123;        numMessage = new LinkedList&lt;&gt;();        maxMessage = new LinkedList&lt;&gt;();    &#125;        public int max_value() &#123;        if(maxMessage.isEmpty()) return -1;        return maxMessage.peekFirst();    &#125;        public void push_back(int value) &#123;        numMessage.addLast(value);            while(!maxMessage.isEmpty() &amp;&amp; maxMessage.peekLast() &lt; value) maxMessage.removeLast();        maxMessage.addLast(value);    &#125;        public int pop_front() &#123;        if(numMessage.isEmpty()) return -1;        if(maxMessage.peekFirst().equals(numMessage.peekFirst())) maxMessage.removeFirst();        int ans = numMessage.peekFirst();        numMessage.removeFirst();        return ans;    &#125;&#125;/** * Your MaxQueue object will be instantiated and called as such: * MaxQueue obj = new MaxQueue(); * int param_1 = obj.max_value(); * obj.push_back(value); * int param_3 = obj.pop_front(); */</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day26_字符与数字_剑指Offer</title>
       <link href="/2023/04/15/leetCode/%E5%89%91%E6%8C%87Offer/Day26_%E5%AD%97%E7%AC%A6%E4%B8%8E%E6%95%B0%E5%AD%97/"/>
       <url>/2023/04/15/leetCode/%E5%89%91%E6%8C%87Offer/Day26_%E5%AD%97%E7%AC%A6%E4%B8%8E%E6%95%B0%E5%AD%97/</url>
