@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day28_序列与顺序_剑指Offer</title>
+      <link href="/2023/04/17/leetCode/%E5%89%91%E6%8C%87Offer/Day28_%E5%BA%8F%E5%88%97%E4%B8%8E%E9%A1%BA%E5%BA%8F/"/>
+      <url>/2023/04/17/leetCode/%E5%89%91%E6%8C%87Offer/Day28_%E5%BA%8F%E5%88%97%E4%B8%8E%E9%A1%BA%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="序列化二叉树"><a href="#序列化二叉树" class="headerlink" title="序列化二叉树"></a>序列化二叉树</h2><p><strong>Hard</strong>原题连接：<a href="https://leetcode.cn/problems/xu-lie-hua-er-cha-shu-lcof/">序列化二叉树</a></p><p>请实现两个函数，分别用来序列化和反序列化二叉树。</p><p>你需要设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 &#x2F; 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。</p><p>提示：输入输出格式与 LeetCode 目前使用的方式一致，详情请参阅 LeetCode 序列化二叉树的格式。你并非必须采取这种方式，你也可以采用其他的方法解决这个问题。</p><p><strong>示例：</strong></p><pre><code class="java">输入：root = [1,2,3,null,null,4,5]输出：[1,2,3,null,null,4,5]</code></pre><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><ol><li>如何序列化二叉树（以什么顺序序列化）<ol><li>先序遍历：<strong>根  （左）（右）</strong>的顺序，根（根左右）（根左右）,可以确定当前第一个是根节点，遍历左子树，直到叶子节点，之后是右子树</li><li>中序遍历：<strong>（左） 根 （右）</strong>的顺序，很难判断出根节点的位置，</li><li>后序遍历：<strong>（左）（右） 根</strong> 的顺序，同上不便判断出根节点和左右节点之间的区分</li></ol></li><li>二叉树有几种状态需要区别<ol><li>当前节点：直接把值当字符存储，空节点（叶子节点的子节点）使用特殊字符存储 “#”</li><li>子节点与根：使用字符连接，便于反序列化时区分各个值 “-”</li></ol></li></ol><p>综上，序列化使用先序遍历，判断是否是null，存储当前值，遍历左子树，遍历右子树</p><p>反序列化则是按顺序读取序列化的值，凭借自己拆分的字符，拆成一个个数字，按先序连接</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">/** * Definition for a binary tree node. * public class TreeNode &#123; *     int val; *     TreeNode left; *     TreeNode right; *     TreeNode(int x) &#123; val = x; &#125; * &#125; */public class Codec &#123;    // Encodes a tree to a single string.    public String serialize(TreeNode root) &#123;        if(root == null) return &quot;#&quot;;        StringBuilder sb = new StringBuilder();        sb.append(root.val);        sb.append(&quot;_&quot;);        sb.append(serialize(root.left));        sb.append(&quot;_&quot;);        sb.append(serialize(root.right));        String str = sb.toString();        return str;    &#125;    // Decodes your encoded data to tree.    public TreeNode deserialize(String data) &#123;        String[] values = data.split(&quot;_&quot;);        Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();        for(int i = 0; i &lt; values.length; i++) &#123;            queue.add(values[i]);        &#125;        return reconOrder(queue);    &#125;    //组成树    public static TreeNode reconOrder(Queue&lt;String&gt; queue) &#123;        String value = queue.poll();        if(value.equals(&quot;#&quot;))&#123;            return null;        &#125;        TreeNode head = new TreeNode(Integer.valueOf(value));        head.left = reconOrder(queue);        head.right = reconOrder(queue);        return head;    &#125;&#125;// Your Codec object will be instantiated and called as such:// Codec codec = new Codec();// codec.deserialize(codec.serialize(root));</code></pre><h2 id="字符串的排列"><a href="#字符串的排列" class="headerlink" title="字符串的排列"></a>字符串的排列</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/zi-fu-chuan-de-pai-lie-lcof/">字符串的排列</a></p><p>输入一个字符串，打印出该字符串中字符的所有排列。</p><p>你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。</p><p><strong>示例：</strong></p><pre><code class="java">输入：s = &quot;abc&quot;输出：[&quot;abc&quot;,&quot;acb&quot;,&quot;bac&quot;,&quot;bca&quot;,&quot;cab&quot;,&quot;cba&quot;]</code></pre><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>字符的所有排列，理论上，<strong>一个长度为n的字符最大排列数应该是 !n 个</strong>，但是例子中发现存在重复字符，比如 abb</p><p>思路变为每一个字符在每一个位置只能出现一次（每一个位置都设置一个hashset存储已经在这个位置站过的字符）</p><p>第一个位置会遍历n次，第二位置会遍历n-1次….最后位会遍历1次，总计 !n 次</p><p>但是，一旦出现已经在某个位置重复选过，剪枝</p><p>直至拼接长度到达目标长度</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    // 1.用什么存储    char[] sortStr;    List&lt;String&gt; ans = new LinkedList&lt;&gt;();    public String[] permutation(String s) &#123;        // 2.初始化：String 转 charArray        sortStr = s.toCharArray();        dfs(0);        return ans.toArray(new String[ans.size()]);    &#125;        // 3.dfs遍历运算，终止条件是什么，dfs如何递归    public void dfs(int index) &#123;        // 4.剪枝条件        if(index == sortStr.length-1) &#123;            ans.add(String.valueOf(sortStr));            return;        &#125;        HashSet&lt;Character&gt; set = new HashSet&lt;&gt;();        for(int i=index; i&lt;sortStr.length; i++) &#123;            if(set.contains(sortStr[i]))continue;            set.add(sortStr[i]);            swap(i, index);            dfs(index + 1);            swap(i, index);        &#125;        return;    &#125;    // 5.交换函数    public void swap(int a, int b) &#123;        char mid = sortStr[a];        sortStr[a] = sortStr[b];        sortStr[b] = mid;    &#125; &#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day27_滑动窗口_剑指Offer</title>
       <link href="/2023/04/16/leetCode/%E5%89%91%E6%8C%87Offer/Day27_%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"/>
       <url>/2023/04/16/leetCode/%E5%89%91%E6%8C%87Offer/Day27_%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</url>
