@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Day29_正则表达式与数字规律_剑指Offer</title>
+      <link href="/2023/04/18/leetCode/%E5%89%91%E6%8C%87Offer/Day29_%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E6%95%B0%E5%AD%97%E8%A7%84%E5%BE%8B/"/>
+      <url>/2023/04/18/leetCode/%E5%89%91%E6%8C%87Offer/Day29_%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E6%95%B0%E5%AD%97%E8%A7%84%E5%BE%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="正则表达式匹配"><a href="#正则表达式匹配" class="headerlink" title="正则表达式匹配"></a>正则表达式匹配</h2><p><strong>Hard</strong>原题连接：<a href="https://leetcode.cn/problems/zheng-ze-biao-da-shi-pi-pei-lcof/">正则表达式匹配</a></p><p>请实现一个函数用来匹配包含’. ‘和’<em>‘的正则表达式。模式中的字符’.’表示任意一个字符，而’</em>‘表示它前面的字符可以出现任意次（含0次）。在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”a.a”和”ab<em>ac</em>a”匹配，但与”aa.a”和”ab*a”均不匹配。</p><p><strong>示例：</strong></p><pre><code class="java">输入:s = &quot;aa&quot;p = &quot;a&quot;输出: false解释: &quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。输入:s = &quot;aa&quot;p = &quot;a*&quot;输出: true解释: 因为 &#39;*&#39; 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 &#39;a&#39;。因此，字符串 &quot;aa&quot; 可被视为 &#39;a&#39; 重复了一次。输入:s = &quot;ab&quot;p = &quot;.*&quot;输出: true解释: &quot;.*&quot; 表示可匹配零个或多个（&#39;*&#39;）任意字符（&#39;.&#39;）。</code></pre><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>对于正则表达字符，只有三种可能：正常字符，任意字符 “.”，长度字符 “*”</p><ol><li><p>如果是正常字符，和字符对应位置比较，不同返回false，相同就s和p各往后推一位</p></li><li><p>如果是 “.”，就直接向后推</p></li><li><p>如果是 “ * ”，需要考虑是否判断，如果前一位值相同或为 “.” ，代表字符可以匹配正则的 “ * ”，字符后移；</p><p>​  如果前一位不同，代表 “ * ”取0，正则字符串后移两位</p></li></ol><p>实现：</p><ol><li><p>先判空</p><ol><li>字符为空，正则不为空，需要判断：s&#x3D;”” p&#x3D;”a*”</li><li>字符为空，正则为空，true</li><li>字符不空，正则为空，false</li></ol></li><li><p>判断当前首字符s和p的关系，如果p有后一位，记录（方便查看 “*” 的作用）</p></li><li><p>如果p下一位为 “ * ”，符合两者后移就递归，否则就当 “ * ”为0次出现，消除两个p首字段递归</p></li><li><p>如果不为 “ * ”，符合消除就两者后移递归，否则返回false</p></li></ol><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public boolean isMatch(String s, String p) &#123;        int m = s.length();        int n = p.length();        if(m == 0) &#123;            if(n%2 != 0) return false;            int i=1;            while(i&lt;n) &#123;                if(p.charAt(i) != &#39;*&#39;) &#123;                    return false;                        &#125;                i+=2;            &#125;            return true;        &#125;        if(n == 0) return false;        char a1 = p.charAt(0), a2 = s.charAt(0), a3 = &#39;a&#39;;        if(n &gt; 1) a3 = p.charAt(1);        if(a3 == &#39;*&#39;) &#123;            if(a1 == a2 || a1 == &#39;.&#39;)                return isMatch(s.substring(1), p)                    || isMatch(s, p.substring(2));            else                return isMatch(s, p.substring(2));        &#125;else &#123;            if(a1 == a2 || a1 == &#39;.&#39;)                return isMatch(s.substring(1), p.substring(1));            else                return false;        &#125;    &#125;&#125;</code></pre><h2 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a>丑数</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/chou-shu-lcof/">丑数</a></p><p>我们把只包含质因子 2、3 和 5 的数称作丑数（Ugly Number）。求按从小到大的顺序的第 n 个丑数。</p><p><strong>示例：</strong></p><pre><code class="java">输入: n = 10输出: 12解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。</code></pre><p> <strong>说明:</strong> </p><ol><li><code>1</code> 是丑数。</li><li><code>n</code> <strong>不超过</strong>1690。</li></ol><h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>丑数 &#x3D; min（一个较小的丑数  * 2 或 * 3 或 <em>5），比如 4 &#x3D; 2 * 2，5 &#x3D; 1</em> 5，9 &#x3D; 3 * 3 即拆到最细因子只包含 2，3，5</p><p>所以<strong>利用已知的丑数推导下一个丑数</strong>，比如已知 1，2，3，4，5 下一位丑数 6 &#x3D; 2*3，可为什么选2 和 3 是问题所在  </p><p>下一个丑数只可能通过以下三种形式出现</p><p>已知丑数a * 2已知丑数b * 3已知丑数c * 5</p><p>那么就从头开始记录a, b, c</p><p>当满足某一次丑数为a * 2，b * 3，c * 5，更新对应的a b c </p><p>实现：</p><ol><li>初始丑数为1，a，b，c均为0</li><li>向后递推丑数，每次的丑数等于 （第a个丑数 * 2，第b个丑数 * 3，第c个丑数 * 5）三者中的最小值</li><li>2种是谁的最小值，谁就+1，更新abc，直到推导到第n位</li></ol><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public int nthUglyNumber(int n) &#123;        int a = 0, b = 0, c = 0;        int[] dp = new int[n];        dp[0] = 1;        for(int i=1; i&lt; n; i++) &#123;            dp[i] = Math.min(Math.min(dp[a] * 2, dp[b] * 3), dp[c] * 5);            if(dp[i] == dp[a] * 2) a++;            if(dp[i] == dp[b] * 3) b++;            if(dp[i] == dp[c] * 5) c++;        &#125;        return dp[n-1];    &#125;&#125;</code></pre><h2 id="n个骰子的点数"><a href="#n个骰子的点数" class="headerlink" title="n个骰子的点数"></a>n个骰子的点数</h2><p><strong>medium</strong>原题连接：<a href="https://leetcode.cn/problems/nge-tou-zi-de-dian-shu-lcof/">n个骰子的点数</a></p><p>把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。</p><p>你需要用一个浮点数数组返回答案，其中第 i 个元素代表这 n 个骰子所能掷出的点数集合中第 i 小的那个的概率。</p><p><strong>示例：</strong></p><pre><code class="java">输入: 1输出: [0.16667,0.16667,0.16667,0.16667,0.16667,0.16667]输入: 2输出: [0.02778,0.05556,0.08333,0.11111,0.13889,0.16667,0.13889,0.11111,0.08333,0.05556,0.02778]</code></pre><p> <strong>说明:</strong> </p><ol><li>1 &lt;&#x3D; n &lt;&#x3D; 11</li></ol><h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><p>一个骰子六个面，每个面出现概率1&#x2F;6，两个骰子，共有36种组合，但是只有11种不同结果（2-12）。</p><p>以上我们可以得到的信息：</p><ol><li>每多加一个骰子，不同的结果数量就增加5个（最大值+6，最小值+1，差为5）</li><li>多加一个骰子后，<strong>原结果第i个应该影响现结果第i+1到i+6 ,先结果第 i 个应该是原结果 i - 6 到 i - 1的累计作用</strong></li><li>所谓累计作用：原本 i 的概率为 a,新加一个骰子后，i 对于 i+1 影响大了 a&#x2F;6 ,对 i+2也是a&#x2F;6,直到 i+6，相同的道理，i+1对 i+2到i+7也有相同影响</li></ol><p>简而言之，从只有一个骰子向后递推，每增加一个筛子，扩大结果数组范围，让原结果对先数组的六位累计概率</p><h3 id="Java代码-2"><a href="#Java代码-2" class="headerlink" title="Java代码"></a>Java代码</h3><pre><code class="java">class Solution &#123;    public double[] dicesProbability(int n) &#123;        double[] ans = new double[6];        for(int i=0; i&lt;6; i++) ans[i] = 1.0/6;        for(int i=2; i&lt;=n; i++) &#123;            double[] mid = new double[5*i + 1];            for(int j=0; j&lt;ans.length; j++) &#123;                for(int k=0;k&lt;6; k++) &#123;                    mid[j+k] += ans[j]/6.0;                &#125;            &#125;            ans = mid;        &#125;        return ans;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Day28_序列与顺序_剑指Offer</title>
       <link href="/2023/04/17/leetCode/%E5%89%91%E6%8C%87Offer/Day28_%E5%BA%8F%E5%88%97%E4%B8%8E%E9%A1%BA%E5%BA%8F/"/>
       <url>/2023/04/17/leetCode/%E5%89%91%E6%8C%87Offer/Day28_%E5%BA%8F%E5%88%97%E4%B8%8E%E9%A1%BA%E5%BA%8F/</url>
