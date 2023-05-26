@@ -31,33 +31,6 @@
     
     
     <entry>
-      <title>String相关类分析</title>
-      <link href="/2023/05/10/Java%E5%9F%BA%E7%A1%80/String%E7%9B%B8%E5%85%B3%E7%B1%BB%E5%88%86%E6%9E%90/"/>
-      <url>/2023/05/10/Java%E5%9F%BA%E7%A1%80/String%E7%9B%B8%E5%85%B3%E7%B1%BB%E5%88%86%E6%9E%90/</url>
-      
-        <content type="html"><![CDATA[<h2 id="String相关类分析"><a href="#String相关类分析" class="headerlink" title="String相关类分析"></a>String相关类分析</h2><ul><li><p>String</p></li><li><p>StringBuffer</p></li><li><p>StringBuilder</p></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> java基础知识 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> java </tag>
-            
-            <tag> 面试 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>java重写与重载</title>
       <link href="/2023/05/08/Java%E5%9F%BA%E7%A1%80/Java%E9%87%8D%E5%86%99%E4%B8%8E%E9%87%8D%E8%BD%BD/"/>
       <url>/2023/05/08/Java%E5%9F%BA%E7%A1%80/Java%E9%87%8D%E5%86%99%E4%B8%8E%E9%87%8D%E8%BD%BD/</url>
@@ -1245,10 +1218,10 @@
     
     <entry>
       <title>快速排序</title>
-      <link href="/2022/10/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
-      <url>/2022/10/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+      <link href="/2022/11/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
+      <url>/2022/11/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
       
-        <content type="html"><![CDATA[<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><ul><li>快速排序的原理</li><li>快速排序分析</li><li>代码实现</li></ul><h3 id="快速排序的原理"><a href="#快速排序的原理" class="headerlink" title="快速排序的原理"></a>快速排序的原理</h3><h3 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h3><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3>]]></content>
+        <content type="html"><![CDATA[<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序是一种基于比较的排序算法，利用分治法来将一个序列分割成两个子序列进行排序，并利用递归的方式进行排序。快速排序是一种高效的排序算法，其时间复杂度为O(nlogn)，空间复杂度为O(logn)。</p><p>【算法步骤】</p><p>1.选择基准值：从数列中选择一个元素作为基准值（pivot）。</p><p>2.分割：将序列中大于基准值的元素放在基准值的右边，小于基准值的元素放在基准值的左边。此时，基准值的位置已经确定了。 </p><p>3.递归：对左右两边的子序列分别重复步骤1、步骤2，直到每个子序列只有一个元素时终止递归。</p><p>【时间复杂度】</p><ul><li>最好情况下，每次选出的基准值都刚好平分整个序列，此时排序效率最高，时间复杂度为O(nlogn)。</li><li>最坏情况下，每次选出的基准值总是序列中的最小或最大值，导致递归树退化成只有一条支线，此时时间复杂度为O(n²)。</li><li>平均情况下，快速排序的时间复杂度为O(nlogn)。</li></ul><p>【空间复杂度】</p><p>快速排序的空间复杂度为O(logn)，主要是由于递归调用的栈所占用的空间。</p><p>【适用场景】</p><p>快速排序适用于数据量较大、数值分布比较均匀的情况下。由于快速排序对于数据分布的依赖性比较强，如果数据分布不均匀，可能会影响排序效率，甚至导致时间复杂度退化到O(n²)。因此，如果要在数据分布不均匀的情况下进行排序，建议采用其他排序算法。</p><p>【实现代码】</p><p>以下是实现快速排序的Java代码：</p><pre><code>Copy Codepublic static void quickSort(int[] arr, int low, int high) &#123;    if (low &lt; high) &#123;        int pivot = partition(arr, low, high);        quickSort(arr, low, pivot - 1);        quickSort(arr, pivot + 1, high);    &#125;&#125;private static int partition(int[] arr, int low, int high) &#123;    int pivot = arr[high];    int i = low - 1;    for (int j = low; j &lt;= high - 1; j++) &#123;        if (arr[j] &lt; pivot) &#123;            i++;            swap(arr, i, j);        &#125;    &#125;    swap(arr, i + 1, high);    return i + 1;&#125;private static void swap(int[] arr, int i, int j) &#123;    int temp = arr[i];    arr[i] = arr[j];    arr[j] = temp;&#125;</code></pre><p>其中，<code>quickSort</code>方法是快速排序的入口，它会递归调用自己对左右子序列进行排序。<code>partition</code>方法是分割方法，用于将序列分割成两个子序列，并返回基准值的位置。<code>swap</code>方法是交换数组中两个元素的值。</p><p>测试代码如下：</p><pre><code>Copy Codeint[] arr = &#123;5, 3, 1, 6, 8, 4, 2, 7&#125;;quickSort(arr, 0, arr.length - 1);System.out.println(Arrays.toString(arr));</code></pre><p>输出结果为：[1, 2, 3, 4, 5, 6, 7, 8]</p>]]></content>
       
       
       <categories>
