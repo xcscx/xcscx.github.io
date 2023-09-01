@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>D</title>
+      <link href="/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/9m1d/"/>
+      <url>/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/9m1d/</url>
+      
+        <content type="html"><![CDATA[<h3 id="System输出"><a href="#System输出" class="headerlink" title="System输出"></a>System输出</h3><p>System.err.println() : 错误输出，输出的内容为红色</p><p>System.out.println() : 常规输出，输出的内容为白色</p><h3 id="默认属性"><a href="#默认属性" class="headerlink" title="默认属性"></a>默认属性</h3><p>接口中的变量默认：public static final</p><p>方法中的变量默认：public abstract</p><h3 id="关于数组"><a href="#关于数组" class="headerlink" title="关于数组"></a>关于数组</h3><ol><li>数组初始化后所占空间是固定的</li><li>数组相等的判断需要使用Arrays.equals()，进行逐个对比</li><li>因为数组是对象，所以java是存储到堆中的</li></ol><h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>父类静态 —— 子类金泰 —— 父类构造代码块 —— 父类构造方法 —— 子类构造代码块 —— 子类构造方法</p><h3 id="关于private"><a href="#关于private" class="headerlink" title="关于private"></a>关于private</h3><p>只有本类和反射可以访问到</p><p>注意：一个java文件不能有两个public，且子类作用域不可以访问父类私有变量</p><p>（如果父类有private属性，子类无法访问到该私有变量）</p><h3 id="Integer对比"><a href="#Integer对比" class="headerlink" title="Integer对比"></a>Integer对比</h3><p>小于127的Integer值可以相互间直接比较，会作为数值直接比较</p><p>大于127的Integer与int类型可以直接比较，会作为数值直接比较</p><p>但是大于127的Integer不可以相互比较，会作为对象进行地址比较</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> java基础知识 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git上传常见问题汇总</title>
       <link href="/2023/05/22/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/Git%E4%B8%8A%E4%BC%A0%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"/>
       <url>/2023/05/22/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/Git%E4%B8%8A%E4%BC%A0%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</url>
