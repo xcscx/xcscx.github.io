@@ -4,9 +4,36 @@
   
     
     <entry>
-      <title>D</title>
-      <link href="/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/9m1d/"/>
-      <url>/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/9m1d/</url>
+      <title>Java锁相关的名词</title>
+      <link href="/2023/09/02/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/2.Java%E9%94%81/"/>
+      <url>/2023/09/02/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/2.Java%E9%94%81/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Java锁相关名词"><a href="#Java锁相关名词" class="headerlink" title="Java锁相关名词"></a>Java锁相关名词</h3><ol><li><p>synchronized：<strong>可用于方法和代码块</strong>，实现对实例或类的同步访问，提供互斥访问。当一个线程进入被synchronized修饰的代码块时，自动获取对象锁（<strong>锁监视器</strong>），其他线程要等待锁的释放</p></li><li><p>volatile：<strong>用于修饰变量</strong>，确保多个线程之间对被修饰变量的可见性，不可以保证原子性，所以在多线程操作volatile对象时，需要额外的同步手段</p></li><li><p>Lock：&lt;接口&gt;定义了基本锁机制，有如下常见方法：</p><ul><li>lock()：获取锁，如果锁不可用则阻塞等待</li><li>unlock()：释放锁，让其他线程获取锁</li><li>trylock()：尝试获取锁，如果可用则获取锁，否则返回false</li></ul></li><li><p>ReentrantLock：&lt;Lock接口的实现类&gt;提供了可重入的互斥锁（可重入性：同一个线程可以多次获取同一个锁，不被自己持有的锁阻塞，即适应嵌套锁）</p><p>​ 具有公平性与非公平性：前者按线程申请顺序进行，后者可能存在线程插队</p></li></ol><p>监视器锁： 用于实现同步机制，基于对象的内置锁（互斥锁）实现，</p><p>​每个Java对象都有一个内置锁，当synchronized修饰方法时，会隐式的获取对象的内置锁，从而形成一个监视器锁</p><p>​线程进入此代码时（被synchronized修饰）会自动获取对象的内置锁</p><p>​特点：1. 独占性：同一时间只能有一个线程持有对象的内置锁（监视器锁）</p><p>​    2.互斥性：当一个线程持有锁时，其他线程必须等待</p><pre><code>                3.释放锁：当线程执行完synchronized修饰的方法或抛出异常时，会释放锁</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> java基础知识 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 锁 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java复盘知识点</title>
+      <link href="/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/1.%E5%A4%8D%E7%9B%98%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+      <url>/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/1.%E5%A4%8D%E7%9B%98%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
       
         <content type="html"><![CDATA[<h3 id="System输出"><a href="#System输出" class="headerlink" title="System输出"></a>System输出</h3><p>System.err.println() : 错误输出，输出的内容为红色</p><p>System.out.println() : 常规输出，输出的内容为白色</p><h3 id="默认属性"><a href="#默认属性" class="headerlink" title="默认属性"></a>默认属性</h3><p>接口中的变量默认：public static final</p><p>方法中的变量默认：public abstract</p><h3 id="关于数组"><a href="#关于数组" class="headerlink" title="关于数组"></a>关于数组</h3><ol><li>数组初始化后所占空间是固定的</li><li>数组相等的判断需要使用Arrays.equals()，进行逐个对比</li><li>因为数组是对象，所以java是存储到堆中的</li></ol><h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>父类静态 —— 子类金泰 —— 父类构造代码块 —— 父类构造方法 —— 子类构造代码块 —— 子类构造方法</p><h3 id="关于private"><a href="#关于private" class="headerlink" title="关于private"></a>关于private</h3><p>只有本类和反射可以访问到</p><p>注意：一个java文件不能有两个public，且子类作用域不可以访问父类私有变量</p><p>（如果父类有private属性，子类无法访问到该私有变量）</p><h3 id="Integer对比"><a href="#Integer对比" class="headerlink" title="Integer对比"></a>Integer对比</h3><p>小于127的Integer值可以相互间直接比较，会作为数值直接比较</p><p>大于127的Integer与int类型可以直接比较，会作为数值直接比较</p><p>但是大于127的Integer不可以相互比较，会作为对象进行地址比较</p>]]></content>
       
