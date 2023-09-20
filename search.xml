@@ -164,6 +164,33 @@
     
     
     <entry>
+      <title>快速排序</title>
+      <link href="/2023/08/15/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
+      <url>/2023/08/15/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h3 id="快速排序逻辑"><a href="#快速排序逻辑" class="headerlink" title="快速排序逻辑"></a>快速排序逻辑</h3><p>快速排序采用分治法的思想，每次找到一个数的正确位置，并将左右两侧调整为小于大于该数的两部分，递归两侧找到每一个数字的正确位置</p><p>在交换过程中，相同大小的元素可能会改变它们的相对顺序，所以<strong>快速排序不稳定</strong></p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>平均时间复杂度：O(nlogn)</p><p>空间复杂度：O(logn)</p><p><strong>最差情况的时间复杂度，待排序数组已经是有序的或者逆序的，此时每次划分只能得到一个很小或很大的子数组，其时间复杂度为O(n^2)；</strong></p><p><strong>递归调用栈的最大深度为n，因此最坏情况下的空间复杂度为O(n)</strong></p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">class Main &#123;    public static void quickSort(int[] arr, int left, int right) &#123;        // 保证数组存在值        if(left &lt; right) &#123;            int temp = arr[left];            int i = left + 1, j = right;            // 左右指针，找到左边第一个大于temp的和右边第一个小于temp的，交换            while(i &lt;= j) &#123;                while(i &lt;= j &amp;&amp; arr[i] &lt; temp) i++;                while(i &lt;= j &amp;&amp; arr[j] &gt; temp) j--;                if(i &lt;= j) &#123;                    swap(arr, i, j);                    i++;                    j--;                &#125;            &#125;            // 将第一个值放到合适的位置            swap(arr, left, j);            // 左右区间分别快排            quickSort(arr, left, j-1);            quickSort(arr, i, right);        &#125;        return;    &#125;    public static void swap(int[] arr, int n, int m) &#123;        int temp = arr[n];        arr[n] = arr[m];        arr[m] = temp;    &#125;&#125;</code></pre><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>快速排序适用于各种规模的待排序数组，它的性能好于其他排序算法，尤其适用于大规模数据的排序。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>冒泡排序</title>
       <link href="/2023/08/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/"/>
       <url>/2023/08/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
