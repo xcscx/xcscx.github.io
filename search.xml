@@ -164,11 +164,38 @@
     
     
     <entry>
+      <title>希尔排序</title>
+      <link href="/2023/08/07/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/"/>
+      <url>/2023/08/07/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h3 id="希尔排序逻辑"><a href="#希尔排序逻辑" class="headerlink" title="希尔排序逻辑"></a>希尔排序逻辑</h3><p>希尔排序是一种改进后的插入排序，</p><p>它涉及在不同的间隔之间进行子序列的插入排序，所以 <strong>希尔排序是不稳定排序</strong></p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>平均时间复杂度：取决于具体的间隔序列</p><p>空间复杂度：O(1)</p><p><strong>最差情况的时间复杂度是O(n^2)，此时希尔排序退化为直接插入排序，即间隔为1。</strong></p><p><strong>最好的情况下可以达到O(n log n)</strong></p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">class Main &#123;    public static void shellSort(int[] arr) &#123;        int len = arr.length;        // 取间隔，从arr长度的一半开始，每次减少一半        for(int mid = len / 2; mid&gt;0 ; mid /= 2) &#123;            // 对每个小组内进行直接插入排序（视小组前面的数是有序的，依次插入合适的位置）            for(int i = mid; i &lt; len; i++) &#123;                int temp = arr[i];                int j = i;                while(j &gt;= mid &amp;&amp; arr[j - mid] &gt; temp) &#123;                    arr[j] = arr[j - mid];                    j -= mid;                &#125;                arr[j] = temp;            &#125;        &#125;        return;    &#125;&#125;</code></pre><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>希尔排序通常用于大规模数据集的排序，尤其是当数据集中的元素分布不均匀时，传统的插入排序的性能可能较差。通过逐步缩小间隔的方式，希尔排序能够较好地提高插入排序的性能。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>直接插入排序</title>
       <link href="/2023/08/04/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/"/>
       <url>/2023/08/04/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</url>
       
-        <content type="html"><![CDATA[<h3 id="直接排序逻辑"><a href="#直接排序逻辑" class="headerlink" title="直接排序逻辑"></a>直接排序逻辑</h3><p>将数组分为有序和无序两部分，有序在前，无序在后，首先默认数组第一位是一个只有一位数字的有序数组</p><p>每次将一个无序的数按有序要求插入有序之中，循环到每个无序都插入有序</p><p>因为是依次插入有序数组中，等值的数不会发生位置交换，所以 <strong>直接插入排序是可靠排序</strong></p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>平均时间复杂度：O(n^2)</p><p>空间复杂度：O(1)</p><p><strong>最差情况的时间复杂度是在输入数组逆序的情况下，此时每次插入都需要将已排序部分中的所有元素后移，时间复杂度为O(n^2)</strong></p><p><strong>最好情况的时间复杂度是在输入数组基本有序的情况下，时间复杂度接近O(n)</strong></p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">class Main &#123;    public static void insertSort(int[] arr) &#123;        if(arr == null || arr.length &lt; 2) return;        int len = arr.length;        // i之前的数组有序        for(int i = 1; i &lt; len; i++) &#123;            // 每次都将第i位的数 “冒泡”到i之前有序的位置            for(int j = i - 1; j &gt;= 0 &amp;&amp; arr[j] &gt; arr[j+1]; j--) &#123;                swap(arr, j, j+1);            &#125;        &#125;        return;    &#125;        // 交换方法，交换数组arr的第n和第m位    public static void swap(int[] arr, int n, int m) &#123;        int mid = arr[m];        arr[m] = arr[n];        arr[n] = mid;    &#125;&#125;</code></pre><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ol><li>对于小规模的数组，由于直接插入排序的时间复杂度较低，因此效率较高。</li><li>对于基本有序的数组，直接插入排序的性能十分优秀</li></ol>]]></content>
+        <content type="html"><![CDATA[<h3 id="直接插入排序逻辑"><a href="#直接插入排序逻辑" class="headerlink" title="直接插入排序逻辑"></a>直接插入排序逻辑</h3><p>将数组分为有序和无序两部分，有序在前，无序在后，首先默认数组第一位是一个只有一位数字的有序数组</p><p>每次将一个无序的数按有序要求插入有序之中，循环到每个无序都插入有序</p><p>因为是依次插入有序数组中，等值的数不会发生位置交换，所以 <strong>直接插入排序是稳定排序</strong></p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>平均时间复杂度：O(n^2)</p><p>空间复杂度：O(1)</p><p><strong>最差情况的时间复杂度是在输入数组逆序的情况下，此时每次插入都需要将已排序部分中的所有元素后移，时间复杂度为O(n^2)</strong></p><p><strong>最好情况的时间复杂度是在输入数组基本有序的情况下，时间复杂度接近O(n)</strong></p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">class Main &#123;    public static void insertSort(int[] arr) &#123;        if(arr == null || arr.length &lt; 2) return;        int len = arr.length;        // i之前的数组有序        for(int i = 1; i &lt; len; i++) &#123;            // 每次都将第i位的数 “冒泡”到i之前有序的位置            for(int j = i - 1; j &gt;= 0 &amp;&amp; arr[j] &gt; arr[j+1]; j--) &#123;                swap(arr, j, j+1);            &#125;        &#125;        return;    &#125;        // 交换方法，交换数组arr的第n和第m位    public static void swap(int[] arr, int n, int m) &#123;        int mid = arr[m];        arr[m] = arr[n];        arr[n] = mid;    &#125;&#125;</code></pre><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ol><li>对于小规模的数组，由于直接插入排序的时间复杂度较低，因此效率较高。</li><li>对于基本有序的数组，直接插入排序的性能十分优秀</li></ol>]]></content>
       
       
       <categories>
