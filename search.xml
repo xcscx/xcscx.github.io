@@ -164,6 +164,33 @@
     
     
     <entry>
+      <title>冒泡排序</title>
+      <link href="/2023/08/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/"/>
+      <url>/2023/08/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h3 id="冒泡排序逻辑"><a href="#冒泡排序逻辑" class="headerlink" title="冒泡排序逻辑"></a>冒泡排序逻辑</h3><p>重复地遍历待排序的元素，每次比较相邻的两个元素，并交换它们的位置，直到整个序列按照从小到大的顺序排列</p><p>因为不会交换相等值，所以<strong>冒泡排序是稳定排序</strong></p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>平均时间复杂度：O(n^2)</p><p>空间复杂度：O(1)</p><p><strong>最差情况的时间复杂度，待排序数组是倒序排列的，需要进行n-1次比较和交换操作，因此最坏情况下的时间复杂度为O(n^2)</strong></p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">class Main &#123;    public static void bubbleSort(int[] arr) &#123;        int len = arr.length;        // i用于记录已经放好的最大值数组        for(int i = 0; i &lt; len-1; i++) &#123;            // 用于向后冒泡，依次交换大值            for(int j = 0; j &lt; len - i - 1; j++) &#123;                if(arr[j] &gt; arr[j+1])&#123;                    swap(arr, j, j+1);                &#125;            &#125;            return;        &#125;    &#125;        public static void swap(int[] arr, int n, int m) &#123;        int temp = arr[n];        arr[n] = arr[m];        arr[m] = temp;    &#125;&#125;</code></pre><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>由于冒泡排序的效率较低，适用于待排序数组规模较小的情况。在实际应用中，冒泡排序更常用作算法学习和理解的示例。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>希尔排序</title>
       <link href="/2023/08/07/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/"/>
       <url>/2023/08/07/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</url>
