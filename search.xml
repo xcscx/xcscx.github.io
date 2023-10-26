@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>更快，更好的冒泡排序</title>
+      <link href="/2023/10/23/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E4%BC%98%E5%8C%96/"/>
+      <url>/2023/10/23/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E4%BC%98%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<h3 id="冒泡排序优化"><a href="#冒泡排序优化" class="headerlink" title="冒泡排序优化"></a>冒泡排序优化</h3><p>基础知识：<a href="https://xcscx.github.io/2023/08/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">冒泡排序 | IT蛋的个人博客 (xcscx.github.io)</a></p><pre><code class="java">// 冒泡排序的基本实现class Main &#123;    public static void bubbleSort(int[] arr) &#123;        int len = arr.length;        // i用于记录已经放好的最大值数组        for(int i = 0; i &lt; len-1; i++) &#123;            // 用于向后冒泡，依次交换大值            for(int j = 0; j &lt; len - i - 1; j++) &#123;                if(arr[j] &gt; arr[j+1])&#123;                    swap(arr, j, j+1);                &#125;            &#125;        &#125;        return;    &#125;        public static void swap(int[] arr, int n, int m) &#123;        int temp = arr[n];        arr[n] = arr[m];        arr[m] = temp;    &#125;&#125;</code></pre><p>基本的冒泡在思路上很好理解，但仍然有一些笨拙：</p><p>如果一个数组已经基本有序 ：[ 1，3，2，4，5，6 ] ，那么在发生少数几次交换后，数组就已经有序，此时没必要继续遍历排序</p><h4 id="优化一：如果一次遍历中，没有发生交换，说明数组已经有序，结束排序"><a href="#优化一：如果一次遍历中，没有发生交换，说明数组已经有序，结束排序" class="headerlink" title="优化一：如果一次遍历中，没有发生交换，说明数组已经有序，结束排序"></a>优化一：如果一次遍历中，没有发生交换，说明数组已经有序，结束排序</h4><pre><code class="java">// 冒泡排序：优化一class Main &#123;    public static void bubbleSort(int[] arr) &#123;        int len = arr.length;        // flag 用于判断是否发生了交换        boolean flag;        // i用于记录已经放好的最大值数组        for(int i = 0; i &lt; len-1; i++) &#123;            flag = true；            // 用于向后冒泡，依次交换大值            for(int j = 0; j &lt; len - i - 1; j++) &#123;                if(arr[j] &gt; arr[j+1])&#123;                    swap(arr, j, j+1);                    // 发生交换，不可跳出                    flag = false;                &#125;            &#125;            if(flag) &#123;                break;            &#125;        &#125;        return;    &#125;        public static void swap(int[] arr, int n, int m) &#123;        int temp = arr[n];        arr[n] = arr[m];        arr[m] = temp;    &#125;&#125;</code></pre><p>又如果数组并不是基本有序，而是后半段有序：[ 4，3，2，1，5，6，7，8，9 ]，冒泡排序遍历后半段的遍历也是没必要的</p><p>试想一下，某次冒泡排序后，第五个数字后直到结尾都没有发生交换，是否就是说明第五个数之后的数组已经是有序的</p><h4 id="优化二：记录最后的比较位置，之后视为有序"><a href="#优化二：记录最后的比较位置，之后视为有序" class="headerlink" title="优化二：记录最后的比较位置，之后视为有序"></a>优化二：记录最后的比较位置，之后视为有序</h4><pre><code class="java">// 冒泡排序：优化二class Main &#123;    public static void bubbleSort(int[] arr) &#123;        int len = arr.length;        // flag 用于判断是否发生了交换        boolean flag;        // lastChange 用于记录最后一个无序地址（之后为有序）        int lastChange = len - 1;        // i用于记录已经放好的最大值数组        for(int i = 0; i &lt; len; i++) &#123;            flag = true;            // midChange 用于暂时记录每一轮的最后交换地址            int midChange = 0;            // 用于向后冒泡，依次交换大值            for(int j = 0; j &lt; lastChange; j++) &#123;                if(arr[j] &gt; arr[j+1])&#123;                    swap(arr, j, j+1);                    // 发生交换，不可跳出                    flag = false;                    midChange = j;                &#125;            &#125;            if(flag) &#123;                break;            &#125;            // 记住最后交换地址，修改遍历范围            midChange = lastChange;        &#125;        return;    &#125;        public static void swap(int[] arr, int n, int m) &#123;        int temp = arr[n];        arr[n] = arr[m];        arr[m] = temp;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>拥有自己的代码库真的很酷--如何开发一个SDK</title>
       <link href="/2023/10/21/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%8F%91SDK/"/>
       <url>/2023/10/21/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E5%BC%80%E5%8F%91SDK/</url>
@@ -249,7 +276,7 @@
       <link href="/2023/08/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/"/>
       <url>/2023/08/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
       
-        <content type="html"><![CDATA[<h3 id="冒泡排序逻辑"><a href="#冒泡排序逻辑" class="headerlink" title="冒泡排序逻辑"></a>冒泡排序逻辑</h3><p>重复地遍历待排序的元素，每次比较相邻的两个元素，并交换它们的位置，直到整个序列按照从小到大的顺序排列</p><p>因为不会交换相等值，所以<strong>冒泡排序是稳定排序</strong></p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>平均时间复杂度：O(n^2)</p><p>空间复杂度：O(1)</p><p><strong>最差情况的时间复杂度，待排序数组是倒序排列的，需要进行n-1次比较和交换操作，因此最坏情况下的时间复杂度为O(n^2)</strong></p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">class Main &#123;    public static void bubbleSort(int[] arr) &#123;        int len = arr.length;        // i用于记录已经放好的最大值数组        for(int i = 0; i &lt; len-1; i++) &#123;            // 用于向后冒泡，依次交换大值            for(int j = 0; j &lt; len - i - 1; j++) &#123;                if(arr[j] &gt; arr[j+1])&#123;                    swap(arr, j, j+1);                &#125;            &#125;            return;        &#125;    &#125;        public static void swap(int[] arr, int n, int m) &#123;        int temp = arr[n];        arr[n] = arr[m];        arr[m] = temp;    &#125;&#125;</code></pre><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>由于冒泡排序的效率较低，适用于待排序数组规模较小的情况。在实际应用中，冒泡排序更常用作算法学习和理解的示例。</p>]]></content>
+        <content type="html"><![CDATA[<h3 id="冒泡排序逻辑"><a href="#冒泡排序逻辑" class="headerlink" title="冒泡排序逻辑"></a>冒泡排序逻辑</h3><p>重复地遍历待排序的元素，每次比较相邻的两个元素，并交换它们的位置，直到整个序列按照从小到大的顺序排列</p><p>因为不会交换相等值，所以<strong>冒泡排序是稳定排序</strong></p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>平均时间复杂度：O(n^2)</p><p>空间复杂度：O(1)</p><p><strong>最差情况的时间复杂度，待排序数组是倒序排列的，需要进行n-1次比较和交换操作，因此最坏情况下的时间复杂度为O(n^2)</strong></p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">class Main &#123;    public static void bubbleSort(int[] arr) &#123;        int len = arr.length;        // i用于记录已经放好的最大值数组        for(int i = 0; i &lt; len-1; i++) &#123;            // 用于向后冒泡，依次交换大值            for(int j = 0; j &lt; len - i - 1; j++) &#123;                if(arr[j] &gt; arr[j+1])&#123;                    swap(arr, j, j+1);                &#125;            &#125;        &#125;        return;    &#125;        public static void swap(int[] arr, int n, int m) &#123;        int temp = arr[n];        arr[n] = arr[m];        arr[m] = temp;    &#125;&#125;</code></pre><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>由于冒泡排序的效率较低，适用于待排序数组规模较小的情况。在实际应用中，冒泡排序更常用作算法学习和理解的示例。</p>]]></content>
       
       
       <categories>
