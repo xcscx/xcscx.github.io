@@ -4,6 +4,137 @@
   
     
     <entry>
+      <title>归并排序</title>
+      <link href="/2024/02/18/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"/>
+      <url>/2024/02/18/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</url>
+      
+        <content type="html"><![CDATA[<h3 id="归并排序逻辑"><a href="#归并排序逻辑" class="headerlink" title="归并排序逻辑"></a>归并排序逻辑</h3><p>归并排序（Merge Sort）是一种经典的排序算法，它使用分治思想将一个大问题分解为多个小问题，在递归过程中将这些小问题的答案合并成一个整体解决大问题。</p><p>具体来说，归并排序的步骤如下：</p><ol><li><strong>分解</strong>：将要排序的数组分解成两个子数组，直到每个子数组只有一个元素为止。</li><li><strong>解决</strong>：对每个子数组进行排序，可以使用任何排序算法，通常使用归并排序本身递归地对子数组进行排序。</li><li><strong>合并</strong>：将两个排好序的子数组合并成一个有序的数组。</li></ol><p>在第一阶段中，将数组不断分割，直到每个子数组包含一个元素。这个阶段不会产生任何比较和交换操作，因此时间复杂度为 O(n)。</p><p>在第二阶段中，我们需要将每个子数组进行排序。由于每个子数组都已经是有序的，我们可以使用归并排序算法的特性——合并两个有序数组——来完成排序过程。由于每个子数组的大小为 n&#x2F;2，因此排序时间复杂度为 O(nlogn)。</p><p>在第三阶段中，我们需要将两个排好序的子数组合并成一个有序的数组。这个过程需要创建一个临时的数组来存储结果，并且需要进行比较和移动元素的操作。因此时间复杂度为 O(n)。</p><p>整个排序过程的时间复杂度是 O(nlogn)，空间复杂度为 O(n)，稳定性好。</p><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>时间复杂度：O(nlogn)</p><p>空间复杂度：O(n)</p><p>稳定性：好</p><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="java">public class MergeSort &#123;    public static void main(String[] args) &#123;        int[] arr = &#123;38, 27, 43, 3, 9, 82, 10&#125;;        mergeSort(arr, 0, arr.length - 1);        for (int num : arr) &#123;            System.out.print(num + &quot; &quot;);        &#125;    &#125;    public static void mergeSort(int[] arr, int left, int right) &#123;        if (left &lt; right) &#123;            int mid = (left + right) / 2;            mergeSort(arr, left, mid);      // 对左半部分进行归并排序            mergeSort(arr, mid + 1, right); // 对右半部分进行归并排序            merge(arr, left, mid, right);   // 合并两个有序的子数组        &#125;    &#125;    public static void merge(int[] arr, int left, int mid, int right) &#123;        int[] temp = new int[arr.length];        int i = left; // 左半部分的起始位置        int j = mid + 1; // 右半部分的起始位置        int t = 0; // 临时数组的起始位置        while (i &lt;= mid &amp;&amp; j &lt;= right) &#123;            if (arr[i] &lt;= arr[j]) &#123;                temp[t++] = arr[i++];            &#125; else &#123;                temp[t++] = arr[j++];            &#125;        &#125;        while (i &lt;= mid) &#123; // 将左半部分剩余元素填充进temp中            temp[t++] = arr[i++];        &#125;        while (j &lt;= right) &#123; // 将右半部分剩余元素填充进temp中            temp[t++] = arr[j++];        &#125;        t = 0;        while (left &lt;= right) &#123; // 将temp中的元素全部拷贝到原数组中            arr[left++] = temp[t++];        &#125;    &#125;&#125;</code></pre><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol><li><strong>稳定性：</strong> 归并排序是一种稳定的排序算法，相同元素的相对位置不会发生改变。</li><li><strong>适应性强：</strong> 对各种数据分布场景都能够保持较好的排序性能。</li><li><strong>并行化：</strong> 归并排序易于并行化实现，可以利用多核处理器进行并行排序，提高排序速度。</li><li><strong>不受数据分布影响：</strong> 归并排序对数据的初始状态不敏感，在最坏情况下的时间复杂度也能得到保证。</li></ol><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol><li><strong>额外空间开销：</strong> 归并排序需要额外的存储空间来存储临时数组，因此空间复杂度较高，可能会受限于内存容量。</li><li><strong>性能稳定：</strong> 尽管归并排序的平均时间复杂度为 O(nlogn)，但在实际情况下，归并排序的常数项较大，导致在小规模数据集上性能不如快速排序等算法。</li><li><strong>非原地排序：</strong> 归并排序通常需要额外的存储空间来存储临时数据，因此是一种非原地排序算法，可能会增加程序的运行开销。</li></ol><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ol><li><strong>大规模数据排序：</strong> 归并排序适用于需要对大规模数据集进行排序的情况，由于其稳定的时间复杂度 O(nlogn)，在处理大量数据时表现优异。</li><li><strong>外部排序：</strong> 当数据无法一次性载入内存而需要借助外部存储进行排序时，归并排序是一个理想的选择，因为它可以通过多次读取和写入磁盘来排序大型文件或数据流。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java8新特性Stream</title>
+      <link href="/2024/02/17/Java%E5%9F%BA%E7%A1%80/Java8%E6%96%B0%E7%89%B9%E6%80%A7Stream/"/>
+      <url>/2024/02/17/Java%E5%9F%BA%E7%A1%80/Java8%E6%96%B0%E7%89%B9%E6%80%A7Stream/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><h3 id="什么是stream流"><a href="#什么是stream流" class="headerlink" title="什么是stream流"></a>什么是stream流</h3><p>Stream(流)是一个来自数据源的元素队列，在管道中传输，支持聚合操作，也可以在管道的节点上进行处理（筛选，排序，聚合等）。可以把它理解为集合的一种抽象形式，将集合转换为流，会提供一种固定的顺序来处理集合元素。</p><p>流可以做到：</p><ol><li><strong>支持链式操作</strong>：允许通过链式调用多个方法对元素进行处理，使代码更具可读性，更易维护</li><li><strong>延迟执行</strong>：只有在需要结果时才会触发实际计算，这种延迟执行可以提高性能，避免不必要的计算</li><li><strong>函数式编程</strong>：提倡函数式编程的思想，提供了丰富的中间操作（过滤，排序等）和终端操作（收集，计数等）</li><li><strong>并行处理</strong>：流框架支持并行流，更加方便的将流操作并行化</li><li><strong>简化代码</strong>：减少循环时的条件判断与临时变量，提高代码表达力和可读性</li></ol><h3 id="stream与遍历的区别"><a href="#stream与遍历的区别" class="headerlink" title="stream与遍历的区别"></a>stream与遍历的区别</h3><ol><li><strong>遍历：</strong><ul><li>遍历是指通过循环逐个访问集合中的元素。</li><li>遍历需要显式地编写循环代码来处理集合元素。</li><li>遍历通常会暴露底层数据结构，使得代码的可读性和维护性较差。</li><li>遍历过程中，开发人员需要手动管理迭代器或索引来访问集合元素。</li></ul></li><li><strong>流：</strong><ul><li>流是一种更高级、更函数式的数据处理方式，提供了丰富的操作方法来处理集合元素。</li><li>流操作是基于管道模式的，可以通过链式操作来处理集合中的元素。</li><li>流隐藏了底层数据结构和迭代过程，使得代码更加简洁和易读。</li><li>流支持并行处理，可以利用多核处理器来提高处理效率。</li><li>流提供了丰富的中间操作（如过滤、映射、排序）和终端操作（如归约、收集），能够更灵活地对集合进行处理。</li></ul></li></ol><h3 id="stream常用方法"><a href="#stream常用方法" class="headerlink" title="stream常用方法"></a>stream常用方法</h3><p><strong>forEach</strong> – 遍历</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);        // 转换为stream流后进行遍历        strList.stream().forEach(System.out::print);        // 集合框架自带的遍历方法（相同效果）        strList.forEach(System.out::println);    &#125;// 输出 abc</code></pre><p><strong>map</strong> – 条件</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);        // 对每一个对象都进行判断，遍历输出        strList.stream().map(s -&gt; s.equals(&quot;a&quot;)).forEach(System.out::println);    &#125;//输出 truefalsefalse</code></pre><p><strong>filter</strong> – 过滤</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);        //对不符合filter中条件的数据进行过滤        strList.stream().filter(s -&gt; !s.equals(&quot;a&quot;)).forEach(System.out::print);    &#125;//输出bc</code></pre><p><strong>limit</strong> – 限量</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;);        //返回limit(num)中的num个数的对象        strList.stream().filter(s -&gt; !s.equals(&quot;a&quot;)).limit(3).forEach(System.out::print);    &#125;//输出bcd</code></pre><p><strong>skip</strong>  – 跳过</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;);        //直接跳过两个对象        strList.stream().skip(2).forEach(System.out::print);        System.out.println();        //筛选后跳过两个对象        strList.stream().filter(s -&gt; !s.equals(&quot;a&quot;)).skip(2).forEach(System.out::print);    &#125;//输出cdede</code></pre><p><strong>distinct</strong>  – 去重</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;a&quot;, &quot;c&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;);        //去除重复对象        strList.stream().distinct().forEach(System.out::print);    &#125;//输出abcde</code></pre><p><strong>sorted</strong>  – 排序</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;a&quot;, &quot;c&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;);        //默认升序排序        strList.stream().sorted().forEach(System.out::print);    &#125;//输出aabcccde</code></pre><p><strong>sorted(Comparator com)</strong>  – 依据判断排序</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; strList = Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;a&quot;, &quot;c&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;);        //判断排序函数        strList.stream().sorted((s1, s2) -&gt; s2.compareTo(s1)).forEach(System.out::print);    &#125;//输出edcccbaa</code></pre><p><strong>Collectors</strong>  – 恒等处理</p><pre><code class="java">    public static void main(String[] args) &#123;        List&lt;String&gt; names = Arrays.asList(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;, &quot;David&quot;);        List&lt;String&gt; sortedNames = names.stream()                .collect(Collectors.toList());        // 输出排序后的结果        System.out.println(&quot;Sorted names: &quot; + sortedNames);    &#125;//输出Sorted names: [Alice, Bob, Charlie, David]</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> java基础知识 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>工作记录</title>
+      <link href="/2023/11/24/%E6%80%BB%E7%BB%93/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+      <url>/2023/11/24/%E6%80%BB%E7%BB%93/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="工作记录"><a href="#工作记录" class="headerlink" title="工作记录"></a>工作记录</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>“只有失去所有的退路之后，才能真正地开始。”—《子夜》茅盾</p></blockquote><p>五个月前，我离开了学校的大门。两个月前，我踏上了深圳的地铁。</p><p>这两个月的时间就像一场精彩绝伦的冒险，我仿佛置身于人生的前沿</p><p>在实习的公司里，我感触良多。从最初的紧张不安到逐渐适应，每天都是一次次的成长之旅。我与优秀的团队成员们共同工作。每一次解决问题的过程都给我带来无尽的乐趣，让我感受到了专业知识的力量。</p><p>然而，这段旅程也充满了离别的苦涩。离开家乡，我踏上了自己的独立之路，学会了照顾自己、独立思考和处理各种琐事。与父母的每一次电话成为我心灵的慰藉，也是我对他们深深的思念和感激之情的表达。</p><p>这两个月的工作总结，见证了我从学生到职场新人的成长。毕业、离家、实习，这三个关键词串联起了我的青春故事。它们是我前进的动力，也是我不断追求梦想的源泉。我相信，未来的道路将更加绚丽多彩，期待着更多挑战和机遇的到来。让我们一起勇敢迈出每一步，开启属于自己的精彩篇章！</p><h3 id="工作内容复盘"><a href="#工作内容复盘" class="headerlink" title="工作内容复盘"></a>工作内容复盘</h3><blockquote><p>港中大项目运维</p><p>数据同步等异常修改</p><p>述职汇报的收获</p><p>招商项目跟进，记录</p></blockquote><h3 id="我的进步"><a href="#我的进步" class="headerlink" title="我的进步"></a>我的进步</h3><blockquote><p>对分布式项目有了基本的了解</p><p>对git分支和使用有了更深了解</p><p>编写代码更加规范（使用工具类，编写个人工具类）</p></blockquote><h3 id="问题与反思"><a href="#问题与反思" class="headerlink" title="问题与反思"></a>问题与反思</h3><blockquote><p>nginx在服务器上的使用问题</p><p>对项目的分析和学习</p><p>不规范的编写，对业务的不熟练</p><p>过去计划实现部分吸收和为什么没实现的部分</p></blockquote><h3 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h3><blockquote><p>多了一些实践经历，但是基础知识和实践能力仍然不足</p><p>工作上对业务流程不够清楚，仰仗同事的沟通</p></blockquote><h3 id="短期目标"><a href="#短期目标" class="headerlink" title="短期目标"></a>短期目标</h3><blockquote><p>学习上：个人项目和个人工具类继续开发，预计年底前完成初版（能上线上简历）</p><p>​完成修改版的简历，新增实习经历模块</p><p>​规划下周的日常学习计划</p><p>修好博客无法上传图片的问题</p></blockquote><h3 id="长期规划进度汇报"><a href="#长期规划进度汇报" class="headerlink" title="长期规划进度汇报"></a>长期规划进度汇报</h3><blockquote><p>稳定的生活环境，稳定的工作环境</p><p>生日后正式开始运营公众号</p></blockquote><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 总结 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工作总结 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>NVM:node管理工具</title>
+      <link href="/2023/11/14/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/nvm%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2023/11/14/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/nvm%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NVM-node管理工具"><a href="#NVM-node管理工具" class="headerlink" title="NVM: node管理工具"></a>NVM: node管理工具</h1><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>什么是NVM:</p><h3 id="NVM安装"><a href="#NVM安装" class="headerlink" title="NVM安装"></a>NVM安装</h3><h3 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h3><p><strong>下载nodejs</strong></p><p>nvm install [ version ]   &#x3D;&#x3D;&#x3D;&gt;&gt;   nvm install 16.13.0</p><p><strong>查看已有nodejs</strong></p><p>nvm list</p><p><strong>切换nodejs版本</strong></p><p>nvm use [ version ]   &#x3D;&#x3D;&#x3D;&gt;&gt;  nvm use 12.12.0</p><p><strong>卸载已有nodejs</strong></p><p>nvm uninstall [ version ]   &#x3D;&#x3D;&#x3D;&gt;&gt;   nvm uninstall 16.13.0</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> nodejs </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> node </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Nacos入门</title>
+      <link href="/2023/11/01/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nacos/Nacos%E5%85%A5%E9%97%A8/"/>
+      <url>/2023/11/01/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nacos/Nacos%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Nacos入门"><a href="#Nacos入门" class="headerlink" title="Nacos入门"></a>Nacos入门</h1><h3 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h3><p>下载地址：<a href="https://github.com/alibaba/nacos/releases">Releases · alibaba&#x2F;nacos (github.com)</a> 下载二进制压缩文件（tar.gz）</p><p>前往nacos&#x2F;bin目录下打卡命令行，输入命令开启nacos：</p><pre><code class="cmd">startup.cmd -m standalone</code></pre><p>nacos本地登录页面：<a href="http://localhost:8848/nacos">http://localhost:8848/nacos</a> || 用户名和密码都是：nacos</p><h3 id="案例实践"><a href="#案例实践" class="headerlink" title="案例实践"></a>案例实践</h3><h3 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h3><h3 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 中间件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 中间件 </tag>
+            
+            <tag> Nacos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>更快，更好的冒泡排序</title>
       <link href="/2023/10/23/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E4%BC%98%E5%8C%96/"/>
       <url>/2023/10/23/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E4%BC%98%E5%8C%96/</url>
@@ -50,33 +181,6 @@
             <tag> Java </tag>
             
             <tag> maven </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Nacos入门</title>
-      <link href="/2023/10/16/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nacos/Nacos%E5%85%A5%E9%97%A8/"/>
-      <url>/2023/10/16/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nacos/Nacos%E5%85%A5%E9%97%A8/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Nacos入门"><a href="#Nacos入门" class="headerlink" title="Nacos入门"></a>Nacos入门</h1><h3 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h3><p>下载地址：<a href="https://github.com/alibaba/nacos/releases">Releases · alibaba&#x2F;nacos (github.com)</a> 下载二进制压缩文件（tar.gz）</p><p>前往nacos&#x2F;bin目录下打卡命令行，输入命令开启nacos：</p><pre><code class="cmd">startup.cmd -m standalone</code></pre><p>nacos本地登录页面：<a href="http://localhost:8848/nacos">http://localhost:8848/nacos</a> || 用户名和密码都是：nacos</p><h3 id="案例实践"><a href="#案例实践" class="headerlink" title="案例实践"></a>案例实践</h3><h3 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h3><h3 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h3>]]></content>
-      
-      
-      <categories>
-          
-          <category> 中间件 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 中间件 </tag>
-            
-            <tag> Nacos </tag>
             
         </tags>
       
@@ -411,7 +515,7 @@
       <link href="/2023/05/06/Java%E5%9F%BA%E7%A1%80/Java%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB/"/>
       <url>/2023/05/06/Java%E5%9F%BA%E7%A1%80/Java%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB/</url>
       
-        <content type="html"><![CDATA[<h2 id="接口与抽象类"><a href="#接口与抽象类" class="headerlink" title="接口与抽象类"></a>接口与抽象类</h2><ul><li>什么是接口</li><li>什么是抽象类</li><li>接口与抽象类的相同点</li><li>接口与抽象类的不同点</li><li>常见面试题</li></ul><h3 id="什么是接口"><a href="#什么是接口" class="headerlink" title="什么是接口"></a>什么是接口</h3><p>Java 中的一种特殊数据类型，可以被看作是一个纯粹的规范或者协议，它声明了一组方法的签名，但不包含任何实现代码</p><p><strong>简单来说：负责声明方法，但不实现方法</strong></p><p>特点：interface关键字修饰，不能实例化</p><p>作用：分离接口与实现，使得代码修改时与接口本身无关</p><p>实现要求：1. 类使用 implements 关键字实现接口，实现（重写）接口中所有方法</p><p>​   2. 实现方法时：方法名称，参数列表（甚至参数顺序），返回类型都要与接口一致 </p><p>​   3. 实现类重写方法时必须使用 public 访问修饰符（重写的要求就是访问修饰符要和父类访问一致或更加宽松，接口设计初衷就是为了给外部调用，所以接口方法默认 public , 实现类也就需要是public）</p><p>​   4. 实现类不能完全实现接口时，实现类应该声明为抽象类</p><p>​   5. 一个实现类可以实现多个接口，中间使用逗号隔开</p><h3 id="什么是抽象类"><a href="#什么是抽象类" class="headerlink" title="什么是抽象类"></a>什么是抽象类</h3><p>Java 中一种实现抽象的机制，它是一种不能直接实例化的类, 只能作为基类存在，其目的是为了让子类继承并实现其中定义的抽象方法</p><p><strong>简单来说：提取相关子类的公共行为</strong></p><p>特点：可以有成员变量和实现方法给子类用，有 abstracrt 关键字修饰，不能实例化</p><p>作用：提高代码复用</p><p>实现要求：1. 一个子类必须实现其继承抽象类的全部抽象方法，否则该子类也必须被定义为抽象类</p><p>​   2. 抽象类中实例变量和方法可以被子类直接调用</p><p>​   3. 抽象类可以有构造方法，但不能直接实例化</p><h3 id="接口与抽象类的相同点"><a href="#接口与抽象类的相同点" class="headerlink" title="接口与抽象类的相同点"></a>接口与抽象类的相同点</h3><ol><li>都不能用于实例化对象，只能用作规范或者模板</li><li>都可以被实现类或子类继承或实现</li></ol><h3 id="接口与抽象类的不同点"><a href="#接口与抽象类的不同点" class="headerlink" title="接口与抽象类的不同点"></a>接口与抽象类的不同点</h3><ol><li>实现方式不同：接口只能定义方法签名，不能包含实现，而抽象类可以包含具体的方法实现</li><li>关系不同：实现类可以同时实现多个接口，但只能够继承一个抽象类</li><li>成员变量不同：接口只能包含常量，不能包含成员变量；抽象类可以包含成员变量</li><li>构造器不同：接口没有构造器，而抽象类有构造器</li></ol><h3 id="常见面试题"><a href="#常见面试题" class="headerlink" title="常见面试题"></a>常见面试题</h3><ol><li><strong>Java抽象类可以添加final修饰符吗？</strong></li></ol><p>回答：不可以，被声明为final的类会被阻止继承，而抽象类的作用就是用于继承。</p><ol start="2"><li><strong>抽象类是否有构造函数，可以创建实例吗？</strong></li></ol><p>回答：抽象类可以有构造函数，但是不能创建实例，因为抽象类之定义了部分方法和属性，仍然存在方法需要子类去实现，所以抽象类是不完整的类，自然无法实例化</p><ol start="3"><li><strong>Java抽象类的构造函数有什么作用？</strong></li></ol><p>回答：提供给子类进行初始化操作，当创建子类对象时，会优先调用子类构造函数，再调用父类构造函数（如果父类没有无参构造函数，需要子类手动调用父类有参构造函数并传递对应参数），当然，抽象类也会有默认的无参构造函数</p><ol start="4"><li><strong>什么时候使用接口比抽象类更好</strong></li></ol><p>回答：当需要考虑到多继承时，例如目标类已经继承了其他类，而java并不支持继承多个类，但是允许实现多个接口，可以通过实现接口新增方法；合适的松耦合使得代码实现和接口分离；</p><ol start="5"><li><strong>什么时候使用抽象类比接口更好</strong></li></ol><p>回答：抽象类能提供默认的一些实现，子类继承时可以少一些公用代码，提高了代码的可维护性；构造函数的存在可以让对象实例初始化时执行操作；</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="接口与抽象类"><a href="#接口与抽象类" class="headerlink" title="接口与抽象类"></a>接口与抽象类</h2><ul><li>什么是接口</li><li>什么是抽象类</li><li>接口与抽象类的相同点</li><li>接口与抽象类的不同点</li><li>常见面试题</li></ul><h3 id="什么是接口"><a href="#什么是接口" class="headerlink" title="什么是接口"></a>什么是接口</h3><p>Java 中的一种特殊数据类型，可以被看作是一个纯粹的规范或者协议，它声明了一组方法的签名，但不包含任何实现代码</p><p><strong>简单来说：负责声明方法，但不实现方法</strong></p><p>特点：interface关键字修饰，不能实例化</p><p>作用：分离接口与实现，使得代码修改时与接口本身无关</p><p>实现要求：1. 类使用 implements 关键字实现接口，实现（重写）接口中所有方法</p><p>​   2. 实现方法时：方法名称，参数列表（甚至参数顺序），返回类型都要与接口一致 </p><p>​   3. 实现类重写方法时必须使用 public 访问修饰符（重写的要求就是访问修饰符要和父类访问一致或更加宽松，接口设计初衷就是为了给外部调用，所以接口方法默认 public , 实现类也就需要是public）</p><p>​   4. 实现类不能完全实现接口时，实现类应该声明为抽象类</p><p>​   5. 一个实现类可以实现多个接口，中间使用逗号隔开</p><h3 id="什么是抽象类"><a href="#什么是抽象类" class="headerlink" title="什么是抽象类"></a>什么是抽象类</h3><p>Java 中一种实现抽象的机制，它是一种不能直接实例化的类, 只能作为基类存在，其目的是为了让子类继承并实现其中定义的抽象方法</p><p><strong>简单来说：提取相关子类的公共行为</strong></p><p>特点：可以有成员变量和实现方法给子类用，有 abstracrt 关键字修饰，不能实例化</p><p>作用：提高代码复用</p><p>实现要求：1. 一个子类必须实现其继承抽象类的全部抽象方法，否则该子类也必须被定义为抽象类</p><p>​   2. 抽象类中实例变量和方法可以被子类直接调用</p><p>​   3. 抽象类可以有构造方法，但不能直接实例化</p><h3 id="接口与抽象类的相同点"><a href="#接口与抽象类的相同点" class="headerlink" title="接口与抽象类的相同点"></a>接口与抽象类的相同点</h3><ol><li>都不能用于实例化对象，只能用作规范或者模板</li><li>都可以被实现类或子类继承或实现</li></ol><h3 id="接口与抽象类的不同点"><a href="#接口与抽象类的不同点" class="headerlink" title="接口与抽象类的不同点"></a>接口与抽象类的不同点</h3><ol><li>实现方式不同：接口只能定义方法签名，不能包含实现，而抽象类可以包含具体的方法实现</li><li>关系不同：实现类可以同时实现多个接口，但只能够继承一个抽象类</li><li>成员变量不同：接口只能包含常量，不能包含成员变量；抽象类可以包含成员变量</li><li>构造器不同：接口没有构造器，而抽象类有构造器</li></ol><h3 id="常见面试题"><a href="#常见面试题" class="headerlink" title="常见面试题"></a>常见面试题</h3><ol><li><strong>Java抽象类可以添加final修饰符吗？</strong></li></ol><p>回答：不可以，被声明为final的类会被阻止继承，而抽象类的作用就是用于继承。</p><ol start="2"><li><strong>抽象类是否有构造函数，可以创建实例吗？</strong></li></ol><p>回答：抽象类可以有构造函数，但是不能创建实例，因为抽象类之定义了部分方法和属性，仍然存在方法需要子类去实现，所以抽象类是不完整的类，自然无法实例化</p><ol start="3"><li><strong>Java抽象类的构造函数有什么作用？</strong></li></ol><p>回答：提供给子类进行初始化操作，当创建子类对象时，会优先调用父类构造函数（如果父类没有无参构造函数，需要子类手动调用父类有参构造函数并传递对应参数），再调用子类构造函数，当然，抽象类也会有默认的无参构造函数</p><ol start="4"><li><strong>什么时候使用接口比抽象类更好</strong></li></ol><p>回答：当需要考虑到多继承时，例如目标类已经继承了其他类，而java并不支持继承多个类，但是允许实现多个接口，可以通过实现接口新增方法；合适的松耦合使得代码实现和接口分离；</p><ol start="5"><li><strong>什么时候使用抽象类比接口更好</strong></li></ol><p>回答：抽象类能提供默认的一些实现，子类继承时可以少一些公用代码，提高了代码的可维护性；构造函数的存在可以让对象实例初始化时执行操作；</p>]]></content>
       
       
       <categories>
@@ -1495,7 +1599,7 @@
       <link href="/2023/02/05/Linux/Linux%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB%E5%92%8C%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/"/>
       <url>/2023/02/05/Linux/Linux%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB%E5%92%8C%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux运行级别和文件管理"><a href="#Linux运行级别和文件管理" class="headerlink" title="Linux运行级别和文件管理"></a>Linux运行级别和文件管理</h1><ul><li><p>Linux运行级别</p><ul><li>Linux 运行级别</li><li>运行级别管理相关命令</li></ul></li><li><p>Linux目录文件管理</p><ul><li>文件管理相关命令</li><li>文件查询相关命令</li><li>文件压缩和解压命令</li><li>其他信息命令</li></ul></li></ul><h3 id="Linux运行级别"><a href="#Linux运行级别" class="headerlink" title="Linux运行级别"></a>Linux运行级别</h3><h5 id="Linux-运行级别"><a href="#Linux-运行级别" class="headerlink" title="Linux 运行级别"></a>Linux 运行级别</h5><p>0关机  |    4 系统未使用保留给用户</p><p>1单用户【找丢失密码】   |     5 图形界面</p><p>2    多用户无网络  |      6 系统重启</p><p>3 多用户有网络 |</p><p>常用为 <strong>3 - 多用户有网络（命令行模式）【企业】</strong> 和 <strong>5 - 图形界面（桌面模式）【学习】</strong></p><h5 id="运行级别管理相关命令"><a href="#运行级别管理相关命令" class="headerlink" title="运行级别管理相关命令"></a>运行级别管理相关命令</h5><pre><code class="linux">init 数子        :执行相对应的运行级别</code></pre><p>附：1 - 单用户 找回root密码 可以看<a href="https://www.bilibili.com/video/BV1Sv411r7vd?p=26&vd_source=ad19a531d1fe118602dfd75ff3c6db57">026_韩顺平Linux_找回root密码_哔哩哔哩_bilibili</a></p><h3 id="Linux目录文件管理"><a href="#Linux目录文件管理" class="headerlink" title="Linux目录文件管理"></a>Linux目录文件管理</h3><h5 id="文件管理相关命令"><a href="#文件管理相关命令" class="headerlink" title="文件管理相关命令"></a>文件管理相关命令</h5><pre><code class="linux">跳转路径   : cd 绝对路径/相对路径| 回到家目录: cd ~创建目录   : mkdir 目录名| 创建多级目录   : mkdir -P /文件夹/../目录名删除目录   : rmdir 空目录名   | 强制删除: rm -rf 目录创建空文件     : touch 文件名复制拷贝   : cp 文件名 目的地  | 递归拷贝目录文件 : cp -r 文件夹 目的地移动文件   : mv 文件 目的地</code></pre><h5 id="文件查询相关命令"><a href="#文件查询相关命令" class="headerlink" title="文件查询相关命令"></a>文件查询相关命令</h5><pre><code class="linux">显示当前绝对路径: pwd查看当前目录下文件  : ls  | -a 查看包括隐式文件  -l以列形式展示 如： ls -al查看文件(不修改)    : cat 文件分段查看大文件 : less 文件查看文件头10行   : head 文件   | 查看文件头五行    : head -n 5 文件查看文件尾10行   : tail 文件   | 查看文件尾五行    : tail -n 5 文件实时追踪文件更新: tail -f 文件</code></pre><h5 id="文件压缩和解压命令"><a href="#文件压缩和解压命令" class="headerlink" title="文件压缩和解压命令"></a>文件压缩和解压命令</h5><pre><code class="linux">压缩文件为文件名.gz  : gzip 文件 | 解压文件 : gunzip 文件.gz文件夹递归压缩整个文件: zip -r 文件夹  | 解压到对应路径: unzip -d 存储路径 文件.zip打包内容(压缩)   : tar -zcfv 内容   | 打包内容(解压)   : tar -zxfv 内容-x: 解包.tar文件-c: 产生.tar文件-v: 显示信息 xxx.tar.gz-f: 指定名字-z: 打包压缩</code></pre><h5 id="其他信息命令"><a href="#其他信息命令" class="headerlink" title="其他信息命令"></a>其他信息命令</h5><pre><code class="linux">命令行输出内容 : echo 内容A &gt; B: 将A的内容写至B中（覆盖）| A &gt;&gt; B: 将A的内容写至B中（追加）打印当前日历    : cal| 打印一年的日历  : cal 年份查看历史命令    : history| 在histor查看历史命令时执行某行历史命令: !行数查看命令所在目录: which 命令显示当前时间     : date| 设置时间 : date -s &quot;2023-2-5 12:23:00&quot;查找文件： find 要查找的目录目录 -name文件名字 -user用户名 -size大小（+n大于 -n小于 n等于 -- k/M/G单位）</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux运行级别和文件管理"><a href="#Linux运行级别和文件管理" class="headerlink" title="Linux运行级别和文件管理"></a>Linux运行级别和文件管理</h1><ul><li><p>Linux运行级别</p><ul><li>Linux 运行级别</li><li>运行级别管理相关命令</li></ul></li><li><p>Linux目录文件管理</p><ul><li>文件管理相关命令</li><li>文件查询相关命令</li><li>文件压缩和解压命令</li><li>其他信息命令</li></ul></li></ul><h3 id="Linux运行级别"><a href="#Linux运行级别" class="headerlink" title="Linux运行级别"></a>Linux运行级别</h3><h5 id="Linux-运行级别"><a href="#Linux-运行级别" class="headerlink" title="Linux 运行级别"></a>Linux 运行级别</h5><p>0关机  |    4 系统未使用保留给用户</p><p>1单用户【找丢失密码】   |     5 图形界面</p><p>2    多用户无网络  |      6 系统重启</p><p>3 多用户有网络 |</p><p>常用为 <strong>3 - 多用户有网络（命令行模式）【企业】</strong> 和 <strong>5 - 图形界面（桌面模式）【学习】</strong></p><h5 id="运行级别管理相关命令"><a href="#运行级别管理相关命令" class="headerlink" title="运行级别管理相关命令"></a>运行级别管理相关命令</h5><pre><code class="linux">init 数子        :执行相对应的运行级别</code></pre><p>附：1 - 单用户 找回root密码 可以看<a href="https://www.bilibili.com/video/BV1Sv411r7vd?p=26&vd_source=ad19a531d1fe118602dfd75ff3c6db57">026_韩顺平Linux_找回root密码_哔哩哔哩_bilibili</a></p><h3 id="Linux目录文件管理"><a href="#Linux目录文件管理" class="headerlink" title="Linux目录文件管理"></a>Linux目录文件管理</h3><h5 id="文件管理相关命令"><a href="#文件管理相关命令" class="headerlink" title="文件管理相关命令"></a>文件管理相关命令</h5><pre><code class="linux">跳转路径   : cd 绝对路径/相对路径| 回到家目录: cd ~创建目录   : mkdir 目录名| 创建多级目录   : mkdir -P /文件夹/../目录名删除目录   : rmdir 空目录名   | 强制删除: rm -rf 目录创建空文件     : touch 文件名| 删除压缩包: rm -f 文件名.后缀复制拷贝   : cp 文件名 目的地  | 递归拷贝目录文件 : cp -r 文件夹 目的地移动文件   : mv 文件 目的地</code></pre><h5 id="文件查询相关命令"><a href="#文件查询相关命令" class="headerlink" title="文件查询相关命令"></a>文件查询相关命令</h5><pre><code class="linux">显示当前绝对路径: pwd查看当前目录下文件  : ls  | -a 查看包括隐式文件  -l以列形式展示 如： ls -al查看文件(不修改)    : cat 文件分段查看大文件 : less 文件查看文件头10行   : head 文件   | 查看文件头五行    : head -n 5 文件查看文件尾10行   : tail 文件   | 查看文件尾五行    : tail -n 5 文件实时追踪文件更新: tail -f 文件</code></pre><h5 id="文件压缩和解压命令"><a href="#文件压缩和解压命令" class="headerlink" title="文件压缩和解压命令"></a>文件压缩和解压命令</h5><pre><code class="linux">压缩文件为文件名.gz  : gzip 文件 | 解压文件 : gunzip 文件.gz文件夹递归压缩整个文件: zip -r 文件夹  | 解压到对应路径: unzip -d 存储路径 文件.zip打包内容(压缩)   : tar -zcfv 内容   | 打包内容(解压)   : tar -zxfv 内容-x: 解包.tar文件-c: 产生.tar文件-v: 显示信息 xxx.tar.gz-f: 指定名字-z: 打包压缩</code></pre><h5 id="其他信息命令"><a href="#其他信息命令" class="headerlink" title="其他信息命令"></a>其他信息命令</h5><pre><code class="linux">命令行输出内容 : echo 内容A &gt; B: 将A的内容写至B中（覆盖）| A &gt;&gt; B: 将A的内容写至B中（追加）打印当前日历    : cal| 打印一年的日历  : cal 年份查看历史命令    : history| 在histor查看历史命令时执行某行历史命令: !行数查看命令所在目录: which 命令显示当前时间     : date| 设置时间 : date -s &quot;2023-2-5 12:23:00&quot;查找文件： find 要查找的目录目录 -name文件名字 -user用户名 -size大小（+n大于 -n小于 n等于 -- k/M/G单位）</code></pre>]]></content>
       
       
       <categories>
@@ -1566,16 +1670,16 @@
     
     
     <entry>
-      <title>快速排序</title>
-      <link href="/2022/11/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
-      <url>/2022/11/11/Java%E5%9F%BA%E7%A1%80/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+      <title>快速排序-part2</title>
+      <link href="/2022/11/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F-part2/"/>
+      <url>/2022/11/11/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F-part2/</url>
       
-        <content type="html"><![CDATA[<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序是一种基于比较的排序算法，利用分治法来将一个序列分割成两个子序列进行排序，并利用递归的方式进行排序。快速排序是一种高效的排序算法，其时间复杂度为O(nlogn)，空间复杂度为O(logn)。</p><p>【算法步骤】</p><p>1.选择基准值：从数列中选择一个元素作为基准值（pivot）。</p><p>2.分割：将序列中大于基准值的元素放在基准值的右边，小于基准值的元素放在基准值的左边。此时，基准值的位置已经确定了。 </p><p>3.递归：对左右两边的子序列分别重复步骤1、步骤2，直到每个子序列只有一个元素时终止递归。</p><p>【时间复杂度】</p><ul><li>最好情况下，每次选出的基准值都刚好平分整个序列，此时排序效率最高，时间复杂度为O(nlogn)。</li><li>最坏情况下，每次选出的基准值总是序列中的最小或最大值，导致递归树退化成只有一条支线，此时时间复杂度为O(n²)。</li><li>平均情况下，快速排序的时间复杂度为O(nlogn)。</li></ul><p>【空间复杂度】</p><p>快速排序的空间复杂度为O(logn)，主要是由于递归调用的栈所占用的空间。</p><p>【适用场景】</p><p>快速排序适用于数据量较大、数值分布比较均匀的情况下。由于快速排序对于数据分布的依赖性比较强，如果数据分布不均匀，可能会影响排序效率，甚至导致时间复杂度退化到O(n²)。因此，如果要在数据分布不均匀的情况下进行排序，建议采用其他排序算法。</p><p>【实现代码】</p><p>以下是实现快速排序的Java代码：</p><pre><code>Copy Codepublic static void quickSort(int[] arr, int low, int high) &#123;    if (low &lt; high) &#123;        int pivot = partition(arr, low, high);        quickSort(arr, low, pivot - 1);        quickSort(arr, pivot + 1, high);    &#125;&#125;private static int partition(int[] arr, int low, int high) &#123;    int pivot = arr[high];    int i = low - 1;    for (int j = low; j &lt;= high - 1; j++) &#123;        if (arr[j] &lt; pivot) &#123;            i++;            swap(arr, i, j);        &#125;    &#125;    swap(arr, i + 1, high);    return i + 1;&#125;private static void swap(int[] arr, int i, int j) &#123;    int temp = arr[i];    arr[i] = arr[j];    arr[j] = temp;&#125;</code></pre><p>其中，<code>quickSort</code>方法是快速排序的入口，它会递归调用自己对左右子序列进行排序。<code>partition</code>方法是分割方法，用于将序列分割成两个子序列，并返回基准值的位置。<code>swap</code>方法是交换数组中两个元素的值。</p><p>测试代码如下：</p><pre><code>Copy Codeint[] arr = &#123;5, 3, 1, 6, 8, 4, 2, 7&#125;;quickSort(arr, 0, arr.length - 1);System.out.println(Arrays.toString(arr));</code></pre><p>输出结果为：[1, 2, 3, 4, 5, 6, 7, 8]</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="快速排序-part2"><a href="#快速排序-part2" class="headerlink" title="快速排序-part2"></a>快速排序-part2</h2><p>快速排序是一种基于比较的排序算法，利用分治法来将一个序列分割成两个子序列进行排序，并利用递归的方式进行排序。快速排序是一种高效的排序算法，其时间复杂度为O(nlogn)，空间复杂度为O(logn)。</p><p>【算法步骤】</p><p>1.选择基准值：从数列中选择一个元素作为基准值（pivot）。</p><p>2.分割：将序列中大于基准值的元素放在基准值的右边，小于基准值的元素放在基准值的左边。此时，基准值的位置已经确定了。 </p><p>3.递归：对左右两边的子序列分别重复步骤1、步骤2，直到每个子序列只有一个元素时终止递归。</p><p>【时间复杂度】</p><ul><li>最好情况下，每次选出的基准值都刚好平分整个序列，此时排序效率最高，时间复杂度为O(nlogn)。</li><li>最坏情况下，每次选出的基准值总是序列中的最小或最大值，导致递归树退化成只有一条支线，此时时间复杂度为O(n²)。</li><li>平均情况下，快速排序的时间复杂度为O(nlogn)。</li></ul><p>【空间复杂度】</p><p>快速排序的空间复杂度为O(logn)，主要是由于递归调用的栈所占用的空间。</p><p>【适用场景】</p><p>快速排序适用于数据量较大、数值分布比较均匀的情况下。由于快速排序对于数据分布的依赖性比较强，如果数据分布不均匀，可能会影响排序效率，甚至导致时间复杂度退化到O(n²)。因此，如果要在数据分布不均匀的情况下进行排序，建议采用其他排序算法。</p><p>【实现代码】</p><p>以下是实现快速排序的Java代码：</p><pre><code>Copy Codepublic static void quickSort(int[] arr, int low, int high) &#123;    if (low &lt; high) &#123;        int pivot = partition(arr, low, high);        quickSort(arr, low, pivot - 1);        quickSort(arr, pivot + 1, high);    &#125;&#125;private static int partition(int[] arr, int low, int high) &#123;    int pivot = arr[high];    int i = low - 1;    for (int j = low; j &lt;= high - 1; j++) &#123;        if (arr[j] &lt; pivot) &#123;            i++;            swap(arr, i, j);        &#125;    &#125;    swap(arr, i + 1, high);    return i + 1;&#125;private static void swap(int[] arr, int i, int j) &#123;    int temp = arr[i];    arr[i] = arr[j];    arr[j] = temp;&#125;</code></pre><p>其中，<code>quickSort</code>方法是快速排序的入口，它会递归调用自己对左右子序列进行排序。<code>partition</code>方法是分割方法，用于将序列分割成两个子序列，并返回基准值的位置。<code>swap</code>方法是交换数组中两个元素的值。</p><p>测试代码如下：</p><pre><code>Copy Codeint[] arr = &#123;5, 3, 1, 6, 8, 4, 2, 7&#125;;quickSort(arr, 0, arr.length - 1);System.out.println(Arrays.toString(arr));</code></pre><p>输出结果为：[1, 2, 3, 4, 5, 6, 7, 8]</p>]]></content>
       
       
       <categories>
           
-          <category> java </category>
+          <category> 算法 </category>
           
       </categories>
       
