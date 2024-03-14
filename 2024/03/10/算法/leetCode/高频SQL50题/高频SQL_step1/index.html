@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>高频sql50题 —— step1:查询 | IT蛋的个人博客</title><meta name="author" content="IT蛋"><meta name="copyright" content="IT蛋"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="leetcode高频sql训练第一部分：查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高频sql50题 —— step1:查询">
+<meta property="og:url" content="https://xcscx.github.io/2024/03/10/%E7%AE%97%E6%B3%95/leetCode/%E9%AB%98%E9%A2%91SQL50%E9%A2%98/%E9%AB%98%E9%A2%91SQL_step1/index.html">
+<meta property="og:site_name" content="IT蛋的个人博客">
+<meta property="og:description" content="leetcode高频sql训练第一部分：查询">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tse2-mm.cn.bing.net/th/id/OIP-C.PJNEvyuLvdW5SZbpleZRyAHaEK?rs=1&pid=ImgDetMain">
+<meta property="article:published_time" content="2024-03-10T07:31:29.000Z">
+<meta property="article:modified_time" content="2024-03-13T08:23:32.541Z">
+<meta property="article:author" content="IT蛋">
+<meta property="article:tag" content="算法题">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tse2-mm.cn.bing.net/th/id/OIP-C.PJNEvyuLvdW5SZbpleZRyAHaEK?rs=1&pid=ImgDetMain"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xcscx.github.io/2024/03/10/%E7%AE%97%E6%B3%95/leetCode/%E9%AB%98%E9%A2%91SQL50%E9%A2%98/%E9%AB%98%E9%A2%91SQL_step1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '高频sql50题 —— step1:查询',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2024-03-13 16:23:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">84</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 关于</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 博主</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tse2-mm.cn.bing.net/th/id/OIP-C.PJNEvyuLvdW5SZbpleZRyAHaEK?rs=1&amp;pid=ImgDetMain')"><nav id="nav"><span id="blog-info"><a href="/" title="IT蛋的个人博客"><span class="site-name">IT蛋的个人博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 关于</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 博主</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">高频sql50题 —— step1:查询</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-10T07:31:29.000Z" title="发表于 2024-03-10 15:31:29">2024-03-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-13T08:23:32.541Z" title="更新于 2024-03-13 16:23:32">2024-03-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="高频sql50题 —— step1:查询"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="查询训练"><a href="#查询训练" class="headerlink" title="查询训练"></a>查询训练</h2><p><strong>hard</strong>: 0			<strong>medium</strong>:0			<strong>esay</strong>:5</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/invalid-tweets/description/?envType=study-plan-v2&envId=sql-free-50">1683. 无效的推文 - 力扣（LeetCode）</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/article-views-i/?envType=study-plan-v2&envId=sql-free-50">1148. 文章浏览 I - 力扣（LeetCode）</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/big-countries/?envType=study-plan-v2&envId=sql-free-50">595. 大的国家 - 力扣（LeetCode）</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-customer-referee/?envType=study-plan-v2&envId=sql-free-50">584. 寻找用户推荐人 - 力扣（LeetCode）</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/recyclable-and-low-fat-products/?envType=study-plan-v2&envId=sql-free-50">1757. 可回收且低脂的产品 - 力扣（LeetCode）</a></p>
+<hr>
+<h3 id="无效的推文-–-Esay"><a href="#无效的推文-–-Esay" class="headerlink" title="无效的推文 – Esay"></a>无效的推文 – <strong>Esay</strong></h3><p>表：<code>Tweets</code></p>
+<pre><code>+----------------+---------+
+| Column Name    | Type    |
++----------------+---------+
+| tweet_id       | int     |
+| content        | varchar |
++----------------+---------+
+在 SQL 中，tweet_id 是这个表的主键。
+这个表包含某社交媒体 App 中所有的推文。
+</code></pre>
+<p>查询所有无效推文的编号（ID）。当推文内容中的字符数<strong>严格大于</strong> <code>15</code> 时，该推文是无效的。</p>
+<p>以<strong>任意顺序</strong>返回结果表。</p>
+<p>查询结果格式如下所示：</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：
+Tweets 表：
++----------+----------------------------------+
+| tweet_id | content                          |
++----------+----------------------------------+
+| 1        | Vote for Biden                   |
+| 2        | Let us make America great again! |
++----------+----------------------------------+
+
+输出：
++----------+
+| tweet_id |
++----------+
+| 2        |
++----------+
+解释：
+推文 1 的长度 length = 14。该推文是有效的。
+推文 2 的长度 length = 32。该推文是无效的。
+</code></pre>
+<h4 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h4><p>判断文章长度 — CHAR_LENGTH( str )获取长度进行判断</p>
+<pre><code class="mysql">#### sql
+SELECT tweet_id
+FROM Tweets
+WHERE CHAR_LENGTH(content) &gt; 15
+</code></pre>
+<hr>
+<h3 id="文章浏览-I-–-Esay"><a href="#文章浏览-I-–-Esay" class="headerlink" title="文章浏览 I – Esay"></a>文章浏览 I – <strong>Esay</strong></h3><p><code>Views</code> 表：</p>
+<pre><code>+---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| article_id    | int     |
+| author_id     | int     |
+| viewer_id     | int     |
+| view_date     | date    |
++---------------+---------+
+此表可能会存在重复行。（换句话说，在 SQL 中这个表没有主键）
+此表的每一行都表示某人在某天浏览了某位作者的某篇文章。
+请注意，同一人的 author_id 和 viewer_id 是相同的。
+</code></pre>
+<p>请查询出所有浏览过自己文章的作者</p>
+<p>结果按照 <code>id</code> 升序排列。</p>
+<p>查询结果的格式如下所示：</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：
+Views 表：
++------------+-----------+-----------+------------+
+| article_id | author_id | viewer_id | view_date  |
++------------+-----------+-----------+------------+
+| 1          | 3         | 5         | 2019-08-01 |
+| 1          | 3         | 6         | 2019-08-02 |
+| 2          | 7         | 7         | 2019-08-01 |
+| 2          | 7         | 6         | 2019-08-02 |
+| 4          | 7         | 1         | 2019-07-22 |
+| 3          | 4         | 4         | 2019-07-21 |
+| 3          | 4         | 4         | 2019-07-21 |
++------------+-----------+-----------+------------+
+
+输出：
++------+
+| id   |
++------+
+| 4    |
+| 7    |
++------+
+</code></pre>
+<h4 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h4><p>浏览了自己文章的作者（作者id和访客id一致）： author_id &#x3D; viewer_id</p>
+<p>可能重复行（去重）：DISTINCT</p>
+<p>结果依据id升序（重命名，升序） ORDER BY id       PS:降序是ORDER BY id <strong>DESC</strong></p>
+<pre><code class="mysql">#### sql
+SELECT DISTINCT author_id as id
+FROM Views
+WHERE author_id = viewer_id
+ORDER BY id
+</code></pre>
+<hr>
+<h3 id="大的国家-–-Esay"><a href="#大的国家-–-Esay" class="headerlink" title="大的国家 – Esay"></a>大的国家 – <strong>Esay</strong></h3><p><code>World</code> 表：</p>
+<pre><code>+-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| name        | varchar |
+| continent   | varchar |
+| area        | int     |
+| population  | int     |
+| gdp         | bigint  |
++-------------+---------+
+name 是该表的主键（具有唯一值的列）。
+这张表的每一行提供：国家名称、所属大陆、面积、人口和 GDP 值。
+</code></pre>
+<p>如果一个国家满足下述两个条件之一，则认为该国是 <strong>大国</strong> ：</p>
+<ul>
+<li>面积至少为 300 万平方公里（即，<code>3000000 km2</code>），或者</li>
+<li>人口至少为 2500 万（即 <code>25000000</code>）</li>
+</ul>
+<p>编写解决方案找出 <strong>大国</strong> 的国家名称、人口和面积。</p>
+<p>按 <strong>任意顺序</strong> 返回结果表。</p>
+<p>返回结果格式如下例所示。</p>
+<p><strong>示例：</strong></p>
+<pre><code>输入：
+World 表：
++-------------+-----------+---------+------------+--------------+
+| name        | continent | area    | population | gdp          |
++-------------+-----------+---------+------------+--------------+
+| Afghanistan | Asia      | 652230  | 25500100   | 20343000000  |
+| Albania     | Europe    | 28748   | 2831741    | 12960000000  |
+| Algeria     | Africa    | 2381741 | 37100000   | 188681000000 |
+| Andorra     | Europe    | 468     | 78115      | 3712000000   |
+| Angola      | Africa    | 1246700 | 20609294   | 100990000000 |
++-------------+-----------+---------+------------+--------------+
+输出：
++-------------+------------+---------+
+| name        | population | area    |
++-------------+------------+---------+
+| Afghanistan | 25500100   | 652230  |
+| Algeria     | 37100000   | 2381741 |
++-------------+------------+---------+
+</code></pre>
+<h4 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h4><p>数值比较，条件为 <strong>OR</strong></p>
+<pre><code class="mysql">#### sql
+SELECT name, population, area
+FROM World
+WHERE area &gt;= 3000000 OR population &gt;= 25000000
+</code></pre>
+<hr>
+<h3 id="寻找用户推荐人-–-Esay"><a href="#寻找用户推荐人-–-Esay" class="headerlink" title="寻找用户推荐人 – Esay"></a>寻找用户推荐人 – <strong>Esay</strong></h3><p>表: <code>Customer</code></p>
+<pre><code>+-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| name        | varchar |
+| referee_id  | int     |
++-------------+---------+
+在 SQL 中，id 是该表的主键列。
+该表的每一行表示一个客户的 id、姓名以及推荐他们的客户的 id。
+</code></pre>
+<p>找出那些 <strong>没有被</strong> <code>id = 2</code> 的客户 <strong>推荐</strong> 的客户的姓名。</p>
+<p>以 <strong>任意顺序</strong> 返回结果表。</p>
+<p>结果格式如下所示。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入： 
+Customer 表:
++----+------+------------+
+| id | name | referee_id |
++----+------+------------+
+| 1  | Will | null       |
+| 2  | Jane | null       |
+| 3  | Alex | 2          |
+| 4  | Bill | null       |
+| 5  | Zack | 1          |
+| 6  | Mark | 2          |
++----+------+------------+
+输出：
++------+
+| name |
++------+
+| Will |
+| Jane |
+| Bill |
+| Zack |
++------+
+</code></pre>
+<h4 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h4><pre><code class="mysql">SELECT name 
+FROM Customer
+WHERE referee_id is null or referee_id != 2
+</code></pre>
+<hr>
+<h3 id="可回收且低脂的产品-–-Esay"><a href="#可回收且低脂的产品-–-Esay" class="headerlink" title="可回收且低脂的产品 – Esay"></a>可回收且低脂的产品 – <strong>Esay</strong></h3><p>表：<code>Products</code></p>
+<pre><code>+-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| product_id  | int     |
+| low_fats    | enum    |
+| recyclable  | enum    |
++-------------+---------+
+product_id 是该表的主键（具有唯一值的列）。
+low_fats 是枚举类型，取值为以下两种 (&#39;Y&#39;, &#39;N&#39;)，其中 &#39;Y&#39; 表示该产品是低脂产品，&#39;N&#39; 表示不是低脂产品。
+recyclable 是枚举类型，取值为以下两种 (&#39;Y&#39;, &#39;N&#39;)，其中 &#39;Y&#39; 表示该产品可回收，而 &#39;N&#39; 表示不可回收。
+</code></pre>
+<p>编写解决方案找出既是低脂又是可回收的产品编号。</p>
+<p>返回结果 <strong>无顺序要求</strong> 。</p>
+<p>返回结果格式如下例所示：</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：
+Products 表：
++-------------+----------+------------+
+| product_id  | low_fats | recyclable |
++-------------+----------+------------+
+| 0           | Y        | N          |
+| 1           | Y        | Y          |
+| 2           | N        | Y          |
+| 3           | Y        | Y          |
+| 4           | N        | N          |
++-------------+----------+------------+
+输出：
++-------------+
+| product_id  |
++-------------+
+| 1           |
+| 3           |
++-------------+
+解释：
+只有产品 id 为 1 和 3 的产品，既是低脂又是可回收的产品。
+</code></pre>
+<h4 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h4><pre><code class="mysql">SELECT product_id
+FROM Products
+WHERE low_fats = &#39;Y&#39; AND recyclable = &#39;Y&#39;
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xcscx.github.io">IT蛋</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xcscx.github.io/2024/03/10/%E7%AE%97%E6%B3%95/leetCode/%E9%AB%98%E9%A2%91SQL50%E9%A2%98/%E9%AB%98%E9%A2%91SQL_step1/">https://xcscx.github.io/2024/03/10/%E7%AE%97%E6%B3%95/leetCode/%E9%AB%98%E9%A2%91SQL50%E9%A2%98/%E9%AB%98%E9%A2%91SQL_step1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xcscx.github.io" target="_blank">IT蛋的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a><a class="post-meta__tags" href="/tags/sql/">sql</a></div><div class="post_share"><div class="social-share" data-image="https://tse2-mm.cn.bing.net/th/id/OIP-C.PJNEvyuLvdW5SZbpleZRyAHaEK?rs=1&amp;pid=ImgDetMain" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/02/18/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序"><img class="cover" src="https://www.jiyik.com/uploads/210819/I_202108191211136fb206.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">归并排序</div></div></a></div><div class="next-post pull-right"><a href="/2024/03/13/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/SSO%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" title="SSO单点登录"><img class="cover" src="https://tse3-mm.cn.bing.net/th/id/OIP-C.xtMeZQxjyJUx3zshSHhWlAAAAA?rs=1&amp;pid=ImgDetMain" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SSO单点登录</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/08/13/%E7%AE%97%E6%B3%95/leetCode/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%AE%97%E6%B3%95%E9%A2%98/" title="二叉树算法题"><img class="cover" src="https://pic4.zhimg.com/v2-697b3e00ed2cb24267a22432ce8edea3_b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-13</div><div class="title">二叉树算法题</div></div></a></div><div><a href="/2023/04/04/%E7%AE%97%E6%B3%95/leetCode/%E5%89%91%E6%8C%87Offer/Day15_%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" title="Day15_树的遍历_剑指Offer"><img class="cover" src="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-04</div><div class="title">Day15_树的遍历_剑指Offer</div></div></a></div><div><a href="/2023/04/05/%E7%AE%97%E6%B3%95/leetCode/%E5%89%91%E6%8C%87Offer/Day16_%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/" title="Day16_数组排序_剑指Offer"><img class="cover" src="https://pic3.zhimg.com/v2-d0d6b239fbadd1dd945d1bd47f75a852_b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-05</div><div class="title">Day16_数组排序_剑指Offer</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">IT蛋</div><div class="author-info__description">编程学习记录</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">84</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xcscx"><i class="fab fa-github"></i><span>博主的github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xcscx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/1362067461@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"></div></div></main><footer id="footer" style="background-image: url('https://tse2-mm.cn.bing.net/th/id/OIP-C.PJNEvyuLvdW5SZbpleZRyAHaEK?rs=1&amp;pid=ImgDetMain')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By IT蛋</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱国,敬业,诚信,友善" data-fontsize="10px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
