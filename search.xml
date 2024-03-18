@@ -31,19 +31,6 @@
     
     
     <entry>
-      <title></title>
-      <link href="/2024/03/14/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/"/>
-      <url>/2024/03/14/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/</url>
-      
-        <content type="html"><![CDATA[<pre><code class="java">// 获取当前项目目录地址System.*getProperty*(&quot;user.dir&quot;);// 获取系统的分隔符File.separator</code></pre>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>SSO单点登录</title>
       <link href="/2024/03/13/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/SSO%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/"/>
       <url>/2024/03/13/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/SSO%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/</url>
@@ -154,7 +141,7 @@
       <link href="/2023/11/24/%E6%80%BB%E7%BB%93/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
       <url>/2023/11/24/%E6%80%BB%E7%BB%93/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/</url>
       
-        <content type="html"><![CDATA[<h1 id="工作记录"><a href="#工作记录" class="headerlink" title="工作记录"></a>工作记录</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>“只有失去所有的退路之后，才能真正地开始。”—《子夜》茅盾</p></blockquote><p>五个月前，我离开了学校的大门。两个月前，我踏上了深圳的地铁。</p><p>这两个月的时间就像一场精彩绝伦的冒险，我仿佛置身于人生的前沿</p><p>在实习的公司里，我感触良多。从最初的紧张不安到逐渐适应，每天都是一次次的成长之旅。我与优秀的团队成员们共同工作。每一次解决问题的过程都给我带来无尽的乐趣，让我感受到了专业知识的力量。</p><p>然而，这段旅程也充满了离别的苦涩。离开家乡，我踏上了自己的独立之路，学会了照顾自己、独立思考和处理各种琐事。与父母的每一次电话成为我心灵的慰藉，也是我对他们深深的思念和感激之情的表达。</p><p>这两个月的工作总结，见证了我从学生到职场新人的成长。毕业、离家、实习，这三个关键词串联起了我的青春故事。它们是我前进的动力，也是我不断追求梦想的源泉。我相信，未来的道路将更加绚丽多彩，期待着更多挑战和机遇的到来。让我们一起勇敢迈出每一步，开启属于自己的精彩篇章！</p><h3 id="工作内容复盘"><a href="#工作内容复盘" class="headerlink" title="工作内容复盘"></a>工作内容复盘</h3><blockquote><p>港中大项目运维</p><p>数据同步等异常修改</p><p>述职汇报的收获</p><p>招商项目跟进，记录</p></blockquote><h3 id="我的进步"><a href="#我的进步" class="headerlink" title="我的进步"></a>我的进步</h3><blockquote><p>对分布式项目有了基本的了解</p><p>对git分支和使用有了更深了解</p><p>编写代码更加规范（使用工具类，编写个人工具类）</p></blockquote><h3 id="问题与反思"><a href="#问题与反思" class="headerlink" title="问题与反思"></a>问题与反思</h3><blockquote><p>nginx在服务器上的使用问题</p><p>对项目的分析和学习</p><p>不规范的编写，对业务的不熟练</p><p>过去计划实现部分吸收和为什么没实现的部分</p></blockquote><h3 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h3><blockquote><p>多了一些实践经历，但是基础知识和实践能力仍然不足</p><p>工作上对业务流程不够清楚，仰仗同事的沟通</p></blockquote><h3 id="短期目标"><a href="#短期目标" class="headerlink" title="短期目标"></a>短期目标</h3><blockquote><p>学习上：个人项目和个人工具类继续开发，预计年底前完成初版（能上线上简历）</p><p>​完成修改版的简历，新增实习经历模块</p><p>​规划下周的日常学习计划</p><p>修好博客无法上传图片的问题</p></blockquote><h3 id="长期规划进度汇报"><a href="#长期规划进度汇报" class="headerlink" title="长期规划进度汇报"></a>长期规划进度汇报</h3><blockquote><p>稳定的生活环境，稳定的工作环境</p><p>生日后正式开始运营公众号</p></blockquote><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3>]]></content>
+        <content type="html"><![CDATA[<h1 id="工作记录"><a href="#工作记录" class="headerlink" title="工作记录"></a>工作记录</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>“只有失去所有的退路之后，才能真正地开始。”—《子夜》茅盾</p></blockquote><p>五个月前，我离开了学校的大门。两个月前，我踏上了深圳的地铁。</p><p>这两个月的时间就像一场精彩绝伦的冒险，我仿佛置身于人生的前沿</p><p>在实习的公司里，我感触良多。从最初的紧张不安到逐渐适应，每天都是一次次的成长之旅。我与优秀的团队成员们共同工作。每一次解决问题的过程都给我带来无尽的乐趣，让我感受到了专业知识的力量。</p><p>然而，这段旅程也充满了离别的苦涩。离开家乡，我踏上了自己的独立之路，学会了照顾自己、独立思考和处理各种琐事。与父母的每一次电话成为我心灵的慰藉，也是我对他们深深的思念和感激之情的表达。</p><p>这两个月的工作总结，见证了我从学生到职场新人的成长。毕业、离家、实习，这三个关键词串联起了我的青春故事。它们是我前进的动力，也是我不断追求梦想的源泉。我相信，未来的道路将更加绚丽多彩，期待着更多挑战和机遇的到来。让我们一起勇敢迈出每一步，开启属于自己的精彩篇章！</p><h3 id="工作内容复盘"><a href="#工作内容复盘" class="headerlink" title="工作内容复盘"></a>工作内容复盘</h3><blockquote><p>大学管理系统项目运维</p><p>数据同步等异常修改</p><p>述职汇报的收获</p><p>网上商城项目跟进，记录</p></blockquote><h3 id="我的进步"><a href="#我的进步" class="headerlink" title="我的进步"></a>我的进步</h3><blockquote><p>对分布式项目有了基本的了解</p><p>对git分支和使用有了更深了解</p><p>编写代码更加规范（使用工具类，编写个人工具类）</p></blockquote><h3 id="问题与反思"><a href="#问题与反思" class="headerlink" title="问题与反思"></a>问题与反思</h3><blockquote><p>nginx在服务器上的使用问题</p><p>对项目的分析和学习</p><p>不规范的编写，对业务的不熟练</p><p>过去计划实现部分吸收和为什么没实现的部分</p></blockquote><h3 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h3><blockquote><p>多了一些实践经历，但是基础知识和实践能力仍然不足</p><p>工作上对业务流程不够清楚，仰仗同事的沟通</p></blockquote><h3 id="短期目标"><a href="#短期目标" class="headerlink" title="短期目标"></a>短期目标</h3><blockquote><p>学习上：个人项目和个人工具类继续开发，预计年底前完成初版（能上线上简历）</p><p>​完成修改版的简历，新增实习经历模块</p><p>​规划下周的日常学习计划</p><p>修好博客无法上传图片的问题</p></blockquote><h3 id="长期规划进度汇报"><a href="#长期规划进度汇报" class="headerlink" title="长期规划进度汇报"></a>长期规划进度汇报</h3><blockquote><p>稳定的生活环境，稳定的工作环境</p><p>生日后正式开始运营公众号</p></blockquote><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>尚未成功，继续努力</p>]]></content>
       
       
       <categories>
@@ -422,7 +409,7 @@
       <link href="/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/1.%E5%A4%8D%E7%9B%98%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
       <url>/2023/09/01/Java%E5%9F%BA%E7%A1%80/Java%E8%A1%A5%E8%B6%B3-%E5%9F%BA%E7%A1%80/1.%E5%A4%8D%E7%9B%98%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
       
-        <content type="html"><![CDATA[<h3 id="System输出"><a href="#System输出" class="headerlink" title="System输出"></a>System输出</h3><p>System.err.println() : 错误输出，输出的内容为红色</p><p>System.out.println() : 常规输出，输出的内容为白色</p><h3 id="默认属性"><a href="#默认属性" class="headerlink" title="默认属性"></a>默认属性</h3><p>接口中的变量默认：public static final</p><p>方法中的变量默认：public abstract</p><h3 id="关于数组"><a href="#关于数组" class="headerlink" title="关于数组"></a>关于数组</h3><ol><li>数组初始化后所占空间是固定的</li><li>数组相等的判断需要使用Arrays.equals()，进行逐个对比</li><li>因为数组是对象，所以java是存储到堆中的</li></ol><h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>父类静态 —— 子类金泰 —— 父类构造代码块 —— 父类构造方法 —— 子类构造代码块 —— 子类构造方法</p><h3 id="关于private"><a href="#关于private" class="headerlink" title="关于private"></a>关于private</h3><p>只有本类和反射可以访问到</p><p>注意：一个java文件不能有两个public，且子类作用域不可以访问父类私有变量</p><p>（如果父类有private属性，子类无法访问到该私有变量）</p><h3 id="Integer对比"><a href="#Integer对比" class="headerlink" title="Integer对比"></a>Integer对比</h3><p>小于127的Integer值可以相互间直接比较，会作为数值直接比较</p><p>大于127的Integer与int类型可以直接比较，会作为数值直接比较</p><p>但是大于127的Integer不可以相互比较，会作为对象进行地址比较</p>]]></content>
+        <content type="html"><![CDATA[<h3 id="System输出"><a href="#System输出" class="headerlink" title="System输出"></a>System输出</h3><p>System.err.println() : 错误输出，输出的内容为红色</p><p>System.out.println() : 常规输出，输出的内容为白色</p><p>System.<em>getProperty</em>(“user.dir”);  获取当前项目目录地址</p><p>File.separator     获取系统的分隔符</p><h3 id="默认属性"><a href="#默认属性" class="headerlink" title="默认属性"></a>默认属性</h3><p>接口中的变量默认：public static final</p><p>方法中的变量默认：public abstract</p><h3 id="关于数组"><a href="#关于数组" class="headerlink" title="关于数组"></a>关于数组</h3><ol><li>数组初始化后所占空间是固定的</li><li>数组相等的判断需要使用Arrays.equals()，进行逐个对比</li><li>因为数组是对象，所以java是存储到堆中的</li></ol><h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>父类静态 —— 子类金泰 —— 父类构造代码块 —— 父类构造方法 —— 子类构造代码块 —— 子类构造方法</p><h3 id="关于private"><a href="#关于private" class="headerlink" title="关于private"></a>关于private</h3><p>只有本类和反射可以访问到</p><p>注意：一个java文件不能有两个public，且子类作用域不可以访问父类私有变量</p><p>（如果父类有private属性，子类无法访问到该私有变量）</p><h3 id="Integer对比"><a href="#Integer对比" class="headerlink" title="Integer对比"></a>Integer对比</h3><p>小于127的Integer值可以相互间直接比较，会作为数值直接比较</p><p>大于127的Integer与int类型可以直接比较，会作为数值直接比较</p><p>但是大于127的Integer不可以相互比较，会作为对象进行地址比较</p>]]></content>
       
       
       <categories>
